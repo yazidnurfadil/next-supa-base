@@ -1,0 +1,10 @@
+# Ignore artifacts:
+build
+node_modules
+public
+next-env.d.ts
+bun.lockb
+
+.gitignore
+.vscode
+.gitlab-ci.yml
