@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
 
-// import resolveConfig from "tailwindcss/resolveConfig";
 import { nextui } from "@nextui-org/react";
 
 const config: Config = {

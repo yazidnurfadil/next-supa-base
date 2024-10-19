@@ -1,11 +1,12 @@
+"use client";
 import { useEffect } from "react";
 
 import { Button } from "@nextui-org/button";
 
 import styles from "@/styles/styles.module.css";
 
+import { Container } from "@/components/atoms/Container";
 import { Paragraph, Title } from "@/components/atoms/Text";
-import { FullScreenContainer } from "@/components/template/Container";
 
 export default function Error({
   error,
@@ -20,7 +21,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <FullScreenContainer className={styles.background}>
+    <Container className={styles.background}>
       <div className="flex flex-col items-center justify-center text-center">
         <Title text="Oops!" className="mb-4 text-4xl font-bold text-primary" />
         <Paragraph
@@ -31,6 +32,6 @@ export default function Error({
           Coba lagi
         </Button>
       </div>
-    </FullScreenContainer>
+    </Container>
   );
 }

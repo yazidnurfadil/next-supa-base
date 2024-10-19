@@ -1,7 +1,15 @@
+import type { User } from "next-auth";
+
+export type JWT = {
+  header: string;
+  payload: User;
+  signature: string;
+};
+
 export const capitalize = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1);
 
-export const decodeJWT = (token: string) => {
+export const decodeJWT = (token: string): JWT => {
   // Split the token into its three parts
   const parts = token.split(".");
   if (parts.length !== 3) {
