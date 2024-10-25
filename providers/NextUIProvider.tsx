@@ -3,12 +3,15 @@ import { ThemeProviderProps } from "next-themes/dist/types";
 
 import { NextUIProvider as Provider } from "@nextui-org/react";
 
-export interface ProvidersProps {
+export interface NextUIProviderProps {
   children: React.ReactNode;
-  themeProps?: ThemeProviderProps;
+  themeProps?: Partial<ThemeProviderProps>;
 }
 
-export const NextUIProvider = ({ children, themeProps }: ProvidersProps) => {
+export const NextUIProvider = ({
+  children,
+  themeProps,
+}: NextUIProviderProps) => {
   return (
     <Provider>
       <NextThemesProvider

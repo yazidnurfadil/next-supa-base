@@ -1,9 +1,14 @@
 import { ReactNode } from "react";
 
-import { NextUIProvider } from "@/providers/nextUi";
+import type { NextUIProviderProps } from "@/providers/NextUIProvider";
+import { NextUIProvider } from "@/providers/NextUIProvider";
 
-const Providers = ({ children }: { children: ReactNode }) => (
-  <NextUIProvider>{children}</NextUIProvider>
+export interface ProvidersProps extends NextUIProviderProps {
+  children: ReactNode;
+}
+
+const Providers = ({ children, themeProps }: ProvidersProps) => (
+  <NextUIProvider themeProps={themeProps}>{children}</NextUIProvider>
 );
 
 export default Providers;

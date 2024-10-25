@@ -8,10 +8,24 @@ declare module "next-auth" {
     name: string;
     email: string;
   }
+
+  interface AdapterUser {
+    id: string;
+    email?: string | null;
+    emailVerified: Date | null;
+  }
+
   interface Session extends DefaultSession {
     user: User;
     expires_in: string;
     error: string;
-    permissions: string[];
+  }
+}
+
+declare module "next-auth/jwt" {
+  /** Returned by the `jwt` callback and `auth`, when using JWT sessions */
+  interface JWT {
+    /** OpenID ID Token */
+    idToken?: string;
   }
 }

@@ -1,17 +1,34 @@
-import type {
-  GetServerSidePropsContext,
-  NextApiRequest,
-  NextApiResponse,
-} from "next";
-import type { NextAuthOptions, User } from "next-auth";
-import { getServerSession as nextAuthGetServerSession } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+// import type { DefaultSession, User } from "next-auth";
+import type { NextAuthConfig } from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
 
 import { decodeJWT } from "@/utils/text";
 
+// declare module "next-auth" {
+//   /**
+//    * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
+//    */
+//   interface Session {
+//     user: {
+//       /** The user's postal address. */
+//       address: string;
+//       /**
+//        * By default, TypeScript merges new interface properties and overwrites existing ones.
+//        * In this case, the default session user properties will be overwritten,
+//        * with the new ones defined above. To keep the default session user properties,
+//        * you need to add them back into the newly declared interface.
+//        */
+//     } & DefaultSession["user"];
+//   }
+// }
+
+class InvalidLoginError extends CredentialsSignin {
+  code = "Invalid identifier or password";
+}
 export const config = {
   providers: [
-    CredentialsProvider({
+    Credentials({
       // The name to display on the sign in form (e.g. 'Sign in with...')
       name: "Credentials",
       // The credentials is used to generate a suitable form on the sign in page.
@@ -26,7 +43,7 @@ export const config = {
         },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      authorize: async (credentials) => {
         try {
           // You need to provide your own logic here that takes the credentials
           // submitted and returns either a object representing a user or value
@@ -35,7 +52,6 @@ export const config = {
           // You can also use the `req` object to obtain additional parameters
           // (i.e., the request IP address)
           // If no error and we have user data, return it
-          console.log(credentials);
           const res = await fetch("/v1/api/auth", {
             method: "POST",
             body: JSON.stringify({
@@ -49,11 +65,10 @@ export const config = {
             const user = decodeJWT(jwtRes.accessToken);
             return { ...user.payload, apiToken: jwtRes.accessToken };
           } else {
-            throw new Error(jwtRes.errors[0] || "Invalid credentials");
+            throw new InvalidLoginError();
           }
-        } catch (error) {
+        } catch {
           // Return null if user data could not be retrieved
-          console.log((error as Error).message);
           return null;
         }
       },
@@ -69,22 +84,8 @@ export const config = {
     async jwt({ token, user }) {
       return { ...token, ...user };
     },
-    async session({ session, token }) {
-      session.user = {
-        name: token.name,
-        email: token.email,
-      } as User;
-      return session;
-    },
   },
-} satisfies NextAuthOptions;
+} satisfies NextAuthConfig;
 
 // Use it in server contexts
-export function getServerSession(
-  ...args:
-    | [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]]
-    | [NextApiRequest, NextApiResponse]
-    | []
-) {
-  return nextAuthGetServerSession(...args, config);
-}
+export const { auth, handlers, signIn, signOut } = NextAuth(config);

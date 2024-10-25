@@ -9,7 +9,7 @@ export const useLockedBody = (initialLocked = false): ReturnType => {
   const [locked, setLocked] = useState(initialLocked);
 
   // Do the side effect before render
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     if (!locked) {
       return;
     }
