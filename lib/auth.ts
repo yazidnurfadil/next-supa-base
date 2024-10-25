@@ -26,7 +26,11 @@ import { decodeJWT } from "@/utils/text";
 class InvalidLoginError extends CredentialsSignin {
   code = "Invalid identifier or password";
 }
+
+export const BASE_PATH = "/api/auth";
+
 export const config = {
+  debug: true,
   providers: [
     Credentials({
       // The name to display on the sign in form (e.g. 'Sign in with...')
@@ -85,6 +89,8 @@ export const config = {
       return { ...token, ...user };
     },
   },
+  basePath: BASE_PATH,
+  secret: process.env.NEXTAUTH_SECRET,
 } satisfies NextAuthConfig;
 
 // Use it in server contexts
