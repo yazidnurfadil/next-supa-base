@@ -43,7 +43,7 @@ const StyledBurgerButton = tv({
   //   },
 });
 
-export const BurguerButton = () => {
+export const BurgerButton = () => {
   const { collapsed: _collapsed, setCollapsed } = useSidebarContext();
 
   return (

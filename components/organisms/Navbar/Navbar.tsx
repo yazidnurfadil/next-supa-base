@@ -2,7 +2,7 @@ import React from "react";
 
 import { Navbar, NavbarContent } from "@nextui-org/react";
 
-import { BurguerButton } from "@/components/molecules/BurgerButton";
+import { BurgerButton } from "@/components/molecules/BurgerButton";
 import { NavbarUser } from "@/components/molecules/NavbarUser";
 
 interface NavbarWrapperProps {
@@ -20,7 +20,7 @@ export const NavbarWrapper = ({ children }: NavbarWrapperProps) => {
         }}
       >
         <NavbarContent className="md:hidden">
-          <BurguerButton />
+          <BurgerButton />
         </NavbarContent>
         <NavbarContent className="w-full max-md:hidden"></NavbarContent>
         <NavbarContent

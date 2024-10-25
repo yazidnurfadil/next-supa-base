@@ -98,4 +98,4 @@ export const HomepageContainer = () => {
       </footer>
     </div>
   );
-}
+};

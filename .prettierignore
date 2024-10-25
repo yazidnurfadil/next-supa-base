@@ -1,7 +1,7 @@
 # Ignore artifacts:
 build
 node_modules
-public
+/public
 next-env.d.ts
 bun.lockb
 
