@@ -3,7 +3,9 @@
 import React, { useCallback } from "react";
 import { Formik } from "formik";
 import Link from "next/link";
-import { getCsrfToken, signIn } from "next-auth/react";
+import { redirect } from "next/navigation";
+import { AuthError } from "next-auth";
+import { signIn } from "next-auth/react";
 
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
@@ -22,13 +24,18 @@ export const LoginContainer = () => {
   };
 
   const submitHandler = useCallback(async (values: LoginFormType) => {
-    const csrfToken = await getCsrfToken();
-    await signIn("credentials", {
-      csrfToken,
-      email: values.email,
-      password: values.password,
-      callbackUrl: "/dashboard",
-    });
+    try {
+      await signIn("credentials", {
+        npa: values.email,
+        password: values.password,
+        callbackUrl: "/dashboard",
+      });
+    } catch (error) {
+      if (error instanceof AuthError) {
+        return redirect(`/login?error=${error.type}`);
+      }
+      throw error;
+    }
   }, []);
 
   return (
@@ -46,6 +53,9 @@ export const LoginContainer = () => {
               <Input
                 variant="bordered"
                 label="Email"
+                type="email"
+                name="email"
+                id="email"
                 placeholder="example@domain.com"
                 defaultValue={initialValues.email}
                 isInvalid={!!errors.email && !!touched.email}
@@ -56,6 +66,8 @@ export const LoginContainer = () => {
                 variant="bordered"
                 label="Password"
                 type="password"
+                name="password"
+                id="password"
                 placeholder="••••••"
                 defaultValue={initialValues.password}
                 isInvalid={!!errors.password && !!touched.password}

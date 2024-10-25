@@ -2,17 +2,11 @@
 import NextAuth, { DefaultJWT, DefaultSession } from "next-auth";
 
 declare module "next-auth" {
-  interface User {
+  interface AdapterUser {
     exp: number;
     iss: string;
     name: string;
     email: string;
-  }
-
-  interface AdapterUser {
-    id: string;
-    email?: string | null;
-    emailVerified: Date | null;
   }
 
   interface Session extends DefaultSession {
