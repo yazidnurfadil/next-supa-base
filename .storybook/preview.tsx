@@ -2,7 +2,7 @@ import type { Preview } from "@storybook/react";
 
 import React from "react";
 
-import { NextUIProvider } from "../providers/nextUi";
+import { NextUIProvider } from "../providers/NextUIProvider";
 
 import "../app/globals.css";
 
