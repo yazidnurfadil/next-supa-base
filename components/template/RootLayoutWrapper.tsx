@@ -28,7 +28,7 @@ export const RootLayoutWrapper = ({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <main>{children}</main>
+          <main className="flex min-h-screen flex-col">{children}</main>
         </Providers>
       </body>
     </html>
