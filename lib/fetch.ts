@@ -10,6 +10,10 @@ export const defaultOptions: DefaultFetchOptions = {
   mode: "cors" as RequestMode,
 };
 
+type fetcherOptions = {
+  params?: Record<string, string | number | undefined>;
+} & RequestInit;
+
 const getFetchOptions: (
   method: string,
   options?: RequestInit
@@ -28,37 +32,52 @@ const getFetchOptions: (
   return fixedOptions as RequestInit;
 };
 
-export const get: typeof fetch = async (url, options) => {
-  const fixedOptions = await getFetchOptions("GET", options);
-  if ((<string>url).startsWith("/"))
-    return fetch(<string>process.env.NEXT_PUBLIC_API_URL + url, fixedOptions);
-  else return fetch(url, fixedOptions);
+const getFetchUrl = (url: string | URL, params?: fetcherOptions["params"]) => {
+  if (typeof url === "string") {
+    url = new URL(
+      (url.startsWith("/") ? <string>process.env.NEXT_PUBLIC_API_URL : "") + url
+    );
+  }
+  if (params) {
+    Object.keys(params).forEach((key) => {
+      if (params[key]) url.searchParams.append(key, params[key] as string);
+    });
+  }
+  return url.toString();
 };
 
-export const post: typeof fetch = async (url, options) => {
-  const fixedOptions = await getFetchOptions("POST", options);
-  if ((<string>url).startsWith("/"))
-    return fetch(<string>process.env.NEXT_PUBLIC_API_URL + url, fixedOptions);
-  else return fetch(url, fixedOptions);
+const fetcher = async (
+  type: string,
+  url: string | URL,
+  options?: fetcherOptions
+) => {
+  const { params, ...fetchOpt } = options || {};
+  const fixedOptions = await getFetchOptions(type, fetchOpt);
+  const fixedUrl = getFetchUrl(url, params);
+  return fetch(fixedUrl, fixedOptions);
 };
 
-export const update: typeof fetch = async (url, options) => {
-  const fixedOptions = await getFetchOptions("UPDATE", options);
-  if ((<string>url).startsWith("/"))
-    return fetch(<string>process.env.NEXT_PUBLIC_API_URL + url, fixedOptions);
-  else return fetch(url, fixedOptions);
-};
+export const get: (
+  url: string | URL,
+  options?: fetcherOptions
+) => Promise<Response> = (...args) => fetcher("GET", ...args);
 
-export const patch: typeof fetch = async (url, options) => {
-  const fixedOptions = await getFetchOptions("PATCH", options);
-  if ((<string>url).startsWith("/"))
-    return fetch(<string>process.env.NEXT_PUBLIC_API_URL + url, fixedOptions);
-  else return fetch(url, fixedOptions);
-};
+export const post: (
+  url: string | URL,
+  options?: fetcherOptions
+) => Promise<Response> = (...args) => fetcher("POST", ...args);
 
-export const del: typeof fetch = async (url, options) => {
-  const fixedOptions = await getFetchOptions("DELETE", options);
-  if ((<string>url).startsWith("/"))
-    return fetch(<string>process.env.NEXT_PUBLIC_API_URL + url, fixedOptions);
-  else return fetch(url, fixedOptions);
-};
+export const update: (
+  url: string | URL,
+  options?: fetcherOptions
+) => Promise<Response> = (...args) => fetcher("UPDATE", ...args);
+
+export const patch: (
+  url: string | URL,
+  options?: fetcherOptions
+) => Promise<Response> = (...args) => fetcher("PATCH", ...args);
+
+export const del: (
+  url: string | URL,
+  options?: fetcherOptions
+) => Promise<Response> = (...args) => fetcher("DELETE", ...args);
