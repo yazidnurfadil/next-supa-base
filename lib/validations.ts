@@ -1,10 +1,8 @@
 import { object, string } from "yup";
 
 export const LoginSchema = object().shape({
-  email: string()
-    .email("Format email harus sesuai")
-    .required("Email harus diisi"),
-  password: string().required("Password harus diisi"),
+  email: string().email("Email is invalid").required("Email is required"),
+  password: string().required("Password is required"),
 });
 
 // export const RegisterSchema = object().shape({
