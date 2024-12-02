@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { useAtom } from "jotai";
 
-import { Divider, Pagination } from "@nextui-org/react";
+import { Pagination } from "@nextui-org/react";
 
 import useRouterParameter from "@/hooks/useRouterParameter";
 import { tableStates } from "@/states/components";
@@ -32,40 +32,36 @@ export const TableFooter = ({
   };
 
   return (
-    <>
-      <Divider />
-
-      <div className="flex w-full flex-col items-center justify-center">
-        <div className="flex w-full items-center justify-between">
-          <span className="text-small text-default-400">{footerText}</span>
-          <label className="flex items-center text-small text-default-400">
-            {footerRowsText}
-            <select
-              defaultValue={rowsPerPage}
-              className="bg-transparent text-small text-default-400 outline-none"
-              onChange={onRowsPerPageChange}
-            >
-              {rowsOption.map((row) => (
-                <option key={row} value={row}>
-                  {row}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-
-        {pages > 1 && (
-          <Pagination
-            isDisabled={isLoading}
-            isCompact
-            showControls
-            showShadow
-            page={page}
-            total={pages}
-            onChange={onPageChanges}
-          />
-        )}
+    <div className="flex w-full flex-col items-center justify-center">
+      <div className="flex w-full items-center justify-between">
+        <span className="text-small text-default-400">{footerText}</span>
+        <label className="flex items-center text-small text-default-400">
+          {footerRowsText}
+          <select
+            defaultValue={rowsPerPage}
+            className="bg-transparent text-small text-default-400 outline-none"
+            onChange={onRowsPerPageChange}
+          >
+            {rowsOption.map((row) => (
+              <option key={row} value={row}>
+                {row}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
-    </>
+
+      {pages > 1 && (
+        <Pagination
+          isDisabled={isLoading}
+          isCompact
+          showControls
+          showShadow
+          page={page}
+          total={pages}
+          onChange={onPageChanges}
+        />
+      )}
+    </div>
   );
 };

@@ -5,6 +5,7 @@ import { useAtom } from "jotai";
 import { RESET } from "jotai/utils";
 
 import {
+  Divider,
   Selection,
   SortDescriptor,
   Spinner,
@@ -82,10 +83,8 @@ export const TableWrapper = ({
   const { router, pathname, searchParams, updateQueryString } =
     useRouterParameter();
 
-  const [
-    { searchValue, sortDescriptor, totalItems, selectedKeys },
-    setTableConfig,
-  ] = useAtom(tableStates);
+  const [{ sortDescriptor, totalItems, selectedKeys }, setTableConfig] =
+    useAtom(tableStates);
 
   const loadingState = isFetching ? "loading" : "idle";
 
@@ -136,33 +135,6 @@ export const TableWrapper = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
-
-  const onSearchChange = useCallback((value?: string) => {
-    if (value) {
-      setTableConfig((prev) => ({
-        ...prev,
-        page: 1,
-        searchValue: value,
-      }));
-    } else {
-      setTableConfig((prev) => ({
-        ...prev,
-        page: 1,
-        searchValue: "",
-      }));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const onClear = useCallback(() => {
-    setTableConfig((prev) => ({
-      ...prev,
-      page: 1,
-      searchValue: "",
-    }));
-    deletePageParameter();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deletePageParameter]);
 
   useEffect(() => {
     if (searchParams.has("page")) {
@@ -221,9 +193,6 @@ export const TableWrapper = ({
         topContent={
           <TableHeader
             isLoading={isFetching}
-            filterValue={searchValue}
-            onClear={onClear}
-            onSearchChange={onSearchChange}
             handleStatusChange={handleStatusChange}
             statusOptions={statusOptions}
             additionalContents={additionalHeaderContent}
@@ -233,6 +202,7 @@ export const TableWrapper = ({
         }
         bottomContent={
           <Suspense fallback={null}>
+            <Divider />
             <TableFooter
               footerText={isFetching ? "" : `Total ${totalItems} items`}
               isLoading={isFetching}

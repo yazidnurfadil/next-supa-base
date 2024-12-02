@@ -1,14 +1,14 @@
-import { ReactNode } from "react";
+import { ReactNode, useCallback } from "react";
+import { useAtom } from "jotai";
 
 import { Button, Input, Selection } from "@nextui-org/react";
 
 import { SearchIcon } from "@/components/atoms/Icons/searchicon";
 import { ChevronDownIcon } from "@/components/atoms/Icons/sidebar/chevron-down-icon";
+import useRouterParameter from "@/hooks/useRouterParameter";
+import { tableStates } from "@/states/components";
 
 export const TableHeader = ({
-  filterValue,
-  onClear,
-  onSearchChange,
   placeholder = "Search by name...",
   startContext = <SearchIcon />,
   isLoading,
@@ -16,9 +16,6 @@ export const TableHeader = ({
   enableDownload,
   handleDownloadExcel,
 }: {
-  filterValue: string;
-  onClear: () => void;
-  onSearchChange: (value: string) => void;
   placeholder?: string;
   startContext?: ReactNode;
   handleStatusChange?: (keys: Selection) => void;
@@ -28,6 +25,36 @@ export const TableHeader = ({
   enableDownload?: boolean;
   handleDownloadExcel?: () => void;
 }) => {
+  const { deleteQueryParameter } = useRouterParameter();
+
+  const [{ searchValue }, setTableConfig] = useAtom(tableStates);
+
+  const onClear = useCallback(() => {
+    setTableConfig((prev) => ({
+      ...prev,
+      page: 1,
+      searchValue: "",
+    }));
+    deleteQueryParameter("page");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onSearchChange = useCallback((value?: string) => {
+    if (value) {
+      setTableConfig((prev) => ({
+        ...prev,
+        page: 1,
+        searchValue: value,
+      }));
+    } else {
+      setTableConfig((prev) => ({
+        ...prev,
+        page: 1,
+        searchValue: "",
+      }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       <div className="flex flex-col gap-4">
@@ -37,7 +64,7 @@ export const TableHeader = ({
             className="w-full sm:max-w-[44%]"
             placeholder={placeholder}
             startContent={startContext}
-            value={filterValue}
+            value={searchValue}
             onClear={onClear}
             onValueChange={onSearchChange}
           />
