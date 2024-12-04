@@ -1,12 +1,14 @@
 import React from "react";
-import { Meta } from "@storybook/react";
 
+import { Button } from "@nextui-org/button";
+import { Tooltip } from "@nextui-org/tooltip";
+import { clsx } from "@nextui-org/shared-utils";
+import { breadcrumbItem } from "@nextui-org/theme";
 import {
-  BreadcrumbItem,
   Breadcrumbs,
+  BreadcrumbItem,
   BreadcrumbsProps,
 } from "@nextui-org/breadcrumbs";
-import { Button } from "@nextui-org/button";
 import {
   Dropdown,
   DropdownItem,
@@ -14,32 +16,63 @@ import {
   DropdownTrigger,
 } from "@nextui-org/dropdown";
 import {
-  CheckIcon,
-  ChevronDownIcon,
-  HeadphonesIcon,
   InfoIcon,
-  MailFilledIcon,
+  CheckIcon,
   PetBoldIcon,
+  HeadphonesIcon,
+  MailFilledIcon,
+  ChevronDownIcon,
   ShoppingCartBoldIcon,
 } from "@nextui-org/shared-icons";
-import { clsx } from "@nextui-org/shared-utils";
-import { breadcrumbItem } from "@nextui-org/theme";
-import { Tooltip } from "@nextui-org/tooltip";
+
+import { Meta } from "@storybook/react";
 
 export default {
-  title: "Atoms/Breadcrumbs",
   component: Breadcrumbs,
+  title: "Atoms/Breadcrumbs",
   argTypes: {
     page: {
       control: {
         type: "number",
       },
     },
-    variant: {
+    maxItems: {
+      control: {
+        type: "number",
+      },
+    },
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    itemsAfterCollapse: {
+      control: {
+        type: "number",
+      },
+    },
+    itemsBeforeCollapse: {
+      control: {
+        type: "number",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
       control: {
         type: "select",
       },
+    },
+    variant: {
       options: ["solid", "bordered", "light"],
+      control: {
+        type: "select",
+      },
+    },
+    underline: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "hover", "always", "active", "focus"],
     },
     color: {
       control: {
@@ -53,38 +86,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    maxItems: {
-      control: {
-        type: "number",
-      },
-    },
-    itemsBeforeCollapse: {
-      control: {
-        type: "number",
-      },
-    },
-    itemsAfterCollapse: {
-      control: {
-        type: "number",
-      },
-    },
-    underline: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "hover", "always", "active", "focus"],
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
     },
   },
 } as Meta<typeof Breadcrumbs>;
@@ -144,18 +145,18 @@ const MenuTypeTemplate = (args: BreadcrumbsProps & { page: number }) => {
   return (
     <Breadcrumbs
       {...args}
+      onAction={(key) => setCurrentPage(key)}
       classNames={{
         list: "gap-2",
       }}
       itemClasses={{
+        separator: "hidden",
         item: [
           "px-2 py-0.5 border-small border-default-400 rounded-small",
           "data-[current='true']:border-foreground transition-colors",
           "data-[disabled='true']:border-default-400 data-[disabled='true']:bg-default-100",
         ],
-        separator: "hidden",
       }}
-      onAction={(key) => setCurrentPage(key)}
     >
       <BreadcrumbItem key="home" isCurrent={currentPage === "home"}>
         Home
@@ -181,32 +182,32 @@ const WithStartContentTemplate = (
 ) => (
   <Breadcrumbs {...args}>
     <BreadcrumbItem
-      href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:1"
       startContent={<PetBoldIcon />}
+      href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:1"
     >
       Home
     </BreadcrumbItem>
     <BreadcrumbItem
-      href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:2"
       startContent={<HeadphonesIcon />}
+      href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:2"
     >
       Music
     </BreadcrumbItem>
     <BreadcrumbItem
-      href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:3"
       startContent={<InfoIcon />}
+      href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:3"
     >
       Artist
     </BreadcrumbItem>
     <BreadcrumbItem
-      href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:4"
       startContent={<CheckIcon />}
+      href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:4"
     >
       Album
     </BreadcrumbItem>
     <BreadcrumbItem
-      href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:5"
       startContent={<MailFilledIcon />}
+      href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:5"
     >
       Song
     </BreadcrumbItem>
@@ -253,15 +254,15 @@ const WithDropdownEllipsisTemplate = (
 ) => (
   <Breadcrumbs
     {...args}
-    renderEllipsis={({ items, ellipsisIcon, separator }) => (
+    renderEllipsis={({ items, separator, ellipsisIcon }) => (
       <div className="flex items-center">
         <Dropdown>
           <DropdownTrigger>
             <Button
-              isIconOnly
-              className="size-6 min-w-6"
               size="sm"
+              isIconOnly
               variant="flat"
+              className="size-6 min-w-6"
             >
               {ellipsisIcon}
             </Button>
@@ -337,11 +338,11 @@ const WithDropdownItemTemplate = (
         <Dropdown>
           <DropdownTrigger>
             <Button
+              size="sm"
+              radius="full"
+              variant="light"
               className={clsx("h-6 pr-2", args.size && sizeMap[args.size])}
               endContent={<ChevronDownIcon className="text-default-500" />}
-              radius="full"
-              size="sm"
-              variant="light"
             >
               Songs
             </Button>
@@ -366,17 +367,17 @@ const WithDropdownItemTemplate = (
 const CustomStylesTemplate = (args: BreadcrumbsProps & { page: number }) => (
   <Breadcrumbs
     {...args}
+    variant="solid"
     classNames={{
       list: "bg-gradient-to-br from-violet-500 to-fuchsia-500 shadow-small",
     }}
     itemClasses={{
-      item: "text-white/60 data-[current=true]:text-white",
       separator: "text-white/40",
+      item: "text-white/60 data-[current=true]:text-white",
     }}
-    variant="solid"
   >
     <BreadcrumbItem href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:1">
-      <Tooltip content="Shopping Cart" size="sm">
+      <Tooltip size="sm" content="Shopping Cart">
         <ShoppingCartBoldIcon />
       </Tooltip>
     </BreadcrumbItem>
@@ -403,10 +404,10 @@ export const CustomSeparator = {
   render: Template,
   args: {
     ...defaultProps,
+    separator: "/",
     itemClasses: {
       separator: "px-2",
     },
-    separator: "/",
   },
 };
 
@@ -459,8 +460,8 @@ export const WithItemsBeforeCollapse = {
   args: {
     ...defaultProps,
     maxItems: 3,
-    itemsBeforeCollapse: 2,
     itemsAfterCollapse: 1,
+    itemsBeforeCollapse: 2,
   },
 };
 

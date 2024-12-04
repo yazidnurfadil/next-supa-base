@@ -1,4 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import type { NextAuthConfig } from "next-auth";
+
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
@@ -30,6 +34,19 @@ export const BASE_PATH = "/api/auth";
 
 export const config = {
   debug: true,
+  basePath: BASE_PATH,
+  pages: {
+    signIn: "/login",
+  },
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    jwt({ user, token }) {
+      return { ...token, ...user };
+    },
+  },
   providers: [
     Credentials({
       // The name to display on the sign in form (e.g. 'Sign in with...')
@@ -39,12 +56,12 @@ export const config = {
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
+        password: { type: "password", label: "Password" },
         email: {
-          label: "Email",
           type: "email",
+          label: "Email",
           placeholder: "example@domain.com",
         },
-        password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
         try {
@@ -57,11 +74,11 @@ export const config = {
           // If no error and we have user data, return it
           const res = await fetch("/v1/api/auth", {
             method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               email: credentials?.email,
               password: credentials?.password,
             }),
-            headers: { "Content-Type": "application/json" },
           });
           const jwtRes = await res.json();
           if (jwtRes.accessToken) {
@@ -77,20 +94,7 @@ export const config = {
       },
     }),
   ],
-  pages: {
-    signIn: "/login",
-  },
-  session: {
-    strategy: "jwt",
-  },
-  callbacks: {
-    async jwt({ token, user }) {
-      return { ...token, ...user };
-    },
-  },
-  basePath: BASE_PATH,
-  secret: process.env.NEXTAUTH_SECRET,
 } satisfies NextAuthConfig;
 
 // Use it in server contexts
-export const { auth, handlers, signIn, signOut } = NextAuth(config);
+export const { auth, signIn, signOut, handlers } = NextAuth(config);

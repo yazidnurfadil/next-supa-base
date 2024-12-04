@@ -1,7 +1,9 @@
 import React from "react";
 import Lorem from "react-lorem-component";
-import { Meta } from "@storybook/react";
 
+import { Link } from "@nextui-org/link";
+import { Input } from "@nextui-org/input";
+import { navbar } from "@nextui-org/theme";
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
 import {
@@ -10,52 +12,32 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/dropdown";
-import { Input } from "@nextui-org/input";
-import { Link } from "@nextui-org/link";
 import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
-  NavbarMenuToggle,
-  NavbarProps,
-} from "@nextui-org/navbar";
-import {
-  Activity,
-  ChevronDown,
-  Flash,
   Lock,
+  Flash,
   Scale,
-  SearchIcon,
   Server,
   TagUser,
+  Activity,
+  SearchIcon,
+  ChevronDown,
 } from "@nextui-org/shared-icons";
-import { navbar } from "@nextui-org/theme";
+import {
+  Navbar,
+  NavbarItem,
+  NavbarMenu,
+  NavbarBrand,
+  NavbarProps,
+  NavbarContent,
+  NavbarMenuItem,
+  NavbarMenuToggle,
+} from "@nextui-org/navbar";
+
+import { Meta } from "@storybook/react";
 
 export default {
-  title: "Atoms/Navbar",
   component: Navbar,
-  argTypes: {
-    position: {
-      control: {
-        type: "select",
-      },
-      options: ["static", "fixed"],
-    },
-    maxWidth: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg", "xl", "2xl", "full"],
-    },
-    isBlurred: {
-      control: {
-        type: "boolean",
-      },
-    },
-  },
+  title: "Atoms/Navbar",
   decorators: [
     (Story) => (
       <div className="flex h-screen w-screen justify-center">
@@ -63,6 +45,25 @@ export default {
       </div>
     ),
   ],
+  argTypes: {
+    isBlurred: {
+      control: {
+        type: "boolean",
+      },
+    },
+    position: {
+      options: ["static", "fixed"],
+      control: {
+        type: "select",
+      },
+    },
+    maxWidth: {
+      control: {
+        type: "select",
+      },
+      options: ["sm", "md", "lg", "xl", "2xl", "full"],
+    },
+  },
 } as Meta<typeof Navbar>;
 
 const defaultProps = {
@@ -70,12 +71,12 @@ const defaultProps = {
 };
 
 const AcmeLogo = () => (
-  <svg fill="none" height="36" viewBox="0 0 32 32" width="36">
+  <svg width="36" fill="none" height="36" viewBox="0 0 32 32">
     <path
       clipRule="evenodd"
-      d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
-      fill="currentColor"
       fillRule="evenodd"
+      fill="currentColor"
+      d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
     />
   </svg>
 );
@@ -93,9 +94,9 @@ const App = React.forwardRef(
           {[1, 2, 3, 4, 5, 6, 7].map((i) => (
             <Lorem
               key={i}
-              className="mb-5 text-lg"
               count={1}
               sentenceUpperBound={40}
+              className="mb-5 text-lg"
             />
           ))}
         </div>
@@ -108,18 +109,21 @@ App.displayName = "App";
 
 const Template = (args: NavbarProps) => {
   // for hide on scroll cases
-  const parentRef = React.useRef(null);
+  const parentRef = React.useRef<HTMLDivElement>(null);
 
   return (
     <App ref={parentRef}>
-      <Navbar {...args} parentRef={parentRef}>
+      <Navbar
+        {...args}
+        parentRef={parentRef as React.RefObject<HTMLDivElement>}
+      >
         <NavbarBrand>
           <AcmeLogo />
           <p className="hidden font-bold text-inherit sm:block">ACME</p>
         </NavbarBrand>
         <NavbarContent className="hidden md:flex">
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Features
             </Link>
           </NavbarItem>
@@ -127,17 +131,17 @@ const Template = (args: NavbarProps) => {
             <Link href="#">Customers</Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Integrations
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Pricing
             </Link>
           </NavbarItem>
           <NavbarItem className="hidden lg:block">
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Company
             </Link>
           </NavbarItem>
@@ -147,7 +151,7 @@ const Template = (args: NavbarProps) => {
             <Link href="#">Login</Link>
           </NavbarItem>
           <NavbarItem>
-            <Button as={Link} color="primary" href="#" variant="flat">
+            <Button href="#" as={Link} variant="flat" color="primary">
               Sign Up
             </Button>
           </NavbarItem>
@@ -158,9 +162,9 @@ const Template = (args: NavbarProps) => {
 };
 
 const WithMenuTemplate = (args: NavbarProps) => {
-  const parentRef = React.useRef(null);
+  const parentRef = React.useRef<HTMLDivElement>(null);
 
-  const [isMenuOpen, setIsMenuOpen] = React.useState<boolean | undefined>(
+  const [isMenuOpen, setIsMenuOpen] = React.useState<undefined | boolean>(
     false
   );
 
@@ -180,15 +184,15 @@ const WithMenuTemplate = (args: NavbarProps) => {
   return (
     <App ref={parentRef}>
       <Navbar
-        parentRef={parentRef}
         position="sticky"
         onMenuOpenChange={setIsMenuOpen}
+        parentRef={parentRef as React.RefObject<HTMLDivElement>}
         {...args}
       >
         <NavbarContent>
           <NavbarMenuToggle
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             className="sm:hidden"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           />
           <NavbarBrand>
             <AcmeLogo />
@@ -197,7 +201,7 @@ const WithMenuTemplate = (args: NavbarProps) => {
         </NavbarContent>
         <NavbarContent className="hidden md:flex">
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Features
             </Link>
           </NavbarItem>
@@ -205,17 +209,17 @@ const WithMenuTemplate = (args: NavbarProps) => {
             <Link href="#">Customers</Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Integrations
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Pricing
             </Link>
           </NavbarItem>
           <NavbarItem className="hidden lg:block">
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Company
             </Link>
           </NavbarItem>
@@ -225,7 +229,7 @@ const WithMenuTemplate = (args: NavbarProps) => {
             <Link href="#">Login</Link>
           </NavbarItem>
           <NavbarItem>
-            <Button as={Link} color="primary" href="#" variant="flat">
+            <Button href="#" as={Link} variant="flat" color="primary">
               Sign Up
             </Button>
           </NavbarItem>
@@ -234,6 +238,8 @@ const WithMenuTemplate = (args: NavbarProps) => {
           {menuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
+                href="#"
+                size="lg"
                 color={
                   index === 2
                     ? "primary"
@@ -241,8 +247,6 @@ const WithMenuTemplate = (args: NavbarProps) => {
                       ? "danger"
                       : "foreground"
                 }
-                href="#"
-                size="lg"
               >
                 {item}
               </Link>
@@ -256,15 +260,15 @@ const WithMenuTemplate = (args: NavbarProps) => {
 
 const WithDropdownTemplate = (args: NavbarProps) => {
   const icons = {
-    chevron: <ChevronDown fill="currentColor" size={16} />,
-    scale: <Scale className="text-warning" fill="currentColor" size={30} />,
-    lock: <Lock className="text-success" fill="currentColor" size={30} />,
+    chevron: <ChevronDown size={16} fill="currentColor" />,
+    lock: <Lock size={30} fill="currentColor" className="text-success" />,
+    scale: <Scale size={30} fill="currentColor" className="text-warning" />,
+    flash: <Flash size={30} fill="currentColor" className="text-primary" />,
+    user: <TagUser size={30} fill="currentColor" className="text-danger" />,
+    server: <Server size={30} fill="currentColor" className="text-success" />,
     activity: (
-      <Activity className="text-secondary" fill="currentColor" size={30} />
+      <Activity size={30} fill="currentColor" className="text-secondary" />
     ),
-    flash: <Flash className="text-primary" fill="currentColor" size={30} />,
-    server: <Server className="text-success" fill="currentColor" size={30} />,
-    user: <TagUser className="text-danger" fill="currentColor" size={30} />,
   };
 
   return (
@@ -279,17 +283,17 @@ const WithDropdownTemplate = (args: NavbarProps) => {
             <NavbarItem>
               <DropdownTrigger>
                 <Button
-                  endContent={icons.chevron}
                   radius="full"
                   variant="light"
+                  endContent={icons.chevron}
                 >
                   Features
                 </Button>
               </DropdownTrigger>
             </NavbarItem>
             <DropdownMenu
-              aria-label="ACME features"
               className="w-[340px]"
+              aria-label="ACME features"
               itemClasses={{
                 base: "gap-4",
                 wrapper: "py-3",
@@ -297,65 +301,65 @@ const WithDropdownTemplate = (args: NavbarProps) => {
             >
               <DropdownItem
                 key="autoscaling"
-                description="ACME scales apps to meet user demand, automagically, based on load."
                 startContent={icons.scale}
+                description="ACME scales apps to meet user demand, automagically, based on load."
               >
                 Autoscaling
               </DropdownItem>
               <DropdownItem
                 key="safe_and_sound"
-                description="A secure mission control, without the policy headache. Permissions, 2FA, and more."
                 startContent={icons.lock}
+                description="A secure mission control, without the policy headache. Permissions, 2FA, and more."
               >
                 Safe and Sound
               </DropdownItem>
               <DropdownItem
                 key="usage_metrics"
-                description="Real-time metrics to debug issues. Slow query added? We’ll show you exactly where."
                 startContent={icons.activity}
+                description="Real-time metrics to debug issues. Slow query added? We’ll show you exactly where."
               >
                 Usage Metrics
               </DropdownItem>
               <DropdownItem
                 key="production_ready"
-                description="ACME runs on ACME, join us and others serving requests at web scale."
                 startContent={icons.flash}
+                description="ACME runs on ACME, join us and others serving requests at web scale."
               >
                 Production Ready
               </DropdownItem>
               <DropdownItem
                 key="99_uptime"
-                description="Applications stay on the grid with high availability and high uptime guarantees."
                 startContent={icons.server}
+                description="Applications stay on the grid with high availability and high uptime guarantees."
               >
                 +99% Uptime
               </DropdownItem>
               <DropdownItem
                 key="supreme_support"
-                description="Overcome any challenge with a supporting team ready to respond."
                 startContent={icons.user}
+                description="Overcome any challenge with a supporting team ready to respond."
               >
                 +Supreme Support
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
           <NavbarItem isActive>
-            <Link className="px-4" href="#">
+            <Link href="#" className="px-4">
               Customers
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link className="px-4" color="foreground" href="#">
+            <Link href="#" className="px-4" color="foreground">
               Integrations
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link className="px-4" color="foreground" href="#">
+            <Link href="#" className="px-4" color="foreground">
               Pricing
             </Link>
           </NavbarItem>
           <NavbarItem className="hidden px-4 lg:block">
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Company
             </Link>
           </NavbarItem>
@@ -365,7 +369,7 @@ const WithDropdownTemplate = (args: NavbarProps) => {
             <Link href="#">Login</Link>
           </NavbarItem>
           <NavbarItem>
-            <Button as={Link} color="primary" href="#" variant="flat">
+            <Button href="#" as={Link} variant="flat" color="primary">
               Sign Up
             </Button>
           </NavbarItem>
@@ -397,6 +401,8 @@ const WithAvatarUserTemplate = (args: NavbarProps) => {
           {menuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
+                href="#"
+                size="lg"
                 color={
                   index === 2
                     ? "primary"
@@ -404,8 +410,6 @@ const WithAvatarUserTemplate = (args: NavbarProps) => {
                       ? "danger"
                       : "foreground"
                 }
-                href="#"
-                size="lg"
               >
                 {item}
               </Link>
@@ -418,27 +422,27 @@ const WithAvatarUserTemplate = (args: NavbarProps) => {
         </NavbarBrand>
         <NavbarContent className="hidden gap-3 md:flex">
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Dashboard
             </Link>
           </NavbarItem>
           <NavbarItem isActive>
-            <Link color="secondary" href="#">
+            <Link href="#" color="secondary">
               Team
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Deployments
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Activity
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Settings
             </Link>
           </NavbarItem>
@@ -447,15 +451,15 @@ const WithAvatarUserTemplate = (args: NavbarProps) => {
           <Dropdown placement="bottom-end">
             <DropdownTrigger>
               <Avatar
+                size="sm"
                 isBordered
                 as="button"
-                className="transition-transform"
                 color="secondary"
-                size="sm"
+                className="transition-transform"
                 src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
               />
             </DropdownTrigger>
-            <DropdownMenu aria-label="Profile Actions" color="secondary">
+            <DropdownMenu color="secondary" aria-label="Profile Actions">
               <DropdownItem key="profile" className="h-14 gap-2">
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">zoey@example.com</p>
@@ -501,6 +505,8 @@ const WithSearchInputTemplate = (args: NavbarProps) => {
           {menuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
+                href="#"
+                size="lg"
                 color={
                   index === 2
                     ? "primary"
@@ -508,8 +514,6 @@ const WithSearchInputTemplate = (args: NavbarProps) => {
                       ? "danger"
                       : "foreground"
                 }
-                href="#"
-                size="lg"
               >
                 {item}
               </Link>
@@ -517,65 +521,64 @@ const WithSearchInputTemplate = (args: NavbarProps) => {
           ))}
         </NavbarMenu>
 
-        <NavbarContent className="hidden gap-3 md:flex" justify="start">
+        <NavbarContent justify="start" className="hidden gap-3 md:flex">
           <NavbarBrand>
             <AcmeLogo />
             <p className="font-bold text-inherit">ACME</p>
           </NavbarBrand>
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Dashboard
             </Link>
           </NavbarItem>
           <NavbarItem isActive>
-            <Link color="secondary" href="#">
+            <Link href="#" color="secondary">
               Team
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Deployments
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Activity
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link href="#" color="foreground">
               Settings
             </Link>
           </NavbarItem>
         </NavbarContent>
         <NavbarContent as="div" justify="end">
           <Input
+            size="sm"
             className="w-fit"
+            placeholder="Search..."
             classNames={{
               input: "text-base",
             }}
-            placeholder="Search..."
-            size="sm"
+            onClear={() => {
+              console.log("clear");
+            }}
             startContent={
               <SearchIcon className="pointer-events-none shrink-0 text-base" />
             }
-            onClear={() => {
-              // eslint-disable-next-line no-console
-              console.log("clear");
-            }}
           />
           <Dropdown placement="bottom-end">
             <DropdownTrigger>
               <Avatar
+                size="sm"
                 isBordered
                 as="button"
-                className="transition-transform"
                 color="secondary"
-                size="sm"
+                className="transition-transform"
                 src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
               />
             </DropdownTrigger>
-            <DropdownMenu aria-label="Profile Actions" color="secondary">
+            <DropdownMenu color="secondary" aria-label="Profile Actions">
               <DropdownItem key="profile" className="h-14 gap-2">
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">zoey@example.com</p>

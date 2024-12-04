@@ -1,45 +1,30 @@
-import React from "react";
+import { snippet } from "@nextui-org/theme";
+import { Snippet } from "@nextui-org/snippet";
+
 import { Meta } from "@storybook/react";
 
-import { Snippet } from "@nextui-org/snippet";
-import { snippet } from "@nextui-org/theme";
-
 export default {
-  title: "Atoms/Snippet",
   component: Snippet,
+  title: "Atoms/Snippet",
+  decorators: [
+    (Story) => (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
-    variant: {
+    symbol: {
       control: {
-        type: "select",
+        type: "text",
       },
-      options: ["flat", "solid", "bordered", "shadow"],
-    },
-    color: {
-      control: {
-        type: "select",
-      },
-      options: [
-        "default",
-        "primary",
-        "secondary",
-        "success",
-        "warning",
-        "danger",
-      ],
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
     },
     fullWidth: {
+      control: {
+        type: "boolean",
+      },
+    },
+    hideSymbol: {
       control: {
         type: "boolean",
       },
@@ -59,33 +44,47 @@ export default {
         type: "boolean",
       },
     },
-    hideSymbol: {
+    size: {
+      options: ["sm", "md", "lg"],
       control: {
-        type: "boolean",
+        type: "select",
       },
     },
-    symbol: {
+    radius: {
       control: {
-        type: "text",
+        type: "select",
       },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
+    variant: {
+      control: {
+        type: "select",
+      },
+      options: ["flat", "solid", "bordered", "shadow"],
+    },
+    color: {
+      control: {
+        type: "select",
+      },
+      options: [
+        "default",
+        "primary",
+        "secondary",
+        "success",
+        "warning",
+        "danger",
+      ],
     },
   },
-  decorators: [
-    (Story) => (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <Story />
-      </div>
-    ),
-  ],
 } as Meta<typeof Snippet>;
 
 const defaultProps = {
-  children: "npm install @nextui-org/react",
   symbol: "$",
+  hideSymbol: false,
   disableCopy: false,
   disableTooltip: false,
   hideCopyButton: false,
-  hideSymbol: false,
+  children: "npm install @nextui-org/react",
   ...snippet.defaultVariants,
 };
 

@@ -1,25 +1,74 @@
 import React from "react";
-import { Meta } from "@storybook/react";
 
 import { Button } from "@nextui-org/button";
 import { popover } from "@nextui-org/theme";
 import { Tooltip, TooltipProps } from "@nextui-org/tooltip";
 
+import { Meta } from "@storybook/react";
+
 export default {
-  title: "Atoms/Tooltip",
   component: Tooltip,
+  title: "Atoms/Tooltip",
+  decorators: [
+    (Story) => (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
+    delay: {
+      control: {
+        type: "number",
+      },
+    },
+    offset: {
+      control: {
+        type: "number",
+      },
+    },
+    children: {
+      control: {
+        disable: true,
+      },
+    },
+    showArrow: {
+      control: {
+        type: "boolean",
+      },
+    },
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    defaultOpen: {
+      control: {
+        type: "boolean",
+      },
+    },
+    disableAnimation: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
     variant: {
       control: {
         type: "select",
       },
       options: ["solid", "bordered", "light", "flat", "faded", "shadow"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
     },
     color: {
       control: {
@@ -34,17 +83,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    showArrow: {
-      control: {
-        type: "boolean",
-      },
     },
     placement: {
       control: {
@@ -65,60 +103,23 @@ export default {
         "right-end",
       ],
     },
-    delay: {
-      control: {
-        type: "number",
-      },
-    },
-    offset: {
-      control: {
-        type: "number",
-      },
-    },
-    defaultOpen: {
-      control: {
-        type: "boolean",
-      },
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    disableAnimation: {
-      control: {
-        type: "boolean",
-      },
-    },
-    children: {
-      control: {
-        disable: true,
-      },
-    },
   },
-  decorators: [
-    (Story) => (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <Story />
-      </div>
-    ),
-  ],
 } as Meta<typeof Tooltip>;
 
 const defaultProps = {
   ...popover.defaultVariants,
-  placement: "top",
   delay: 0,
   offset: 7,
-  defaultOpen: false,
+  placement: "top",
   isDisabled: false,
+  defaultOpen: false,
   content: "I am a tooltip",
   children: <Button>Hover me</Button>,
 };
 
 const DelayTemplate = (args: TooltipProps) => (
   <div className="flex gap-2">
-    <Tooltip {...args} content="Tooltip 1" delay={1000}>
+    <Tooltip {...args} delay={1000} content="Tooltip 1">
       <Button color="success" variant="faded">
         Delay Open (1000ms)
       </Button>
@@ -147,17 +148,17 @@ const OpenChangeTemplate = (args: TooltipProps) => {
 const OffsetTemplate = (args: TooltipProps) => (
   <div className="flex gap-2">
     <Tooltip {...args} content="Tooltip 1">
-      <Button color="secondary" variant="faded">
+      <Button variant="faded" color="secondary">
         Default offset (7)
       </Button>
     </Tooltip>
-    <Tooltip {...args} content="Tooltip 2" offset={15}>
-      <Button color="secondary" variant="faded">
+    <Tooltip {...args} offset={15} content="Tooltip 2">
+      <Button variant="faded" color="secondary">
         15 offset
       </Button>
     </Tooltip>
-    <Tooltip {...args} content="Tooltip 3" offset={-7}>
-      <Button color="secondary" variant="faded">
+    <Tooltip {...args} offset={-7} content="Tooltip 3">
+      <Button variant="faded" color="secondary">
         -7 offset
       </Button>
     </Tooltip>
@@ -166,7 +167,7 @@ const OffsetTemplate = (args: TooltipProps) => (
 
 const MultipleTemplate = (args: TooltipProps) => (
   <div className="flex gap-2">
-    <Tooltip {...args} content="Tooltip 1" delay={1000}>
+    <Tooltip {...args} delay={1000} content="Tooltip 1">
       <Button>Hover me (delay 1000ms)</Button>
     </Tooltip>
     <Tooltip {...args} content="Tooltip 2">
@@ -179,73 +180,73 @@ const PlacementsTemplate = (args: TooltipProps) => {
   return (
     <div className="inline-grid grid-cols-3 gap-4">
       <Tooltip {...args} content="Top Start" placement="top-start">
-        <Button color="primary" variant="flat">
+        <Button variant="flat" color="primary">
           Top Start
         </Button>
       </Tooltip>
 
       <Tooltip {...args} content="Top">
-        <Button color="primary" variant="flat">
+        <Button variant="flat" color="primary">
           Top
         </Button>
       </Tooltip>
 
       <Tooltip {...args} content="Top End" placement="top-end">
-        <Button color="primary" variant="flat">
+        <Button variant="flat" color="primary">
           Top End
         </Button>
       </Tooltip>
 
       <Tooltip {...args} content="Bottom Start" placement="bottom-start">
-        <Button color="primary" variant="flat">
+        <Button variant="flat" color="primary">
           Bottom Start
         </Button>
       </Tooltip>
 
       <Tooltip {...args} content="Bottom" placement="bottom">
-        <Button color="primary" variant="flat">
+        <Button variant="flat" color="primary">
           Bottom
         </Button>
       </Tooltip>
 
       <Tooltip {...args} content="Bottom End" placement="bottom-end">
-        <Button color="primary" variant="flat">
+        <Button variant="flat" color="primary">
           Bottom End
         </Button>
       </Tooltip>
 
       <Tooltip {...args} content="Right Start" placement="right-start">
-        <Button color="primary" variant="flat">
+        <Button variant="flat" color="primary">
           Right Start
         </Button>
       </Tooltip>
 
       <Tooltip {...args} content="Right" placement="right">
-        <Button color="primary" variant="flat">
+        <Button variant="flat" color="primary">
           Right
         </Button>
       </Tooltip>
 
       <Tooltip {...args} content="Right End" placement="right-end">
-        <Button color="primary" variant="flat">
+        <Button variant="flat" color="primary">
           Right End
         </Button>
       </Tooltip>
 
       <Tooltip {...args} content="Left Start" placement="left-start">
-        <Button color="primary" variant="flat">
+        <Button variant="flat" color="primary">
           Left Start
         </Button>
       </Tooltip>
 
       <Tooltip {...args} content="Left" placement="left">
-        <Button color="primary" variant="flat">
+        <Button variant="flat" color="primary">
           Left
         </Button>
       </Tooltip>
 
       <Tooltip {...args} content="Left End" placement="left-end">
-        <Button color="primary" variant="flat">
+        <Button variant="flat" color="primary">
           Left End
         </Button>
       </Tooltip>
@@ -257,14 +258,13 @@ const ControlledTemplate = (args: TooltipProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const handleOpen = () => {
-    // eslint-disable-next-line no-console
     console.log("handleOpen");
     setIsOpen((prev) => !prev);
   };
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <Tooltip {...args} content="Tooltip 1" isOpen={isOpen}>
+      <Tooltip {...args} isOpen={isOpen} content="Tooltip 1">
         <Button onPress={handleOpen}>{isOpen ? "Close" : "Open"}</Button>
       </Tooltip>
     </div>
@@ -352,7 +352,7 @@ export const CustomMotion = {
         enter: {
           opacity: 1,
           transition: {
-            opacity: { easings: "easeOut", duration: 0.15 },
+            opacity: { duration: 0.15, easings: "easeOut" },
           },
         },
       },

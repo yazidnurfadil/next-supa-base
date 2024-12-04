@@ -1,13 +1,12 @@
-import React from "react";
+import { Chip, User, Tooltip } from "@nextui-org/react";
 
-import { Chip, Tooltip, User } from "@nextui-org/react";
+import type { RenderCell } from "@/components/molecules/TableWrapper";
+
+import { EyeIcon } from "@/components/atoms/Icons/table/eye-icon";
+import { EditIcon } from "@/components/atoms/Icons/table/edit-icon";
+import { DeleteIcon } from "@/components/atoms/Icons/table/delete-icon";
 
 import type { User as UserData } from "./data";
-
-import { DeleteIcon } from "@/components/atoms/Icons/table/delete-icon";
-import { EditIcon } from "@/components/atoms/Icons/table/edit-icon";
-import { EyeIcon } from "@/components/atoms/Icons/table/eye-icon";
-import type { RenderCell } from "@/components/molecules/TableWrapper";
 
 export const renderCell: RenderCell<UserData> = ({ item, columnKey }) => {
   const cellValue = item[columnKey];
@@ -15,10 +14,10 @@ export const renderCell: RenderCell<UserData> = ({ item, columnKey }) => {
     case "name":
       return (
         <User
+          name={cellValue}
           avatarProps={{
             src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
           }}
-          name={cellValue}
         >
           {item.email}
         </User>
@@ -30,7 +29,7 @@ export const renderCell: RenderCell<UserData> = ({ item, columnKey }) => {
             <span>{cellValue}</span>
           </div>
           <div>
-            <span>{item.team as string}</span>
+            <span>{item.team}</span>
           </div>
         </div>
       );
@@ -62,7 +61,7 @@ export const renderCell: RenderCell<UserData> = ({ item, columnKey }) => {
             </Tooltip>
           </div>
           <div>
-            <Tooltip content="Edit user" color="secondary">
+            <Tooltip color="secondary" content="Edit user">
               <button onClick={() => console.log("Edit user", item.id)}>
                 <EditIcon size={20} fill="#979797" />
               </button>
@@ -70,8 +69,8 @@ export const renderCell: RenderCell<UserData> = ({ item, columnKey }) => {
           </div>
           <div>
             <Tooltip
-              content="Delete user"
               color="danger"
+              content="Delete user"
               onClick={() => console.log("Delete user", item.id)}
             >
               <button>

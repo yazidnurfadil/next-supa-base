@@ -1,29 +1,30 @@
 import { ReactNode, useCallback } from "react";
+
+import { Input, Button, Selection } from "@nextui-org/react";
+
 import { useAtom } from "jotai";
 
-import { Button, Input, Selection } from "@nextui-org/react";
-
+import { tableStates } from "@/states/components";
+import useRouterParameter from "@/hooks/useRouterParameter";
 import { SearchIcon } from "@/components/atoms/Icons/searchicon";
 import { ChevronDownIcon } from "@/components/atoms/Icons/sidebar/chevron-down-icon";
-import useRouterParameter from "@/hooks/useRouterParameter";
-import { tableStates } from "@/states/components";
 
 export const TableHeader = ({
-  placeholder = "Search by name...",
-  startContext = <SearchIcon />,
   isLoading,
-  additionalContents,
   enableDownload,
+  additionalContents,
   handleDownloadExcel,
+  startContext = <SearchIcon />,
+  placeholder = "Search by name...",
 }: {
+  isLoading?: boolean;
   placeholder?: string;
   startContext?: ReactNode;
+  enableDownload?: boolean;
+  additionalContents?: ReactNode;
+  handleDownloadExcel?: () => void;
   handleStatusChange?: (keys: Selection) => void;
   statusOptions?: { uid: string; name: string }[];
-  isLoading?: boolean;
-  additionalContents?: ReactNode;
-  enableDownload?: boolean;
-  handleDownloadExcel?: () => void;
 }) => {
   const { deleteQueryParameter } = useRouterParameter();
 
@@ -61,23 +62,23 @@ export const TableHeader = ({
         <div className="flex items-center justify-between gap-3">
           <Input
             isClearable
-            className="w-full sm:max-w-[44%]"
+            onClear={onClear}
+            value={searchValue}
             placeholder={placeholder}
             startContent={startContext}
-            value={searchValue}
-            onClear={onClear}
             onValueChange={onSearchChange}
+            className="w-full sm:max-w-[44%]"
           />
           <div className="flex items-center gap-3">
             {additionalContents}
             {enableDownload && (
               <Button
-                isLoading={isLoading}
                 isIconOnly
                 variant="light"
                 color="success"
-                onClick={handleDownloadExcel}
                 title="Download"
+                isLoading={isLoading}
+                onClick={handleDownloadExcel}
               >
                 <ChevronDownIcon className="text-small" />
               </Button>

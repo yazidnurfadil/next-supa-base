@@ -1,5 +1,22 @@
 {
     "typescript.preferences.importModuleSpecifier": "non-relative",
     "typescript.tsdk": "node_modules\\typescript\\lib",
-    "eslint.workingDirectories": [{ "mode": "auto" }]
+    "eslint.workingDirectories": [{ "mode": "auto" }],
+    // "eslint.options": {
+    //   "overrideConfigFile": "./.eslintrc.json"
+    // },
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "eslint.format.enable": true,
+    "eslint.nodePath": "./node_modules",
+    "[json][jsonc]": {
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "never"
+      },
+    },
 }

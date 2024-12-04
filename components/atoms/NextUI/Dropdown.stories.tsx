@@ -1,32 +1,83 @@
 import React from "react";
-import type { Key } from "@react-types/shared";
-import { Meta } from "@storybook/react";
 
+import { User } from "@nextui-org/user";
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
+import { clsx } from "@nextui-org/shared-utils";
+import { popover, dropdown } from "@nextui-org/theme";
+import {
+  AddNoteBulkIcon,
+  CopyDocumentBulkIcon,
+  EditDocumentBulkIcon,
+  DeleteDocumentBulkIcon,
+} from "@nextui-org/shared-icons";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
-  DropdownMenuProps,
   DropdownProps,
   DropdownSection,
   DropdownTrigger,
+  DropdownMenuProps,
 } from "@nextui-org/dropdown";
-import {
-  AddNoteBulkIcon,
-  CopyDocumentBulkIcon,
-  DeleteDocumentBulkIcon,
-  EditDocumentBulkIcon,
-} from "@nextui-org/shared-icons";
-import { clsx } from "@nextui-org/shared-utils";
-import { dropdown, popover } from "@nextui-org/theme";
-import { User } from "@nextui-org/user";
+
+import { Meta } from "@storybook/react";
+
+import type { Key } from "@react-types/shared";
 
 export default {
-  title: "Atoms/Dropdown",
   component: Dropdown,
+  title: "Atoms/Dropdown",
+  decorators: [
+    (Story) => (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
+    offset: {
+      control: {
+        type: "number",
+      },
+    },
+    children: {
+      control: {
+        disable: true,
+      },
+    },
+    showArrow: {
+      control: {
+        type: "boolean",
+      },
+    },
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    defaultOpen: {
+      control: {
+        type: "boolean",
+      },
+    },
+    disableAnimation: {
+      control: {
+        type: "boolean",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
+    backdrop: {
+      control: {
+        type: "select",
+      },
+      options: ["transparent", "blur", "opaque"],
+    },
     variant: {
       control: {
         type: "select",
@@ -45,12 +96,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
     },
     placement: {
       control: {
@@ -71,59 +116,16 @@ export default {
         "right-end",
       ],
     },
-    backdrop: {
-      control: {
-        type: "select",
-      },
-      options: ["transparent", "blur", "opaque"],
-    },
-    offset: {
-      control: {
-        type: "number",
-      },
-    },
-    defaultOpen: {
-      control: {
-        type: "boolean",
-      },
-    },
-    showArrow: {
-      control: {
-        type: "boolean",
-      },
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    disableAnimation: {
-      control: {
-        type: "boolean",
-      },
-    },
-    children: {
-      control: {
-        disable: true,
-      },
-    },
   },
-  decorators: [
-    (Story) => (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <Story />
-      </div>
-    ),
-  ],
 } as Meta<typeof Dropdown>;
 
 const defaultProps = {
   ...popover.defaultVariants,
   ...dropdown.defaultVariants,
-  placement: "bottom",
   offset: 7,
   isDisabled: false,
   defaultOpen: false,
+  placement: "bottom",
 };
 
 const items = [
@@ -154,11 +156,11 @@ const Template = ({
     <DropdownTrigger>
       <Button>Trigger</Button>
     </DropdownTrigger>
-    <DropdownMenu aria-label="Actions" color={color} variant={variant}>
+    <DropdownMenu color={color} variant={variant} aria-label="Actions">
       <DropdownItem key="new">New file</DropdownItem>
       <DropdownItem key="copy">Copy link</DropdownItem>
       <DropdownItem key="edit">Edit file</DropdownItem>
-      <DropdownItem key="delete" className="text-danger" color="danger">
+      <DropdownItem key="delete" color="danger" className="text-danger">
         Delete file
       </DropdownItem>
     </DropdownMenu>
@@ -175,15 +177,15 @@ const ItemCloseOnSelectTemplate = ({
       <DropdownTrigger>
         <Button>Trigger</Button>
       </DropdownTrigger>
-      <DropdownMenu aria-label="Actions" color={color} variant={variant}>
+      <DropdownMenu color={color} variant={variant} aria-label="Actions">
         <DropdownItem key="new">New file</DropdownItem>
         <DropdownItem key="copy">Copy link</DropdownItem>
         <DropdownItem key="edit">Edit file</DropdownItem>
         <DropdownItem
           key="delete"
-          className="text-danger"
-          closeOnSelect={false}
           color="danger"
+          closeOnSelect={false}
+          className="text-danger"
         >
           Delete file
         </DropdownItem>
@@ -194,15 +196,15 @@ const ItemCloseOnSelectTemplate = ({
         <Button>Trigger</Button>
       </DropdownTrigger>
       <DropdownMenu
-        aria-label="Actions"
-        closeOnSelect={false}
         color={color}
         variant={variant}
+        aria-label="Actions"
+        closeOnSelect={false}
       >
         <DropdownItem key="new">New file</DropdownItem>
         <DropdownItem key="copy">Copy link</DropdownItem>
         <DropdownItem key="edit">Edit file</DropdownItem>
-        <DropdownItem key="delete" className="text-danger" color="danger">
+        <DropdownItem key="delete" color="danger" className="text-danger">
           Delete file
         </DropdownItem>
       </DropdownMenu>
@@ -220,17 +222,17 @@ const DynamicTemplate = ({
       <Button>Trigger</Button>
     </DropdownTrigger>
     <DropdownMenu
-      aria-label="Actions"
       color={color}
       items={items}
-      variant={variant}
       onAction={alert}
+      variant={variant}
+      aria-label="Actions"
     >
       {(item) => (
         <DropdownItem
           key={item.key}
-          className={item.key === "delete" ? "text-danger" : ""}
           color={item.key === "delete" ? "danger" : "default"}
+          className={item.key === "delete" ? "text-danger" : ""}
         >
           {item.label}
         </DropdownItem>
@@ -249,17 +251,17 @@ const DividerTemplate = ({
       <Button>Trigger</Button>
     </DropdownTrigger>
     <DropdownMenu
-      aria-label="Actions"
       color={color}
-      variant={variant}
       onAction={alert}
+      variant={variant}
+      aria-label="Actions"
     >
       <DropdownItem key="new">New file</DropdownItem>
       <DropdownItem key="copy">Copy link</DropdownItem>
       <DropdownItem key="edit" showDivider>
         Edit file
       </DropdownItem>
-      <DropdownItem key="delete" className="text-danger" color="danger">
+      <DropdownItem key="delete" color="danger" className="text-danger">
         Delete file
       </DropdownItem>
     </DropdownMenu>
@@ -276,16 +278,16 @@ const DisabledKeysTemplate = ({
       <Button>Trigger</Button>
     </DropdownTrigger>
     <DropdownMenu
-      aria-label="Actions"
       color={color}
-      disabledKeys={["edit", "delete"]}
-      variant={variant}
       onAction={alert}
+      variant={variant}
+      aria-label="Actions"
+      disabledKeys={["edit", "delete"]}
     >
       <DropdownItem key="new">New file</DropdownItem>
       <DropdownItem key="copy">Copy link</DropdownItem>
       <DropdownItem key="edit">Edit file</DropdownItem>
-      <DropdownItem key="delete" className="text-danger" color="danger">
+      <DropdownItem key="delete" color="danger" className="text-danger">
         Delete file
       </DropdownItem>
     </DropdownMenu>
@@ -297,7 +299,7 @@ const SingleSelectionTemplate = ({
   variant,
   ...args
 }: DropdownProps & DropdownMenuProps) => {
-  const [selected, setSelected] = React.useState<string | Set<Key>>(
+  const [selected, setSelected] = React.useState<Set<Key> | string>(
     new Set(["text"])
   );
 
@@ -315,12 +317,12 @@ const SingleSelectionTemplate = ({
         <Button>{selectedValue}</Button>
       </DropdownTrigger>
       <DropdownMenu
-        disallowEmptySelection
-        aria-label="Actions"
         color={color}
-        selectedKeys={selected}
-        selectionMode="single"
         variant={variant}
+        aria-label="Actions"
+        disallowEmptySelection
+        selectionMode="single"
+        selectedKeys={selected}
         onSelectionChange={setSelected}
       >
         <DropdownItem key="text">Text</DropdownItem>
@@ -338,7 +340,7 @@ const MultipleSelectionTemplate = ({
   variant,
   ...args
 }: DropdownProps & DropdownMenuProps) => {
-  const [selected, setSelected] = React.useState<string | Set<Key>>(
+  const [selected, setSelected] = React.useState<Set<Key> | string>(
     new Set(["text"])
   );
 
@@ -356,13 +358,13 @@ const MultipleSelectionTemplate = ({
         <Button>{selectedValue}</Button>
       </DropdownTrigger>
       <DropdownMenu
-        disallowEmptySelection
+        color={color}
+        variant={variant}
         aria-label="Actions"
         closeOnSelect={false}
-        color={color}
+        disallowEmptySelection
         selectedKeys={selected}
         selectionMode="multiple"
-        variant={variant}
         onSelectionChange={setSelected}
       >
         <DropdownItem key="text">Text</DropdownItem>
@@ -388,10 +390,10 @@ const WithShortcutTemplate = ({
       <Button>Trigger</Button>
     </DropdownTrigger>
     <DropdownMenu
-      aria-label="Actions"
       color={color}
-      variant={variant}
       onAction={alert}
+      variant={variant}
+      aria-label="Actions"
     >
       <DropdownItem key="new" shortcut="⌘N">
         New file
@@ -404,9 +406,9 @@ const WithShortcutTemplate = ({
       </DropdownItem>
       <DropdownItem
         key="delete"
-        className="text-danger"
         color="danger"
         shortcut="⌘⇧D"
+        className="text-danger"
       >
         Delete file
       </DropdownItem>
@@ -427,18 +429,18 @@ const WithStartContentTemplate = ({
     <Dropdown {...args} disableAnimation={disableAnimation}>
       <DropdownTrigger>
         <Button
+          variant="flat"
           color="secondary"
           disableAnimation={disableAnimation}
-          variant="flat"
         >
           Trigger
         </Button>
       </DropdownTrigger>
       <DropdownMenu
-        aria-label="Actions"
         color={color}
-        variant={variant}
         onAction={alert}
+        variant={variant}
+        aria-label="Actions"
       >
         <DropdownItem
           key="new"
@@ -463,9 +465,9 @@ const WithStartContentTemplate = ({
         </DropdownItem>
         <DropdownItem
           key="delete"
-          className="text-danger"
           color="danger"
           shortcut="⌘⇧D"
+          className="text-danger"
           startContent={
             <DeleteDocumentBulkIcon
               className={clsx(iconClasses, "!text-danger")}
@@ -493,17 +495,17 @@ const WithEndContentTemplate = ({
       <DropdownTrigger>
         <Button
           color="success"
-          disableAnimation={disableAnimation}
           variant="faded"
+          disableAnimation={disableAnimation}
         >
           Trigger
         </Button>
       </DropdownTrigger>
       <DropdownMenu
-        aria-label="Actions"
         color={color}
-        variant={variant}
         onAction={alert}
+        variant={variant}
+        aria-label="Actions"
       >
         <DropdownItem
           key="new"
@@ -525,8 +527,8 @@ const WithEndContentTemplate = ({
         </DropdownItem>
         <DropdownItem
           key="delete"
-          className="text-danger"
           color="danger"
+          className="text-danger"
           endContent={
             <DeleteDocumentBulkIcon
               className={clsx(iconClasses, "!text-danger")}
@@ -553,49 +555,49 @@ const WithDescriptionTemplate = ({
     <Dropdown {...args} disableAnimation={disableAnimation}>
       <DropdownTrigger>
         <Button
+          variant="flat"
           color="secondary"
           disableAnimation={disableAnimation}
-          variant="flat"
         >
           Trigger
         </Button>
       </DropdownTrigger>
       <DropdownMenu
-        aria-label="Actions"
         color={color}
-        variant={variant}
         onAction={alert}
+        variant={variant}
+        aria-label="Actions"
       >
         <DropdownItem
           key="new"
-          description="Create a new file"
           shortcut="⌘N"
+          description="Create a new file"
           startContent={<AddNoteBulkIcon className={iconClasses} />}
         >
           New file
         </DropdownItem>
         <DropdownItem
           key="copy"
-          description="Copy the file link"
           shortcut="⌘C"
+          description="Copy the file link"
           startContent={<CopyDocumentBulkIcon className={iconClasses} />}
         >
           Copy link
         </DropdownItem>
         <DropdownItem
           key="edit"
-          description="Allows you to edit the file"
           shortcut="⌘⇧E"
+          description="Allows you to edit the file"
           startContent={<EditDocumentBulkIcon className={iconClasses} />}
         >
           Edit file
         </DropdownItem>
         <DropdownItem
           key="delete"
-          className="text-danger"
           color="danger"
-          description="Permanently delete the file"
           shortcut="⌘⇧D"
+          className="text-danger"
+          description="Permanently delete the file"
           startContent={
             <DeleteDocumentBulkIcon
               className={clsx(iconClasses, "!text-danger")}
@@ -622,41 +624,41 @@ const WithSectionsTemplate = ({
     <Dropdown {...args} disableAnimation={disableAnimation}>
       <DropdownTrigger>
         <Button
+          variant="flat"
           color="secondary"
           disableAnimation={disableAnimation}
-          variant="flat"
         >
           Trigger
         </Button>
       </DropdownTrigger>
       <DropdownMenu
+        color={color}
+        onAction={alert}
+        variant={variant}
         aria-label="Actions"
         closeOnSelect={false}
-        color={color}
-        variant={variant}
-        onAction={alert}
       >
         <DropdownSection title="Actions">
           <DropdownItem
             key="new"
-            description="Create a new file"
             shortcut="⌘N"
+            description="Create a new file"
             startContent={<AddNoteBulkIcon className={iconClasses} />}
           >
             New file
           </DropdownItem>
           <DropdownItem
             key="copy"
-            description="Copy the file link"
             shortcut="⌘C"
+            description="Copy the file link"
             startContent={<CopyDocumentBulkIcon className={iconClasses} />}
           >
             Copy link
           </DropdownItem>
           <DropdownItem
             key="edit"
-            description="Allows you to edit the file"
             shortcut="⌘⇧E"
+            description="Allows you to edit the file"
             startContent={<EditDocumentBulkIcon className={iconClasses} />}
           >
             Edit file
@@ -665,10 +667,10 @@ const WithSectionsTemplate = ({
         <DropdownSection title="Danger zone">
           <DropdownItem
             key="delete"
-            className="text-danger"
             color="danger"
-            description="Permanently delete the file"
             shortcut="⌘⇧D"
+            className="text-danger"
+            description="Permanently delete the file"
             startContent={
               <DeleteDocumentBulkIcon
                 className={clsx(iconClasses, "!text-danger")}
@@ -692,18 +694,18 @@ const CustomTriggerTemplate = ({
       <Dropdown {...args} placement="bottom-end">
         <DropdownTrigger>
           <Avatar
+            size="md"
             isBordered
             as="button"
-            className="transition-transform"
             color="secondary"
-            size="md"
+            className="transition-transform"
             src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
           />
         </DropdownTrigger>
         <DropdownMenu
-          aria-label="Profile Actions"
           color="secondary"
           variant={variant}
+          aria-label="Profile Actions"
         >
           <DropdownItem key="profile" className="h-14 gap-2">
             <p className="font-semibold">Signed in as</p>
@@ -724,21 +726,21 @@ const CustomTriggerTemplate = ({
         <DropdownTrigger>
           <User
             as="button"
+            name="Tony Reichert"
+            description="@tonyreichert"
+            className="transition-transform"
             avatarProps={{
+              size: "md",
               isBordered: true,
               color: "primary",
-              size: "md",
               src: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
             }}
-            className="transition-transform"
-            description="@tonyreichert"
-            name="Tony Reichert"
           />
         </DropdownTrigger>
         <DropdownMenu
-          aria-label="User Actions"
           color="primary"
           variant={variant}
+          aria-label="User Actions"
         >
           <DropdownItem key="profile" className="h-14 gap-2">
             <p className="font-bold">Signed in as</p>
@@ -768,11 +770,11 @@ const CustomHTMLTrigger = ({
       <DropdownTrigger>
         <span className="flex items-center gap-2">Profile</span>
       </DropdownTrigger>
-      <DropdownMenu aria-label="Actions" variant={variant}>
+      <DropdownMenu variant={variant} aria-label="Actions">
         <DropdownItem key="new">New file</DropdownItem>
         <DropdownItem key="copy">Copy link</DropdownItem>
         <DropdownItem key="edit">Edit file</DropdownItem>
-        <DropdownItem key="delete" className="text-danger" color="danger">
+        <DropdownItem key="delete" color="danger" className="text-danger">
           Delete file
         </DropdownItem>
       </DropdownMenu>
@@ -839,11 +841,11 @@ export const SingleSelection = {
 };
 
 export const MultipleSelection = {
-  render: MultipleSelectionTemplate,
-
   args: {
     ...defaultProps,
   },
+
+  render: MultipleSelectionTemplate,
 };
 
 export const WithShortcut = {
@@ -901,8 +903,8 @@ export const WithCustomTrigger = {
 
   args: {
     ...defaultProps,
-    variant: "flat",
     offset: 14,
+    variant: "flat",
   },
 };
 
@@ -911,8 +913,8 @@ export const WithCustomHTMLTrigger = {
 
   args: {
     ...defaultProps,
-    variant: "flat",
     offset: 14,
+    variant: "flat",
   },
 };
 
@@ -929,9 +931,9 @@ export const DisableAnimation = {
 };
 
 export const ItemCloseOnSelect = {
-  render: ItemCloseOnSelectTemplate,
-
   args: {
     ...defaultProps,
   },
+
+  render: ItemCloseOnSelectTemplate,
 };

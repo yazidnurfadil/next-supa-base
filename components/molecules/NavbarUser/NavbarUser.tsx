@@ -1,16 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 "use client";
 
-import React, { useCallback } from "react";
-import { signOut, useSession } from "next-auth/react";
+import { useCallback } from "react";
 
 import {
   Avatar,
   Dropdown,
+  NavbarItem,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  NavbarItem,
 } from "@nextui-org/react";
+
+import { signOut, useSession } from "next-auth/react";
 
 import { ThemeSwitcher } from "@/components/molecules/ThemeSwitcher";
 
@@ -25,9 +27,9 @@ export const NavbarUser = () => {
       <NavbarItem>
         <DropdownTrigger>
           <Avatar
+            size="md"
             as="button"
             color="secondary"
-            size="md"
             src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
           />
         </DropdownTrigger>
@@ -37,9 +39,9 @@ export const NavbarUser = () => {
         onAction={(actionKey) => console.log({ actionKey })}
       >
         <DropdownItem
-          key="profile"
           isReadOnly
           showDivider
+          key="profile"
           className="flex w-full cursor-default flex-col items-start justify-start"
         >
           <p className="font-semibold">{session?.user.name}</p>
@@ -49,8 +51,8 @@ export const NavbarUser = () => {
         <DropdownItem
           isReadOnly
           key="theme"
-          className="cursor-default"
           showDivider
+          className="cursor-default"
           endContent={<ThemeSwitcher />}
         >
           Theme
@@ -59,7 +61,7 @@ export const NavbarUser = () => {
           key="logout"
           color="danger"
           className="text-danger"
-          onPress={handleLogout}
+          onPress={() => void handleLogout()}
         >
           Log Out
         </DropdownItem>

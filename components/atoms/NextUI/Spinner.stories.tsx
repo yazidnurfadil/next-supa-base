@@ -1,13 +1,25 @@
-import React from "react";
+import { spinner } from "@nextui-org/theme";
+import { Spinner } from "@nextui-org/spinner";
+
 import { Meta } from "@storybook/react";
 
-import { Spinner } from "@nextui-org/spinner";
-import { spinner } from "@nextui-org/theme";
-
 export default {
-  title: "Atoms/Spinner",
   component: Spinner,
+  title: "Atoms/Spinner",
+  decorators: [
+    (Story) => (
+      <div className="ml-4">
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
     color: {
       control: {
         type: "select",
@@ -34,20 +46,7 @@ export default {
         "danger",
       ],
     },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
   },
-  decorators: [
-    (Story) => (
-      <div className="ml-4">
-        <Story />
-      </div>
-    ),
-  ],
 } as Meta<typeof Spinner>;
 
 const defaultProps = {

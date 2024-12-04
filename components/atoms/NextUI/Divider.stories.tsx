@@ -1,18 +1,17 @@
-import React from "react";
+import { divider } from "@nextui-org/theme";
+import { Divider, DividerProps } from "@nextui-org/divider";
+
 import { Meta } from "@storybook/react";
 
-import { Divider, DividerProps } from "@nextui-org/divider";
-import { divider } from "@nextui-org/theme";
-
 export default {
-  title: "Atoms/Divider",
   component: Divider,
+  title: "Atoms/Divider",
   argTypes: {
     orientation: {
+      options: ["horizontal", "vertical"],
       control: {
         type: "select",
       },
-      options: ["horizontal", "vertical"],
     },
   },
   decorators: [

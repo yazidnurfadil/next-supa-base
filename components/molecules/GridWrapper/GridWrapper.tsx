@@ -1,22 +1,22 @@
 "use client";
 
-import { useCallback, useMemo, useRef } from "react";
+import { useRef, useMemo, useCallback } from "react";
+
+import { useAtom } from "jotai";
+import { useTheme } from "next-themes";
+import { AgGridReact } from "@ag-grid-community/react";
+import { CsvExportModule } from "@ag-grid-community/csv-export";
 import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
 import {
   type ColDef,
-  type PaginationChangedEvent,
   type RowSelectionOptions,
+  type PaginationChangedEvent,
 } from "@ag-grid-community/core";
-import { CsvExportModule } from "@ag-grid-community/csv-export";
-import { AgGridReact } from "@ag-grid-community/react";
-import { useAtom } from "jotai";
-import { useTheme } from "next-themes";
-
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
 
-import { tableStates } from "@/states/components";
 import { Theme } from "@/types/utils";
+import { tableStates } from "@/states/components";
 
 /**
  * AG GRID React Table Component
@@ -24,25 +24,25 @@ import { Theme } from "@/types/utils";
  *
  */
 const GridWrapper = ({
-  isLoading,
   items,
   columns,
+  isLoading,
+  rowOptions,
+  pagination = true,
+  gridTheme = "ag-theme-quartz",
   defaultColumns = {
     flex: 1,
   },
-  pagination = true,
   paginationPageSizeSelector = [15, 25, 50, 100, 500, 1000],
-  rowOptions,
-  gridTheme = "ag-theme-quartz",
 }: {
-  isLoading: boolean;
   items: unknown[];
   columns: ColDef[];
-  defaultColumns?: ColDef;
-  pagination?: boolean;
-  paginationPageSizeSelector?: number[];
-  rowOptions?: RowSelectionOptions;
+  isLoading: boolean;
   gridTheme?: string;
+  pagination?: boolean;
+  defaultColumns?: ColDef;
+  rowOptions?: RowSelectionOptions;
+  paginationPageSizeSelector?: number[];
 }) => {
   const [{ rowsPerPage }, setTableConfig] = useAtom(tableStates);
 
@@ -70,7 +70,7 @@ const GridWrapper = ({
 
   const onFilterOpened = useCallback(() => console.log("onFilterOpened"), []);
 
-  const onBtnExport = useCallback(() => {
+  const _onBtnExport = useCallback(() => {
     gridRef?.current?.api?.exportDataAsCsv({
       suppressQuotes: true,
     });
@@ -89,29 +89,28 @@ const GridWrapper = ({
 
   return (
     <div
+      className={`${themeClass} h-screen`} // applying the Data Grid theme
       style={{
         maxHeight: "80vh",
       }}
-      // eslint-disable-next-line tailwindcss/no-custom-classname
-      className={`${themeClass} h-screen`} // applying the Data Grid theme
     >
       <AgGridReact
         ref={gridRef}
-        loading={isLoading}
         rowData={items}
+        loading={isLoading}
         columnDefs={columns}
-        defaultColDef={defaultColDef}
-        rowSelection={rowSelection}
         pagination={pagination}
-        paginationPageSize={rowsPerPage}
-        paginationPageSizeSelector={paginationPageSizeSelector}
-        onPaginationChanged={handleOnPaginationChanged}
-        onRowClicked={onRowClicked}
-        onCellClicked={onCellClicked}
-        onCellValueChanged={onCellValueChanged}
-        onFilterOpened={onFilterOpened}
-        modules={[ClientSideRowModelModule, CsvExportModule]}
         suppressExcelExport={true}
+        rowSelection={rowSelection}
+        onRowClicked={onRowClicked}
+        defaultColDef={defaultColDef}
+        onCellClicked={onCellClicked}
+        onFilterOpened={onFilterOpened}
+        paginationPageSize={rowsPerPage}
+        onCellValueChanged={onCellValueChanged}
+        onPaginationChanged={handleOnPaginationChanged}
+        modules={[ClientSideRowModelModule, CsvExportModule]}
+        paginationPageSizeSelector={paginationPageSizeSelector}
       />
     </div>
   );

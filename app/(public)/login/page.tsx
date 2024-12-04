@@ -1,8 +1,9 @@
-import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-import { LoginContainer } from "@/components/pages/public/LoginContainer";
+import { Metadata } from "next";
+
 import { auth } from "@/lib/auth";
+import { LoginContainer } from "@/components/pages/public/LoginContainer";
 
 export const metadata: Metadata = {
   title: "Login",

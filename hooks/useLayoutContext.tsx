@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext } from "react";
+import { useContext, createContext } from "react";
 
 interface SidebarContext {
   collapsed: boolean;

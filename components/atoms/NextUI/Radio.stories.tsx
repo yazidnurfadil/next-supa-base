@@ -1,24 +1,45 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React from "react";
-import { VisuallyHidden } from "@react-aria/visually-hidden";
-import type { ValidationResult } from "@react-types/shared";
-import { Meta } from "@storybook/react";
 
+import { clsx } from "@nextui-org/shared-utils";
+import { radio, button } from "@nextui-org/theme";
 import {
   Radio,
-  RadioGroup,
-  RadioGroupProps,
-  RadioProps,
   useRadio,
+  RadioGroup,
+  RadioProps,
+  RadioGroupProps,
   useRadioGroupContext,
 } from "@nextui-org/radio";
-import { clsx } from "@nextui-org/shared-utils";
-import { button, radio } from "@nextui-org/theme";
+
+import { Meta } from "@storybook/react";
+
+import type { ValidationResult } from "@react-types/shared";
+
+import { VisuallyHidden } from "@react-aria/visually-hidden";
 
 export default {
   title: "Atoms/Radio",
   component: RadioGroup,
   onChange: { action: "changed" },
   argTypes: {
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    validationBehavior: {
+      options: ["aria", "native"],
+      control: {
+        type: "select",
+      },
+    },
     color: {
       control: {
         type: "select",
@@ -31,23 +52,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    validationBehavior: {
-      control: {
-        type: "select",
-      },
-      options: ["aria", "native"],
     },
   },
 } as Meta<typeof RadioGroup>;
@@ -110,7 +114,7 @@ const Template = (args: RadioGroupProps) => {
       <RadioGroup {...args} name="sample">
         {items}
       </RadioGroup>
-      <button className={button({ color: "primary" })} type="submit">
+      <button type="submit" className={button({ color: "primary" })}>
         Submit
       </button>
     </form>
@@ -178,7 +182,7 @@ const InvalidTemplate = (args: RadioGroupProps) => {
       >
         {items}
       </RadioGroup>
-      <button className={button({ color: "primary" })} type="submit">
+      <button type="submit" className={button({ color: "primary" })}>
         Submit
       </button>
     </form>
@@ -191,7 +195,6 @@ const ControlledTemplate = (args: RadioGroupProps) => {
   const [selectedItem, setSelectedItem] = React.useState<string>("london");
 
   React.useEffect(() => {
-    // eslint-disable-next-line no-console
     console.log("isSelected:", selectedItem);
   }, [selectedItem]);
 
@@ -272,8 +275,8 @@ export const WithErrorMessage = {
 
   args: {
     ...defaultProps,
-    isRequired: true,
     isInvalid: true,
+    isRequired: true,
     errorMessage: "The selected option is invalid",
   },
 };
@@ -360,15 +363,15 @@ const CustomRadio = (props: RadioProps) => {
 export const CustomWithClassNames = () => {
   return (
     <RadioGroup label="Plans">
-      <CustomRadio description="Up to 20 items" value="free">
+      <CustomRadio value="free" description="Up to 20 items">
         Free
       </CustomRadio>
-      <CustomRadio description="Unlimited items. $10 per month." value="pro">
+      <CustomRadio value="pro" description="Unlimited items. $10 per month.">
         Pro
       </CustomRadio>
       <CustomRadio
-        description="24/7 support. Contact us for pricing."
         value="enterprise"
+        description="24/7 support. Contact us for pricing."
       >
         Enterprise
       </CustomRadio>
@@ -378,16 +381,16 @@ export const CustomWithClassNames = () => {
 
 const RadioCard = (props: RadioProps) => {
   const {
-    Component,
     children,
+    Component,
     isSelected,
     description,
     getBaseProps,
-    getWrapperProps,
     getInputProps,
     getLabelProps,
-    getLabelWrapperProps,
+    getWrapperProps,
     getControlProps,
+    getLabelWrapperProps,
   } = useRadio(props);
 
   return (
@@ -421,15 +424,15 @@ const RadioCard = (props: RadioProps) => {
 export const CustomWithHooks = () => {
   return (
     <RadioGroup label="Plans">
-      <RadioCard description="Up to 20 items" value="free">
+      <RadioCard value="free" description="Up to 20 items">
         Free
       </RadioCard>
-      <RadioCard description="Unlimited items. $10 per month." value="pro">
+      <RadioCard value="pro" description="Unlimited items. $10 per month.">
         Pro
       </RadioCard>
       <RadioCard
-        description="24/7 support. Contact us for pricing."
         value="enterprise"
+        description="24/7 support. Contact us for pricing."
       >
         Enterprise
       </RadioCard>

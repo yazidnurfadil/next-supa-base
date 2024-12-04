@@ -1,20 +1,20 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from "react";
-import { Meta } from "@storybook/react";
 
-import {
-  InfoIcon,
-  VolumeHighBoldIcon,
-  VolumeLowBoldIcon,
-} from "@nextui-org/shared-icons";
-import { clsx } from "@nextui-org/shared-utils";
-import { Slider, SliderProps, SliderValue } from "@nextui-org/slider";
 import { slider } from "@nextui-org/theme";
 import { Tooltip } from "@nextui-org/tooltip";
+import { clsx } from "@nextui-org/shared-utils";
+import { Slider, SliderProps, SliderValue } from "@nextui-org/slider";
+import {
+  InfoIcon,
+  VolumeLowBoldIcon,
+  VolumeHighBoldIcon,
+} from "@nextui-org/shared-icons";
+
+import { Meta } from "@storybook/react";
 
 export default {
-  title: "Atoms/Slider",
   component: Slider,
+  title: "Atoms/Slider",
   argTypes: {
     label: {
       control: { type: "text" },
@@ -22,20 +22,25 @@ export default {
     fillOffset: {
       control: { type: "number" },
     },
-    color: {
-      control: { type: "select" },
-      options: [
-        "foreground",
-        "primary",
-        "secondary",
-        "success",
-        "warning",
-        "danger",
-      ],
+    step: {
+      control: {
+        type: "number",
+      },
     },
-    size: {
-      control: { type: "select" },
-      options: ["sm", "md", "lg"],
+    endContent: {
+      table: {
+        disable: true,
+      },
+    },
+    startContent: {
+      table: {
+        disable: true,
+      },
+    },
+    showSteps: {
+      control: {
+        type: "boolean",
+      },
     },
     isDisabled: {
       control: {
@@ -47,35 +52,30 @@ export default {
         type: "boolean",
       },
     },
-    step: {
-      control: {
-        type: "number",
-      },
+    size: {
+      control: { type: "select" },
+      options: ["sm", "md", "lg"],
     },
     radius: {
       control: { type: "select" },
       options: ["none", "sm", "md", "lg", "full"],
     },
     orientation: {
+      options: ["horizontal", "vertical"],
       control: {
         type: "select",
       },
-      options: ["horizontal", "vertical"],
     },
-    showSteps: {
-      control: {
-        type: "boolean",
-      },
-    },
-    startContent: {
-      table: {
-        disable: true,
-      },
-    },
-    endContent: {
-      table: {
-        disable: true,
-      },
+    color: {
+      control: { type: "select" },
+      options: [
+        "foreground",
+        "primary",
+        "secondary",
+        "success",
+        "warning",
+        "danger",
+      ],
     },
   },
 } as Meta<typeof Slider>;
@@ -109,11 +109,31 @@ const CustomStylesTemplate = (args: SliderProps) => (
     <div className="flex size-full max-w-md items-center justify-center">
       <Slider
         {...args}
+        disableThumbScale={args.size !== "lg"}
+        showOutline={args.showOutline && args.size !== "lg"}
+        tooltipProps={{
+          offset: 10,
+          placement: "bottom",
+          classNames: {
+            content: [
+              "py-2 shadow-xl",
+              "text-white bg-gradient-to-r from-secondary-400 to-primary-500",
+            ],
+            base: [
+              // arrow color
+              "before:bg-gradient-to-r before:from-secondary-400 before:to-primary-500",
+            ],
+          },
+        }}
         classNames={{
-          filler: ["bg-gradient-to-r from-primary-500 to-secondary-400"],
           labelWrapper: "mb-2",
-          label: "font-medium text-default-700 text-medium",
           value: "font-medium text-default-500 text-small",
+          label: "font-medium text-default-700 text-medium",
+          filler: ["bg-gradient-to-r from-primary-500 to-secondary-400"],
+          step:
+            args.size === "sm" && args.showSteps
+              ? "data-[in-range=true]:bg-black/30 dark:data-[in-range=true]:bg-white/50"
+              : "",
           thumb: [
             "transition-size",
             "bg-gradient-to-r from-secondary-400 to-primary-500",
@@ -122,26 +142,6 @@ const CustomStylesTemplate = (args: SliderProps) => (
               ? "data-[dragging=true]:w-7 data-[dragging=true]:h-7 data-[dragging=true]:after:h-6 data-[dragging=true]:after:w-6"
               : "",
           ],
-          step:
-            args.size === "sm" && args.showSteps
-              ? "data-[in-range=true]:bg-black/30 dark:data-[in-range=true]:bg-white/50"
-              : "",
-        }}
-        disableThumbScale={args.size !== "lg"}
-        showOutline={args.showOutline && args.size !== "lg"}
-        tooltipProps={{
-          offset: 10,
-          placement: "bottom",
-          classNames: {
-            base: [
-              // arrow color
-              "before:bg-gradient-to-r before:from-secondary-400 before:to-primary-500",
-            ],
-            content: [
-              "py-2 shadow-xl",
-              "text-white bg-gradient-to-r from-secondary-400 to-primary-500",
-            ],
-          },
         }}
       />
     </div>
@@ -162,27 +162,25 @@ const CustomValueTemplate = (args: SliderProps) => {
   return (
     <div className="flex size-full max-w-md items-center justify-start">
       <Slider
-        classNames={{
-          label: "text-medium",
-        }}
+        value={value}
         // eslint-disable-next-line
         renderValue={({ children, ...props }) => (
           <output {...props}>
             <Tooltip
-              className="rounded-md text-tiny text-default-500"
-              content="Press Enter to confirm"
               placement="left"
+              content="Press Enter to confirm"
+              className="rounded-md text-tiny text-default-500"
             >
               <input
-                aria-label="Temperature"
-                className="w-12 rounded-small border-medium border-transparent bg-default-100 px-1 py-0.5 text-right text-small font-medium text-default-700 outline-none transition-colors hover:border-primary focus:border-primary"
                 type="text"
                 value={inputValue}
+                aria-label="Temperature"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   const v = e.target.value;
 
                   setInputValue(v);
                 }}
+                className="w-12 rounded-small border-medium border-transparent bg-default-100 px-1 py-0.5 text-right text-small font-medium text-default-700 outline-none transition-colors hover:border-primary focus:border-primary"
                 onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                   if (e.key === "Enter" && !isNaN(Number(inputValue))) {
                     setValue(Number(inputValue));
@@ -192,8 +190,10 @@ const CustomValueTemplate = (args: SliderProps) => {
             </Tooltip>
           </output>
         )}
-        value={value}
         onChange={handleChange}
+        classNames={{
+          label: "text-medium",
+        }}
         {...args}
       />
     </div>
@@ -236,8 +236,8 @@ export const ShowSteps = {
   render: Template,
   args: {
     ...defaultProps,
-    showSteps: true,
     step: 5,
+    showSteps: true,
     label: "Select a number",
   },
 };
@@ -246,9 +246,9 @@ export const Range = {
   render: Template,
   args: {
     ...defaultProps,
-    label: "Select a range",
-    formatOptions: { style: "currency", currency: "USD" },
     defaultValue: [20, 80],
+    label: "Select a range",
+    formatOptions: { currency: "USD", style: "currency" },
   },
 };
 
@@ -256,11 +256,11 @@ export const FillOffset = {
   render: Template,
   args: {
     ...defaultProps,
-    label: "Select a value",
     maxValue: 50,
     minValue: -50,
     fillOffset: 0,
     defaultValue: 20,
+    label: "Select a value",
   },
 };
 
@@ -268,11 +268,12 @@ export const WithMarks = {
   render: Template,
   args: {
     ...defaultProps,
-    label: "Select a value",
-    formatOptions: { style: "percent" },
+    step: 0.1,
     maxValue: 1,
     minValue: 0,
-    step: 0.1,
+    defaultValue: 0.2,
+    label: "Select a value",
+    formatOptions: { style: "percent" },
     marks: [
       {
         value: 0.2,
@@ -287,7 +288,6 @@ export const WithMarks = {
         label: "80%",
       },
     ],
-    defaultValue: 0.2,
   },
 };
 
@@ -295,12 +295,13 @@ export const WithTooltip = {
   render: Template,
   args: {
     ...defaultProps,
-    label: "Select a value",
-    showTooltip: true,
-    formatOptions: { style: "percent" },
+    step: 0.1,
     maxValue: 1,
     minValue: 0,
-    step: 0.1,
+    showTooltip: true,
+    defaultValue: 0.2,
+    label: "Select a value",
+    formatOptions: { style: "percent" },
     marks: [
       {
         value: 0.2,
@@ -315,7 +316,6 @@ export const WithTooltip = {
         label: "80%",
       },
     ],
-    defaultValue: 0.2,
   },
 };
 
@@ -323,12 +323,13 @@ export const ThumbHidden = {
   render: Template,
   args: {
     ...defaultProps,
-    "aria-label": "Player progress",
-    color: "foreground",
-    hideThumb: true,
+    step: 0.1,
     maxValue: 1,
     minValue: 0,
-    step: 0.1,
+    hideThumb: true,
+    defaultValue: 0.2,
+    color: "foreground",
+    "aria-label": "Player progress",
     marks: [
       {
         value: 0.2,
@@ -343,7 +344,6 @@ export const ThumbHidden = {
         label: "80%",
       },
     ],
-    defaultValue: 0.2,
   },
 };
 
@@ -352,8 +352,8 @@ export const CustomGetValue = {
   args: {
     ...defaultProps,
     size: "sm",
-    label: "Donuts to buy",
     maxValue: 60,
+    label: "Donuts to buy",
     getValue: (donuts: number) => `${donuts} of 60 Donuts`,
   },
 };
@@ -363,10 +363,10 @@ export const CustomRenderValue = {
   args: {
     ...defaultProps,
     size: "sm",
-    label: "Temperature",
+    step: 0.01,
     maxValue: 1,
     minValue: 0,
-    step: 0.01,
+    label: "Temperature",
   },
 };
 
@@ -382,8 +382,8 @@ export const CustomRenderThumb = {
     },
     renderThumb: (
       props: React.JSX.IntrinsicAttributes &
-        React.ClassAttributes<HTMLDivElement> &
-        React.HTMLAttributes<HTMLDivElement>
+        React.HTMLAttributes<HTMLDivElement> &
+        React.ClassAttributes<HTMLDivElement>
     ) => (
       <div
         {...props}
@@ -399,12 +399,12 @@ export const CustomRenderRangeThumb = {
   render: Template,
   args: {
     ...defaultProps,
-    size: "lg",
-    label: "Price Range",
-    maxValue: 1000,
     step: 10,
+    size: "lg",
+    maxValue: 1000,
+    label: "Price Range",
     defaultValue: [100, 300],
-    formatOptions: { style: "currency", currency: "USD" },
+    formatOptions: { currency: "USD", style: "currency" },
     classNames: {
       base: "gap-3",
       filler: ["bg-gradient-to-r from-pink-300 to-cyan-300"],
@@ -431,12 +431,12 @@ export const CustomRenderLabel = {
   render: Template,
   args: {
     ...defaultProps,
-    size: "lg",
-    label: "Price Range",
-    maxValue: 1000,
     step: 10,
+    size: "lg",
+    maxValue: 1000,
+    label: "Price Range",
     defaultValue: [100, 300],
-    formatOptions: { style: "currency", currency: "USD" },
+    formatOptions: { currency: "USD", style: "currency" },
     classNames: {
       base: "gap-3",
       filler: ["bg-gradient-to-r from-pink-300 to-cyan-300"],
@@ -445,9 +445,9 @@ export const CustomRenderLabel = {
       <label {...props} className="flex items-center gap-2 text-medium">
         {children}
         <Tooltip
+          placement="right"
           className="w-[200px] rounded-small"
           content="The price range you want to search for."
-          placement="right"
         >
           <span className="opacity-60 transition-opacity hover:opacity-100">
             <InfoIcon />
@@ -483,9 +483,9 @@ export const VerticalOrientation = {
   render: VerticalTemplate,
   args: {
     ...defaultProps,
-    "aria-label": "Select a value",
-    orientation: "vertical",
     defaultValue: 20,
+    orientation: "vertical",
+    "aria-label": "Select a value",
   },
 };
 
@@ -493,12 +493,13 @@ export const WithMarksVerticalOrientation = {
   render: VerticalTemplate,
   args: {
     ...defaultProps,
+    step: 0.1,
+    maxValue: 1,
+    minValue: 0,
+    defaultValue: 0.2,
     label: "Current value",
     orientation: "vertical",
     formatOptions: { style: "percent" },
-    maxValue: 1,
-    minValue: 0,
-    step: 0.1,
     marks: [
       {
         value: 0.2,
@@ -513,7 +514,6 @@ export const WithMarksVerticalOrientation = {
         label: "80%",
       },
     ],
-    defaultValue: 0.2,
   },
 };
 
@@ -523,9 +523,9 @@ export const VerticalWithSteps = {
     ...defaultProps,
     step: 5,
     showSteps: true,
-    "aria-label": "Select a value",
-    orientation: "vertical",
     defaultValue: 20,
+    orientation: "vertical",
+    "aria-label": "Select a value",
   },
 };
 
@@ -535,8 +535,8 @@ export const WithStartAndEndContent = {
     ...defaultProps,
     defaultValue: 20,
     "aria-label": "Volume",
-    startContent: <VolumeLowBoldIcon className="text-2xl" />,
     endContent: <VolumeHighBoldIcon className="text-2xl" />,
+    startContent: <VolumeLowBoldIcon className="text-2xl" />,
   },
 };
 
@@ -545,8 +545,8 @@ export const Controlled = {
   args: {
     ...defaultProps,
     "aria-label": "Volume",
-    startContent: <VolumeLowBoldIcon className="text-2xl" />,
     endContent: <VolumeHighBoldIcon className="text-2xl" />,
+    startContent: <VolumeLowBoldIcon className="text-2xl" />,
   },
 };
 
@@ -555,7 +555,7 @@ export const ControlledRange = {
   args: {
     ...defaultProps,
     label: "Select a budget",
-    formatOptions: { style: "currency", currency: "USD" },
+    formatOptions: { currency: "USD", style: "currency" },
   },
 };
 
@@ -563,19 +563,19 @@ export const CustomStyles = {
   render: CustomStylesTemplate,
   args: {
     ...defaultProps,
-    label: "Price Range",
-    maxValue: 1000,
-    size: "md",
     step: 100,
+    size: "md",
+    maxValue: 1000,
     showSteps: true,
     showOutline: true,
-    defaultValue: [100, 300],
-    disableThumbScale: true,
     showTooltip: true,
-    formatOptions: { style: "currency", currency: "USD" },
+    label: "Price Range",
+    disableThumbScale: true,
+    defaultValue: [100, 300],
+    formatOptions: { currency: "USD", style: "currency" },
     tooltipValueFormatOptions: {
-      style: "currency",
       currency: "USD",
+      style: "currency",
       maximumFractionDigits: 0,
     },
   },

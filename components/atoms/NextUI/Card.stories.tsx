@@ -1,41 +1,35 @@
-import React from "react";
-import { Meta } from "@storybook/react";
-
+import { Code } from "@nextui-org/code";
+import { Link } from "@nextui-org/link";
+import { card } from "@nextui-org/theme";
+import { Image } from "@nextui-org/image";
 import { Button } from "@nextui-org/button";
 import {
   Card,
   CardBody,
+  CardProps,
   CardFooter,
   CardHeader,
-  CardProps,
 } from "@nextui-org/card";
-import { Code } from "@nextui-org/code";
-import { Image } from "@nextui-org/image";
-import { Link } from "@nextui-org/link";
-import { card } from "@nextui-org/theme";
+
+import { Meta } from "@storybook/react";
 
 export default {
-  title: "Atoms/Card",
   component: Card,
+  title: "Atoms/Card",
+  decorators: [
+    (Story) => (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
-    shadow: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg"],
-    },
     fullWidth: {
       control: {
         type: "boolean",
       },
     },
-    isFooterBlurred: {
+    isDisabled: {
       control: {
         type: "boolean",
       },
@@ -50,12 +44,12 @@ export default {
         type: "boolean",
       },
     },
-    isDisabled: {
+    disableRipple: {
       control: {
         type: "boolean",
       },
     },
-    disableRipple: {
+    isFooterBlurred: {
       control: {
         type: "boolean",
       },
@@ -65,14 +59,19 @@ export default {
         type: "boolean",
       },
     },
+    shadow: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      options: ["none", "sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
   },
-  decorators: [
-    (Story) => (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <Story />
-      </div>
-    ),
-  ],
 } as Meta<typeof Card>;
 
 const defaultProps = {
@@ -111,11 +110,11 @@ const WithFooterTemplate = (args: CardProps) => (
   <Card {...args} className="max-w-md p-4">
     <CardHeader className="flex gap-3">
       <Image
-        alt="nextui logo"
+        width={34}
         height={34}
         radius="lg"
+        alt="nextui logo"
         src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
-        width={34}
       />
       <div className="flex flex-col">
         <b className="text-lg">NextUI</b>
@@ -148,11 +147,11 @@ const WithAbsImageHeaderTemplate = (args: CardProps) => (
       </div>
     </CardHeader>
     <Image
-      alt="Card background"
-      className="h-[440px] w-full object-cover"
-      height={440}
-      src={"/images/assets/apple-event.jpeg"}
       width={330}
+      height={440}
+      alt="Card background"
+      src={"/images/assets/apple-event.jpeg"}
+      className="h-[440px] w-full object-cover"
     />
   </Card>
 );
@@ -170,18 +169,18 @@ const WithAbsImgHeaderFooterTemplate = (args: CardProps) => (
       </div>
     </CardHeader>
     <Image
-      alt="Card background"
-      className="h-[440px] w-full object-contain pt-10"
-      height={440}
-      src={"/images/assets/homepod.jpeg"}
       width={300}
+      height={440}
+      alt="Card background"
+      src={"/images/assets/homepod.jpeg"}
+      className="h-[440px] w-full object-contain pt-10"
     />
     <CardFooter className="absolute bottom-0 z-10 justify-between">
       <div>
         <p className="text-xs text-black/80">Available soon.</p>
         <p className="text-xs text-black/80">Get notified.</p>
       </div>
-      <Button className="text-tiny" color="primary" radius="full" size="sm">
+      <Button size="sm" radius="full" color="primary" className="text-tiny">
         Notify Me
       </Button>
     </CardFooter>
@@ -246,15 +245,15 @@ const CoverImgTemplate = (args: CardProps) => (
       </CardHeader>
       <Image
         alt="Card example background"
-        className="size-full -translate-y-10 scale-125 object-cover"
         src="https://nextui.org/images/card-example-6.jpeg"
+        className="size-full -translate-y-10 scale-125 object-cover"
       />
       <CardFooter className="absolute bottom-0 z-10 justify-between border-t border-slate-300 bg-white/30">
         <div>
           <p className="text-xs text-black">Available soon.</p>
           <p className="text-xs text-black">Get notified.</p>
         </div>
-        <Button color="secondary" radius="full" size="sm" variant="flat">
+        <Button size="sm" radius="full" variant="flat" color="secondary">
           Notify Me
         </Button>
       </CardFooter>
@@ -307,9 +306,9 @@ const CenterImgTemplate = (args: CardProps) => (
     <CardBody className="overflow-visible py-2">
       <Image
         isBlurred
+        width={300}
         alt="Card background"
         src={"/images/assets/local-image-1.jpeg"}
-        width={300}
       />
     </CardBody>
   </Card>
@@ -318,58 +317,56 @@ const CenterImgTemplate = (args: CardProps) => (
 const PrimaryActionTemplate = (args: CardProps) => {
   const list = [
     {
+      price: "$5.50",
       title: "Orange",
       img: "/images/fruit-1.jpeg",
-      price: "$5.50",
     },
     {
+      price: "$3.00",
       title: "Tangerine",
       img: "/images/fruit-2.jpeg",
-      price: "$3.00",
     },
     {
+      price: "$10.00",
       title: "Raspberry",
       img: "/images/fruit-3.jpeg",
-      price: "$10.00",
     },
     {
       title: "Lemon",
-      img: "/images/fruit-4.jpeg",
       price: "$5.30",
+      img: "/images/fruit-4.jpeg",
     },
     {
+      price: "$15.70",
       title: "Avocado",
       img: "/images/fruit-5.jpeg",
-      price: "$15.70",
     },
     {
+      price: "$8.00",
       title: "Lemon 2",
       img: "/images/fruit-6.jpeg",
-      price: "$8.00",
     },
     {
+      price: "$7.50",
       title: "Banana",
       img: "/images/fruit-7.jpeg",
-      price: "$7.50",
     },
     {
+      price: "$12.20",
       title: "Watermelon",
       img: "/images/fruit-8.jpeg",
-      price: "$12.20",
     },
   ];
 
   type ListItem = (typeof list)[number];
 
   const handlePress = (item: ListItem) => {
-    // eslint-disable-next-line no-console
     console.log("item pressed", item);
   };
 
   return (
     <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
       {list.map((item, index) => (
-        // eslint-disable-next-line no-console
         <Card
           {...args}
           key={index}
@@ -379,8 +376,8 @@ const PrimaryActionTemplate = (args: CardProps) => {
           <CardBody className="p-0">
             <Image
               alt={item.title}
-              className="h-[140px] w-full object-cover"
               src={"https://nextui.org" + item.img}
+              className="h-[140px] w-full object-cover"
             />
           </CardBody>
           <CardFooter className="justify-between">
@@ -442,7 +439,7 @@ const CenterImgWithHeaderTemplate = (args: CardProps) => {
               <h5 className="pl-6 pt-3">{item.title}</h5>
             </CardHeader>
             <CardBody className="h-full justify-center">
-              <Image alt={item.title} className="w-[180px]" src={item.img} />
+              <Image src={item.img} alt={item.title} className="w-[180px]" />
             </CardBody>
           </Card>
         </div>
@@ -476,19 +473,19 @@ export const WithFooter = {
 };
 
 export const WithAbsImageHeader = {
-  render: WithAbsImageHeaderTemplate,
-
   args: {
     ...defaultProps,
   },
+
+  render: WithAbsImageHeaderTemplate,
 };
 
 export const WithAbsImgHeaderFooter = {
-  render: WithAbsImgHeaderFooterTemplate,
-
   args: {
     ...defaultProps,
   },
+
+  render: WithAbsImgHeaderFooterTemplate,
 };
 
 export const CoverImg = {
@@ -516,9 +513,9 @@ export const PrimaryAction = {
 };
 
 export const CenterImgWithHeader = {
-  render: CenterImgWithHeaderTemplate,
-
   args: {
     ...defaultProps,
   },
+
+  render: CenterImgWithHeaderTemplate,
 };

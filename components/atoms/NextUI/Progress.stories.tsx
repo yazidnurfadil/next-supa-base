@@ -1,13 +1,31 @@
 import React from "react";
+
+import { progress } from "@nextui-org/theme";
+import { Progress, ProgressProps } from "@nextui-org/progress";
+
 import { Meta } from "@storybook/react";
 
-import { Progress, ProgressProps } from "@nextui-org/progress";
-import { progress } from "@nextui-org/theme";
-
 export default {
-  title: "Atoms/Progress",
   component: Progress,
+  title: "Atoms/Progress",
   argTypes: {
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
     color: {
       control: {
         type: "select",
@@ -20,23 +38,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
     },
   },
 } as Meta<typeof Progress>;
@@ -93,9 +94,9 @@ export const WithValueLabel = {
 
   args: {
     ...defaultProps,
-    label: "Downloading...",
     color: "success",
     showValueLabel: true,
+    label: "Downloading...",
   },
 };
 
@@ -106,7 +107,7 @@ export const WithValueFormatting = {
     ...defaultProps,
     label: "Loading...",
     showValueLabel: true,
-    formatOptions: { style: "currency", currency: "ARS" },
+    formatOptions: { currency: "ARS", style: "currency" },
   },
 };
 
@@ -136,8 +137,8 @@ export const CustomSlots = {
   args: {
     ...defaultProps,
     classNames: {
-      indicator: "bg-[#14708A] rounded-[4px]",
       track: "bg-red-500 rounded-[4px]",
+      indicator: "bg-[#14708A] rounded-[4px]",
     },
   },
 };

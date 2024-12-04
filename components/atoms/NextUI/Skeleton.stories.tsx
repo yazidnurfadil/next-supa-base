@@ -1,14 +1,15 @@
 import React from "react";
+
+import { Card } from "@nextui-org/card";
+import { Button } from "@nextui-org/button";
+import { skeleton } from "@nextui-org/theme";
+import { Skeleton, SkeletonProps } from "@nextui-org/skeleton";
+
 import { Meta } from "@storybook/react";
 
-import { Button } from "@nextui-org/button";
-import { Card } from "@nextui-org/card";
-import { Skeleton, SkeletonProps } from "@nextui-org/skeleton";
-import { skeleton } from "@nextui-org/theme";
-
 export default {
-  title: "Atoms/Skeleton",
   component: Skeleton,
+  title: "Atoms/Skeleton",
   argTypes: {
     children: {
       hidden: true,
@@ -33,7 +34,7 @@ const defaultProps = {
 };
 
 const DefaultTemplate = (args: SkeletonProps) => (
-  <Card className="w-[200px] space-y-5 p-4" radius="lg">
+  <Card radius="lg" className="w-[200px] space-y-5 p-4">
     <Skeleton className="rounded-lg" {...args}>
       <div className="h-24 rounded-lg bg-default-300" />
     </Skeleton>
@@ -72,7 +73,7 @@ const LoadedStateTemplate = (args: SkeletonProps) => {
 
   return (
     <div className="flex flex-col gap-3">
-      <Card className="w-[200px] space-y-5 p-4" radius="lg">
+      <Card radius="lg" className="w-[200px] space-y-5 p-4">
         <Skeleton className="rounded-lg" {...args} isLoaded={isLoaded}>
           <div className="h-24 rounded-lg bg-secondary" />
         </Skeleton>
@@ -89,11 +90,11 @@ const LoadedStateTemplate = (args: SkeletonProps) => {
         </div>
       </Card>
       <Button
-        className="max-w-[200px]"
-        color="secondary"
         size="sm"
         variant="flat"
+        color="secondary"
         onPress={toggleLoad}
+        className="max-w-[200px]"
       >
         {isLoaded ? "Show" : "Hide"} Skeleton
       </Button>

@@ -1,38 +1,46 @@
 import React from "react";
-import {
-  CalendarDate,
-  endOfMonth,
-  endOfWeek,
-  getLocalTimeZone,
-  isWeekend,
-  startOfMonth,
-  startOfWeek,
-  today,
-} from "@internationalized/date";
-import { I18nProvider, useLocale } from "@react-aria/i18n";
-import { Meta } from "@storybook/react";
 
+import { calendar } from "@nextui-org/theme";
+import { RadioProps } from "@nextui-org/react";
+import { clsx } from "@nextui-org/shared-utils";
+import { Radio, RadioGroup } from "@nextui-org/radio";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import {
   DateValue,
+  RangeValue,
   RangeCalendar,
   RangeCalendarProps,
-  RangeValue,
 } from "@nextui-org/calendar";
-import { Radio, RadioGroup } from "@nextui-org/radio";
-import { RadioProps } from "@nextui-org/react";
-import { clsx } from "@nextui-org/shared-utils";
-import { calendar } from "@nextui-org/theme";
+
+import { Meta } from "@storybook/react";
+
+import { useLocale, I18nProvider } from "@react-aria/i18n";
+import {
+  today,
+  endOfWeek,
+  isWeekend,
+  endOfMonth,
+  startOfWeek,
+  CalendarDate,
+  startOfMonth,
+  getLocalTimeZone,
+} from "@internationalized/date";
 
 export default {
-  title: "Atoms/RangeCalendar",
   component: RangeCalendar,
+  title: "Atoms/RangeCalendar",
   parameters: {
     layout: "centered",
   },
   argTypes: {
     visibleMonths: {
-      control: { type: "number", min: 1, max: 3 },
+      control: { min: 1, max: 3, type: "number" },
+    },
+    weekdayStyle: {
+      options: ["narrow", "short", "long"],
+      control: {
+        type: "select",
+      },
     },
     color: {
       control: {
@@ -46,12 +54,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    weekdayStyle: {
-      control: {
-        type: "select",
-      },
-      options: ["narrow", "short", "long"],
     },
   },
 } as Meta<typeof RangeCalendar>;
@@ -78,17 +80,17 @@ const ControlledTemplate = (args: RangeCalendarProps) => {
       <div className="flex flex-col items-center gap-4">
         <p className="text-small text-default-600">Date (uncontrolled)</p>
         <RangeCalendar
-          aria-label="Date range (uncontrolled)"
           defaultValue={defaultValue}
+          aria-label="Date range (uncontrolled)"
           {...args}
         />
       </div>
       <div className="flex flex-col items-center gap-4">
         <p className="text-small text-default-600">Date (controlled)</p>
         <RangeCalendar
-          aria-label="Date range (controlled)"
           value={value}
           onChange={setValue}
+          aria-label="Date range (controlled)"
           {...args}
           color="secondary"
         />
@@ -114,9 +116,9 @@ const UnavailableDatesTemplate = (args: RangeCalendarProps) => {
 
   return (
     <RangeCalendar
+      minValue={now}
       aria-label="Stay dates"
       isDateUnavailable={isDateUnavailable}
-      minValue={now}
       {...args}
     />
   );
@@ -147,9 +149,9 @@ const ControlledFocusedValueTemplate = (args: RangeCalendarProps) => {
         {...args}
       />
       <Button
-        className="max-w-fit"
-        color="primary"
         variant="flat"
+        color="primary"
+        className="max-w-fit"
         onPress={() => setFocusedDate(defaultDate)}
       >
         Reset focused date
@@ -171,13 +173,13 @@ const InvalidDatesTemplate = (args: RangeCalendarProps) => {
   return (
     <RangeCalendar
       {...args}
+      value={date}
+      onChange={setDate}
+      isInvalid={isInvalid}
       aria-label="Stay dates"
       errorMessage={
         isInvalid ? "Stay dates cannot fall on weekends" : undefined
       }
-      isInvalid={isInvalid}
-      value={date}
-      onChange={setDate}
     />
   );
 };
@@ -195,7 +197,7 @@ const InternationalCalendarsTemplate = (args: RangeCalendarProps) => {
 const PresetsTemplate = (args: RangeCalendarProps) => {
   const [value, setValue] = React.useState<RangeValue<DateValue>>({
     start: today(getLocalTimeZone()),
-    end: today(getLocalTimeZone()).add({ weeks: 1, days: 3 }),
+    end: today(getLocalTimeZone()).add({ days: 3, weeks: 1 }),
   });
 
   const [focusedValue, setFocusedValue] = React.useState<DateValue>(
@@ -208,13 +210,13 @@ const PresetsTemplate = (args: RangeCalendarProps) => {
   const nextMonth = now.add({ months: 1 });
 
   const nextWeek = {
-    start: startOfWeek(now.add({ weeks: 1 }), locale),
     end: endOfWeek(now.add({ weeks: 1 }), locale),
+    start: startOfWeek(now.add({ weeks: 1 }), locale),
   };
-  const thisMonth = { start: startOfMonth(now), end: endOfMonth(now) };
+  const thisMonth = { end: endOfMonth(now), start: startOfMonth(now) };
   const nextMonthValue = {
-    start: startOfMonth(nextMonth),
     end: endOfMonth(nextMonth),
+    start: startOfMonth(nextMonth),
   };
 
   const CustomRadio = (props: RadioProps) => {
@@ -224,14 +226,14 @@ const PresetsTemplate = (args: RangeCalendarProps) => {
       <Radio
         {...otherProps}
         classNames={{
+          wrapper: "hidden",
+          labelWrapper: "px-1 m-0",
+          label: "text-tiny text-default-500",
           base: clsx(
             "m-0 h-8 flex-none items-center justify-between bg-content1 hover:bg-content2",
             "cursor-pointer rounded-full border-2 border-default-200/60",
             "data-[selected=true]:border-primary"
           ),
-          label: "text-tiny text-default-500",
-          labelWrapper: "px-1 m-0",
-          wrapper: "hidden",
         }}
       >
         {children}
@@ -242,16 +244,29 @@ const PresetsTemplate = (args: RangeCalendarProps) => {
   return (
     <div className="flex flex-col gap-4">
       <RangeCalendar
+        value={value}
+        onChange={setValue}
+        focusedValue={focusedValue}
+        onFocusChange={setFocusedValue}
+        classNames={{
+          content: "w-full",
+        }}
+        nextButtonProps={{
+          variant: "bordered",
+        }}
+        prevButtonProps={{
+          variant: "bordered",
+        }}
         bottomContent={
           <RadioGroup
+            orientation="horizontal"
+            defaultValue="exact_dates"
             aria-label="Date precision"
             classNames={{
               base: "w-full pb-2",
               wrapper:
                 "-my-2.5 py-2.5 px-3 gap-1 flex-nowrap max-w-[280px] overflow-x-scroll",
             }}
-            defaultValue="exact_dates"
-            orientation="horizontal"
           >
             <CustomRadio value="exact_dates">Exact dates</CustomRadio>
             <CustomRadio value="1_day">1 day</CustomRadio>
@@ -261,23 +276,13 @@ const PresetsTemplate = (args: RangeCalendarProps) => {
             <CustomRadio value="14_days">14 days</CustomRadio>
           </RadioGroup>
         }
-        classNames={{
-          content: "w-full",
-        }}
-        focusedValue={focusedValue}
-        nextButtonProps={{
-          variant: "bordered",
-        }}
-        prevButtonProps={{
-          variant: "bordered",
-        }}
         topContent={
           <ButtonGroup
             fullWidth
-            className="max-w-full bg-content1 px-3 pb-2 pt-3 [&>button]:border-default-200/60 [&>button]:text-default-500"
-            radius="full"
             size="sm"
+            radius="full"
             variant="bordered"
+            className="max-w-full bg-content1 px-3 pb-2 pt-3 [&>button]:border-default-200/60 [&>button]:text-default-500"
           >
             <Button
               onPress={() => {
@@ -305,9 +310,6 @@ const PresetsTemplate = (args: RangeCalendarProps) => {
             </Button>
           </ButtonGroup>
         }
-        value={value}
-        onChange={setValue}
-        onFocusChange={setFocusedValue}
         {...args}
       />
     </div>
@@ -333,11 +335,11 @@ export const ReadOnly = {
   render: Template,
   args: {
     ...defaultProps,
+    isReadOnly: true,
     value: {
       start: today(getLocalTimeZone()),
       end: today(getLocalTimeZone()).add({ weeks: 1 }),
     },
-    isReadOnly: true,
   },
 };
 
@@ -352,11 +354,11 @@ export const MinDateValue = {
   render: Template,
   args: {
     ...defaultProps,
+    minValue: today(getLocalTimeZone()),
     defaultValue: {
       start: today(getLocalTimeZone()),
       end: today(getLocalTimeZone()).add({ weeks: 1 }),
     },
-    minValue: today(getLocalTimeZone()),
   },
 };
 
@@ -364,11 +366,11 @@ export const MaxDateValue = {
   render: Template,
   args: {
     ...defaultProps,
-    defaultValue: {
-      start: today(getLocalTimeZone()).subtract({ weeks: 1 }),
-      end: today(getLocalTimeZone()),
-    },
     maxValue: today(getLocalTimeZone()),
+    defaultValue: {
+      end: today(getLocalTimeZone()),
+      start: today(getLocalTimeZone()).subtract({ weeks: 1 }),
+    },
   },
 };
 
@@ -384,17 +386,17 @@ export const UnavailableDates = {
 };
 
 export const NonContiguousRanges = {
-  render: NonContiguousRangesTemplate,
   args: {
     ...defaultProps,
   },
+  render: NonContiguousRangesTemplate,
 };
 
 export const ControlledFocusedValue = {
-  render: ControlledFocusedValueTemplate,
   args: {
     ...defaultProps,
   },
+  render: ControlledFocusedValueTemplate,
 };
 
 export const InvalidDates = {
@@ -405,10 +407,10 @@ export const InvalidDates = {
 };
 
 export const InternationalCalendars = {
-  render: InternationalCalendarsTemplate,
   args: {
     ...defaultProps,
   },
+  render: InternationalCalendarsTemplate,
 };
 
 export const VisibleMonths = {

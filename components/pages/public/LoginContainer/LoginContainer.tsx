@@ -1,14 +1,16 @@
 "use client";
 
-import React, { useCallback } from "react";
-import { Formik } from "formik";
+import { useCallback } from "react";
+
 import Link from "next/link";
 import { redirect } from "next/navigation";
+
+import { Input } from "@nextui-org/input";
+import { Button } from "@nextui-org/button";
+
+import { Formik } from "formik";
 import { AuthError } from "next-auth";
 import { signIn } from "next-auth/react";
-
-import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/input";
 
 import { LoginSchema } from "@/lib/validations";
 
@@ -43,43 +45,43 @@ export const LoginContainer = () => {
       <div className="mb-6 text-center text-[25px] font-bold">Login</div>
 
       <Formik
+        onSubmit={submitHandler}
         initialValues={initialValues}
         validationSchema={LoginSchema}
-        onSubmit={submitHandler}
       >
         {({ errors, touched, handleChange, handleSubmit }) => (
           <>
             <div className="mb-4 flex w-1/2 flex-col gap-4">
               <Input
-                variant="bordered"
-                label="Email"
+                id="email"
                 type="email"
                 name="email"
-                id="email"
+                label="Email"
+                variant="bordered"
+                errorMessage={errors.email}
                 placeholder="example@domain.com"
+                onChange={handleChange("email")}
                 defaultValue={initialValues.email}
                 isInvalid={!!errors.email && !!touched.email}
-                errorMessage={errors.email}
-                onChange={handleChange("email")}
               />
               <Input
-                variant="bordered"
-                label="Password"
+                id="password"
                 type="password"
                 name="password"
-                id="password"
+                label="Password"
+                variant="bordered"
                 placeholder="••••••"
-                defaultValue={initialValues.password}
-                isInvalid={!!errors.password && !!touched.password}
                 errorMessage={errors.password}
                 onChange={handleChange("password")}
+                defaultValue={initialValues.password}
+                isInvalid={!!errors.password && !!touched.password}
               />
             </div>
 
             <Button
-              onPress={() => handleSubmit()}
               variant="flat"
               color="success"
+              onPress={() => handleSubmit()}
             >
               Login
             </Button>

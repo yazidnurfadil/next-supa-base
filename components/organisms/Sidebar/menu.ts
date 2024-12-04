@@ -5,9 +5,9 @@ import { HomeIcon } from "@/components/atoms/Icons/sidebar/home-icon";
 export const menu = [
   {
     key: "dasbor",
+    icon: HomeIcon,
     title: "Dasbor",
     href: "/dashboard",
-    icon: HomeIcon,
   },
 ];
 

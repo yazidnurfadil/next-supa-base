@@ -1,12 +1,18 @@
-import React from "react";
+import { spacer } from "@nextui-org/theme";
+import { Spacer, SpacerProps } from "@nextui-org/spacer";
+
 import { Meta } from "@storybook/react";
 
-import { Spacer, SpacerProps } from "@nextui-org/spacer";
-import { spacer } from "@nextui-org/theme";
-
 export default {
-  title: "Atoms/Spacer",
   component: Spacer,
+  title: "Atoms/Spacer",
+  decorators: [
+    (Story) => (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
     x: {
       control: {
@@ -24,13 +30,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <Story />
-      </div>
-    ),
-  ],
 } as Meta<typeof Spacer>;
 
 const defaultProps = {

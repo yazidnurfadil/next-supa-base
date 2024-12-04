@@ -1,6 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { StorybookConfig } from "@storybook/nextjs";
 
 const config: StorybookConfig = {
+  staticDirs: ["../public"],
+
+  docs: {
+    autodocs: "tag",
+  },
+
+  framework: {
+    options: {},
+    name: "@storybook/nextjs",
+  },
+
   stories: [
     "../app/**/*.@(mdx|stories.@(js|jsx|ts|tsx))",
     "../components/**/*.@(mdx|stories.@(js|jsx|ts|tsx))",
@@ -15,18 +29,7 @@ const config: StorybookConfig = {
     "@chromatic-com/storybook",
   ],
 
-  framework: {
-    name: "@storybook/nextjs",
-    options: {},
-  },
-
-  docs: {
-    autodocs: "tag",
-  },
-
-  staticDirs: ["../public"],
-
-  webpackFinal: async (config) => {
+  webpackFinal: (config) => {
     const fileLoaderRule = config.module?.rules?.find((rule) => {
       const test = (rule as { test: RegExp }).test;
 
@@ -45,11 +48,11 @@ const config: StorybookConfig = {
       },
       {
         test: /\.svg$/,
+        use: ["@svgr/webpack"],
         issuer: fileLoaderRule.issuer,
         resourceQuery: {
           not: [...(fileLoaderRule.resourceQuery?.not || []), /url/],
         }, // exclude if *.svg?url
-        use: ["@svgr/webpack"],
       }
     );
 

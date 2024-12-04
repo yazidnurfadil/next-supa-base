@@ -1,14 +1,39 @@
-/* eslint-disable react/display-name */
-import React from "react";
+import { button, buttonGroup } from "@nextui-org/theme";
+import { Button, ButtonGroup, ButtonGroupProps } from "@nextui-org/button";
+
 import { Meta } from "@storybook/react";
 
-import { Button, ButtonGroup, ButtonGroupProps } from "@nextui-org/button";
-import { button, buttonGroup } from "@nextui-org/theme";
-
 export default {
-  title: "Atoms/ButtonGroup",
   component: ButtonGroup,
+  title: "Atoms/ButtonGroup",
   argTypes: {
+    fullWidth: {
+      control: {
+        type: "boolean",
+      },
+    },
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    disableAnimation: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
     variant: {
       control: {
         type: "select",
@@ -27,33 +52,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    fullWidth: {
-      control: {
-        type: "boolean",
-      },
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    disableAnimation: {
-      control: {
-        type: "boolean",
-      },
     },
   },
 } as Meta<typeof ButtonGroup>;

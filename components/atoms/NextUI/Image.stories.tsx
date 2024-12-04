@@ -1,36 +1,27 @@
 import React from "react";
+
+import { image } from "@nextui-org/theme";
+import { Image, ImageProps } from "@nextui-org/image";
+
 import { Meta } from "@storybook/react";
 
-import { Image, ImageProps } from "@nextui-org/image";
-import { image } from "@nextui-org/theme";
-
 export default {
-  title: "Atoms/Image",
   component: Image,
+  title: "Atoms/Image",
+  decorators: [
+    (Story) => (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    shadow: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg"],
-    },
-    isBlurred: {
-      control: {
-        type: "boolean",
-      },
-    },
     isZoomed: {
       control: {
         type: "boolean",
       },
     },
-    disableAnimation: {
+    isBlurred: {
       control: {
         type: "boolean",
       },
@@ -40,21 +31,31 @@ export default {
         disable: true,
       },
     },
+    disableAnimation: {
+      control: {
+        type: "boolean",
+      },
+    },
+    shadow: {
+      options: ["none", "sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
   },
-  decorators: [
-    (Story) => (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <Story />
-      </div>
-    ),
-  ],
 } as Meta<typeof Image>;
 
 const defaultProps = {
   ...image.defaultVariants,
-  src: "./images/local-image-1.jpeg",
-  alt: "NextUI hero image",
   disableSkeleton: true,
+  alt: "NextUI hero image",
+  src: "./images/local-image-1.jpeg",
 };
 
 const LoadingTemplate = (args: ImageProps) => {
@@ -72,7 +73,7 @@ const LoadingTemplate = (args: ImageProps) => {
     };
   }, [args.disableSkeleton]);
 
-  return <Image {...args} isLoading={isLoading} alt="" />;
+  return <Image {...args} alt="" isLoading={isLoading} />;
 };
 
 export const Default = {
@@ -97,8 +98,8 @@ export const Zoomed = {
   args: {
     ...defaultProps,
     width: 300,
-    isZoomed: true,
     radius: "lg",
+    isZoomed: true,
     src: "https://nextui.org/images/card-example-2.jpeg",
   },
 };
@@ -107,9 +108,9 @@ export const Shadow = {
   args: {
     ...defaultProps,
     width: 300,
-    isZoomed: true,
     radius: "lg",
     shadow: "md",
+    isZoomed: true,
     src: "/images/local-image-small.jpg",
   },
 };
@@ -130,8 +131,8 @@ export const Fallback = {
     ...defaultProps,
     width: 300,
     radius: "lg",
-    src: "https://app.requestly.io/delay/3000/https://images.unsplash.com/photo-1539571696357-5a69c17a67c6",
     fallbackSrc: "/images/placeholder_300x450.png",
+    src: "https://app.requestly.io/delay/3000/https://images.unsplash.com/photo-1539571696357-5a69c17a67c6",
   },
 };
 
@@ -143,7 +144,7 @@ export const Skeleton = {
     width: 300,
     height: 450,
     radius: "lg",
-    src: "https://app.requestly.io/delay/3000/https://images.unsplash.com/photo-1494790108377-be9c29b29330",
     disableSkeleton: false,
+    src: "https://app.requestly.io/delay/3000/https://images.unsplash.com/photo-1494790108377-be9c29b29330",
   },
 };

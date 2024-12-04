@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/react";
 
-import { Paragraph, Subtitle, Title } from "./Text";
+import { Title, Subtitle, Paragraph } from "./Text";
 
 export default {
   title: "Atoms/Text",

@@ -1,28 +1,66 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/no-autofocus */
 import Lorem from "react-lorem-component";
-import { Meta } from "@storybook/react";
 
+import { Link } from "@nextui-org/link";
+import { Input } from "@nextui-org/input";
+import { modal } from "@nextui-org/theme";
 import { Button } from "@nextui-org/button";
 import { Checkbox } from "@nextui-org/checkbox";
-import { Input } from "@nextui-org/input";
-import { Link } from "@nextui-org/link";
+import { LockFilledIcon, MailFilledIcon } from "@nextui-org/shared-icons";
 import {
   Modal,
   ModalBody,
-  ModalContent,
+  ModalProps,
   ModalFooter,
   ModalHeader,
-  ModalProps,
+  ModalContent,
   useDisclosure,
 } from "@nextui-org/modal";
-import { LockFilledIcon, MailFilledIcon } from "@nextui-org/shared-icons";
-import { modal } from "@nextui-org/theme";
+
+import { Meta } from "@storybook/react";
 
 export default {
-  title: "Atoms/Modal",
   component: Modal,
+  title: "Atoms/Modal",
+  decorators: [
+    (Story) => (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
+    children: {
+      control: {
+        disable: true,
+      },
+    },
+    isDismissable: {
+      control: {
+        type: "boolean",
+      },
+    },
+    disableAnimation: {
+      control: {
+        type: "boolean",
+      },
+    },
+    isKeyboardDismissDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    radius: {
+      options: ["none", "sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    backdrop: {
+      control: {
+        type: "select",
+      },
+      options: ["transparent", "blur", "opaque"],
+    },
     size: {
       control: {
         type: "select",
@@ -41,46 +79,7 @@ export default {
         "full",
       ],
     },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg"],
-    },
-    backdrop: {
-      control: {
-        type: "select",
-      },
-      options: ["transparent", "blur", "opaque"],
-    },
-    disableAnimation: {
-      control: {
-        type: "boolean",
-      },
-    },
-    isDismissable: {
-      control: {
-        type: "boolean",
-      },
-    },
-    isKeyboardDismissDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    children: {
-      control: {
-        disable: true,
-      },
-    },
   },
-  decorators: [
-    (Story) => (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <Story />
-      </div>
-    ),
-  ],
 } as Meta<typeof Modal>;
 
 const defaultProps = {
@@ -97,21 +96,21 @@ const content = (
         <ModalBody>
           <Input
             autoFocus
+            label="Email"
+            variant="bordered"
+            placeholder="Enter your email"
             endContent={
               <MailFilledIcon className="pointer-events-none shrink-0 text-2xl text-default-400" />
             }
-            label="Email"
-            placeholder="Enter your email"
-            variant="bordered"
           />
           <Input
+            type="password"
+            label="Password"
+            variant="bordered"
+            placeholder="Enter your password"
             endContent={
               <LockFilledIcon className="pointer-events-none shrink-0 text-2xl text-default-400" />
             }
-            label="Password"
-            placeholder="Enter your password"
-            type="password"
-            variant="bordered"
           />
           <div className="flex justify-between px-1 py-2">
             <Checkbox
@@ -121,7 +120,7 @@ const content = (
             >
               Remember me
             </Checkbox>
-            <Link color="primary" href="#" size="sm">
+            <Link href="#" size="sm" color="primary">
               Forgot password?
             </Link>
           </div>
@@ -282,8 +281,8 @@ export const CustomMotion = {
     motionProps: {
       variants: {
         enter: {
-          opacity: 1,
           y: 0,
+          opacity: 1,
           duration: 0.3,
         },
         exit: {

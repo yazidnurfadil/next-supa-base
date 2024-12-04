@@ -1,44 +1,92 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+
+/* eslint-disable @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useFilter } from "@react-aria/i18n";
-import { useAsyncList } from "@react-stately/data";
-import type { Key, ValidationResult } from "@react-types/shared";
-import { Meta } from "@storybook/react";
 
+import { Avatar } from "@nextui-org/avatar";
+import { Button } from "@nextui-org/button";
+import { input, button, autocomplete } from "@nextui-org/theme";
+import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
+import {
+  PetBoldIcon,
+  SelectorIcon,
+  SearchLinearIcon,
+} from "@nextui-org/shared-icons";
+import {
+  User,
+  Animal,
+  Pokemon,
+  usersData,
+  animalsData,
+  usePokemonList,
+} from "@nextui-org/stories-utils";
 import {
   Autocomplete,
   AutocompleteItem,
   AutocompleteProps,
-  AutocompleteSection,
   MenuTriggerAction,
+  AutocompleteSection,
 } from "@nextui-org/autocomplete";
-import { Avatar } from "@nextui-org/avatar";
-import { Button } from "@nextui-org/button";
-import {
-  PetBoldIcon,
-  SearchLinearIcon,
-  SelectorIcon,
-} from "@nextui-org/shared-icons";
-import {
-  Animal,
-  animalsData,
-  Pokemon,
-  usePokemonList,
-  User,
-  usersData,
-} from "@nextui-org/stories-utils";
-import { autocomplete, button, input } from "@nextui-org/theme";
-import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
+
+import { Meta } from "@storybook/react";
+
+import type { Key, ValidationResult } from "@react-types/shared";
+
+import { useFilter } from "@react-aria/i18n";
+import { useAsyncList } from "@react-stately/data";
 
 export default {
-  title: "Atoms/Autocomplete",
   component: Autocomplete,
+  title: "Atoms/Autocomplete",
+  decorators: [
+    (Story) => (
+      <div className="flex h-screen w-screen items-start justify-center">
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    isReadonly: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    validationBehavior: {
+      options: ["aria", "native"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
     variant: {
       control: {
         type: "select",
       },
       options: ["flat", "faded", "bordered", "underlined"],
+    },
+    labelPlacement: {
+      control: {
+        type: "select",
+      },
+      options: ["inside", "outside", "outside-left"],
     },
     color: {
       control: {
@@ -53,54 +101,13 @@ export default {
         "danger",
       ],
     },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    labelPlacement: {
-      control: {
-        type: "select",
-      },
-      options: ["inside", "outside", "outside-left"],
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    isReadonly: {
-      control: {
-        type: "boolean",
-      },
-    },
-    validationBehavior: {
-      control: {
-        type: "select",
-      },
-      options: ["aria", "native"],
-    },
   },
-  decorators: [
-    (Story) => (
-      <div className="flex h-screen w-screen items-start justify-center">
-        <Story />
-      </div>
-    ),
-  ],
 } as Meta<typeof Autocomplete>;
 
 type SWCharacter = {
   name: string;
-  height: string;
   mass: string;
+  height: string;
   birth_year: string;
 };
 
@@ -146,11 +153,11 @@ const DynamicTemplate = ({
   ...args
 }: AutocompleteProps<Animal>) => (
   <Autocomplete
-    className="max-w-xs"
     color={color}
-    defaultItems={animalsData}
-    label="Favorite Animal"
     variant={variant}
+    className="max-w-xs"
+    label="Favorite Animal"
+    defaultItems={animalsData}
     {...args}
   >
     {(item) => (
@@ -174,30 +181,30 @@ const FormTemplate = ({ color, variant, ...args }: AutocompleteProps) => {
     >
       <Autocomplete
         color={color}
-        label="Favorite Animal"
-        name="favorite-animal"
         variant={variant}
+        name="favorite-animal"
+        label="Favorite Animal"
         {...args}
       >
         {items}
       </Autocomplete>
-      <button className={button({ className: "max-w-fit" })} type="submit">
+      <button type="submit" className={button({ className: "max-w-fit" })}>
         Submit
       </button>
     </form>
   );
 };
 interface FieldState {
-  selectedKey?: Key | string | null;
-  inputValue: string;
   items: Animal[]; // Assuming animalsData is an array of objects
+  inputValue: string;
+  selectedKey?: string | null | Key;
 }
 const FullyControlledTemplate = () => {
   // Store Autocomplete input value, selected option, open state, and items
   // in a state tracker
   const [fieldState, setFieldState] = React.useState<FieldState>({
-    selectedKey: "",
     inputValue: "",
+    selectedKey: "",
     items: animalsData,
   });
 
@@ -207,8 +214,7 @@ const FullyControlledTemplate = () => {
 
   // Specify how each of the Autocomplete values should change when an
   // option is selected from the list box
-  const onSelectionChange = (key?: Key | string | null) => {
-    // eslint-disable-next-line no-console
+  const onSelectionChange = (key?: string | null | Key) => {
     console.log(`onSelectionChange ${key}`);
     setFieldState((prevState: FieldState) => {
       const selectedItem = prevState.items.find(
@@ -216,8 +222,8 @@ const FullyControlledTemplate = () => {
       );
 
       return {
-        inputValue: selectedItem?.label || "",
         selectedKey: key,
+        inputValue: selectedItem?.label || "",
         items: animalsData.filter((item) =>
           startsWith(item.label, selectedItem?.label || "")
         ),
@@ -228,7 +234,6 @@ const FullyControlledTemplate = () => {
   // Specify how each of the Autocomplete values should change when the input
   // field is altered by the user
   const onInputChange = (value: string) => {
-    // eslint-disable-next-line no-console
     console.log(`onInputChange ${value}`);
     setFieldState((prevState: FieldState) => ({
       inputValue: value,
@@ -241,24 +246,24 @@ const FullyControlledTemplate = () => {
   const onOpenChange = (isOpen: boolean, menuTrigger: MenuTriggerAction) => {
     if (menuTrigger === "manual" && isOpen) {
       setFieldState((prevState) => ({
+        items: animalsData,
         inputValue: prevState.inputValue,
         selectedKey: prevState.selectedKey,
-        items: animalsData,
       }));
     }
   };
 
   return (
     <Autocomplete
-      className="max-w-xs"
-      inputValue={fieldState.inputValue}
-      items={fieldState.items}
-      label="Favorite Animal"
-      placeholder="Search an animal"
-      selectedKey={fieldState.selectedKey}
       variant="bordered"
-      onInputChange={onInputChange}
+      className="max-w-xs"
+      label="Favorite Animal"
+      items={fieldState.items}
       onOpenChange={onOpenChange}
+      onInputChange={onInputChange}
+      placeholder="Search an animal"
+      inputValue={fieldState.inputValue}
+      selectedKey={fieldState.selectedKey}
       onSelectionChange={onSelectionChange}
     >
       {(item) => (
@@ -271,20 +276,20 @@ const FullyControlledTemplate = () => {
 const MirrorTemplate = ({ color, variant, ...args }: AutocompleteProps) => (
   <div className="flex w-full max-w-xl flex-row gap-4">
     <Autocomplete
-      className="max-w-xs"
       color={color}
-      label="Select an animal"
       variant={variant}
+      className="max-w-xs"
+      label="Select an animal"
       {...args}
     >
       {items}
     </Autocomplete>
     <Autocomplete
-      className="max-w-xs"
       color={color}
+      variant={variant}
+      className="max-w-xs"
       label="Favorite Animal"
       placeholder="Select an animal"
-      variant={variant}
       {...args}
     >
       {items}
@@ -303,16 +308,16 @@ const LabelPlacementTemplate = ({
       <div className="flex w-full flex-row items-end gap-4">
         <Autocomplete
           color={color}
-          label="Select an animal"
           variant={variant}
+          label="Select an animal"
           {...args}
         >
           {items}
         </Autocomplete>
         <Autocomplete
           color={color}
-          label="Select an animal"
           variant={variant}
+          label="Select an animal"
           {...args}
           labelPlacement="outside"
         >
@@ -320,8 +325,8 @@ const LabelPlacementTemplate = ({
         </Autocomplete>
         <Autocomplete
           color={color}
-          label="Select an animal"
           variant={variant}
+          label="Select an animal"
           {...args}
           labelPlacement="outside-left"
         >
@@ -334,18 +339,18 @@ const LabelPlacementTemplate = ({
       <div className="flex w-full flex-row items-end gap-4">
         <Autocomplete
           color={color}
+          variant={variant}
           label="Favorite Animal"
           placeholder="Select an animal"
-          variant={variant}
           {...args}
         >
           {items}
         </Autocomplete>
         <Autocomplete
           color={color}
+          variant={variant}
           label="Favorite Animal"
           placeholder="Select an animal"
-          variant={variant}
           {...args}
           labelPlacement="outside"
         >
@@ -353,9 +358,9 @@ const LabelPlacementTemplate = ({
         </Autocomplete>
         <Autocomplete
           color={color}
+          variant={variant}
           label="Favorite Animal"
           placeholder="Select an animal"
-          variant={variant}
           {...args}
           labelPlacement="outside-left"
         >
@@ -387,14 +392,14 @@ const AsyncFilteringTemplate = ({
 
   return (
     <Autocomplete
-      className="max-w-xs"
       color={color}
-      inputValue={list.filterText}
-      isLoading={list.isLoading}
-      items={list.items}
-      label="Select a character"
-      placeholder="Type to search..."
       variant={variant}
+      items={list.items}
+      className="max-w-xs"
+      isLoading={list.isLoading}
+      label="Select a character"
+      inputValue={list.filterText}
+      placeholder="Type to search..."
       onInputChange={list.setFilterText}
       {...args}
     >
@@ -419,23 +424,23 @@ const AsyncLoadingTemplate = ({
 
   const [, scrollerRef] = useInfiniteScroll({
     hasMore,
+    onLoadMore,
     distance: 20,
     isEnabled: isOpen,
     shouldUseLoader: false, // We don't want to show the loader at the bottom of the list
-    onLoadMore,
   });
 
   return (
     <Autocomplete
-      className="max-w-xs"
       color={color}
+      variant={variant}
+      className="max-w-xs"
       defaultItems={items}
       isLoading={isLoading}
       label="Pick a Pokemon"
-      placeholder="Select a Pokemon"
       scrollRef={scrollerRef}
-      variant={variant}
       onOpenChange={setIsOpen}
+      placeholder="Select a Pokemon"
       {...args}
     >
       {(item) => (
@@ -453,12 +458,12 @@ const StartContentTemplate = ({
   ...args
 }: AutocompleteProps) => (
   <Autocomplete
-    className="max-w-xs"
     color={color}
-    defaultSelectedKey={"cat"}
-    label="Favorite Animal"
-    startContent={<PetBoldIcon className="text-xl" />}
     variant={variant}
+    className="max-w-xs"
+    label="Favorite Animal"
+    defaultSelectedKey={"cat"}
+    startContent={<PetBoldIcon className="text-xl" />}
     {...args}
   >
     {items}
@@ -467,12 +472,12 @@ const StartContentTemplate = ({
 
 const EndContentTemplate = ({ color, variant, ...args }: AutocompleteProps) => (
   <Autocomplete
-    className="max-w-xs"
     color={color}
+    variant={variant}
+    className="max-w-xs"
+    label="Favorite Animal"
     defaultSelectedKey={"cat"}
     endContent={<PetBoldIcon className="text-xl" />}
-    label="Favorite Animal"
-    variant={variant}
     {...args}
   >
     {items}
@@ -485,11 +490,11 @@ const DynamicTemplateWithDescriptions = ({
   ...args
 }: AutocompleteProps<Animal>) => (
   <Autocomplete
-    className="max-w-xs"
     color={color}
-    defaultItems={animalsData}
-    label="Favorite Animal"
     variant={variant}
+    className="max-w-xs"
+    label="Favorite Animal"
+    defaultItems={animalsData}
     {...args}
   >
     {(item) => (
@@ -506,10 +511,10 @@ const ItemStartContentTemplate = ({
   ...args
 }: AutocompleteProps<Animal>) => (
   <Autocomplete
-    className="max-w-xs"
     color={color}
-    label="Select country"
     variant={variant}
+    className="max-w-xs"
+    label="Select country"
     {...args}
   >
     <AutocompleteItem
@@ -628,9 +633,9 @@ const ControlledTemplate = ({
   variant,
   ...args
 }: AutocompleteProps<Animal>) => {
-  const [value, setValue] = React.useState<Key | null>("cat");
+  const [value, setValue] = React.useState<null | Key>("cat");
 
-  const handleSelectionChange = (key: Key | null) => {
+  const handleSelectionChange = (key: null | Key) => {
     setValue(key);
   };
 
@@ -639,10 +644,10 @@ const ControlledTemplate = ({
       <Autocomplete
         fullWidth
         color={color}
-        defaultItems={animalsData}
-        label="Favorite Animal"
-        selectedKey={value}
         variant={variant}
+        selectedKey={value}
+        label="Favorite Animal"
+        defaultItems={animalsData}
         onSelectionChange={handleSelectionChange}
         {...args}
       >
@@ -661,12 +666,12 @@ const CustomItemsTemplate = ({
   ...args
 }: AutocompleteProps<User>) => (
   <Autocomplete
-    className="mt-8 max-w-xs"
     color={color}
-    defaultItems={usersData}
-    label="Assigned to"
-    placeholder="Select a user"
     variant={variant}
+    label="Assigned to"
+    defaultItems={usersData}
+    className="mt-8 max-w-xs"
+    placeholder="Select a user"
     {...args}
     labelPlacement="outside"
   >
@@ -674,10 +679,10 @@ const CustomItemsTemplate = ({
       <AutocompleteItem key={item.id} textValue={item.name}>
         <div className="flex items-center gap-2">
           <Avatar
-            alt={item.name}
-            className="shrink-0"
             size="sm"
+            alt={item.name}
             src={item.avatar}
+            className="shrink-0"
           />
           <div className="flex flex-col">
             <span className="text-small">{item.name}</span>
@@ -695,10 +700,10 @@ const WithSectionsTemplate = ({
   ...args
 }: AutocompleteProps<User>) => (
   <Autocomplete
-    className="max-w-xs"
     color={color}
-    label="Favorite Animal"
     variant={variant}
+    className="max-w-xs"
+    label="Favorite Animal"
     {...args}
   >
     <AutocompleteSection showDivider title="Mammals">
@@ -734,20 +739,20 @@ const WithCustomSectionsStylesTemplate = ({
 
   return (
     <Autocomplete
-      className="max-w-xs"
       color={color}
+      variant={variant}
+      className="max-w-xs"
       label="Favorite Animal"
       scrollShadowProps={{
         isEnabled: false,
       }}
-      variant={variant}
       {...args}
     >
       <AutocompleteSection
+        title="Mammals"
         classNames={{
           heading: headingClasses,
         }}
-        title="Mammals"
       >
         <AutocompleteItem key="Lion">Lion</AutocompleteItem>
         <AutocompleteItem key="Tiger">Tiger</AutocompleteItem>
@@ -759,10 +764,10 @@ const WithCustomSectionsStylesTemplate = ({
         <AutocompleteItem key="Cheetah">Cheetah</AutocompleteItem>
       </AutocompleteSection>
       <AutocompleteSection
+        title="Birds"
         classNames={{
           heading: headingClasses,
         }}
-        title="Birds"
       >
         <AutocompleteItem key="Eagle">Eagle</AutocompleteItem>
         <AutocompleteItem key="Parrot">Parrot</AutocompleteItem>
@@ -783,10 +788,10 @@ const WithAriaLabelTemplate = ({
   ...args
 }: AutocompleteProps) => (
   <Autocomplete
-    className="max-w-xs"
     color={color}
-    label="Favorite Animal"
     variant={variant}
+    className="max-w-xs"
+    label="Favorite Animal"
     {...args}
   >
     {items}
@@ -800,14 +805,21 @@ const CustomStylesTemplate = ({
 }: AutocompleteProps<User>) => {
   return (
     <Autocomplete
+      color={color}
+      variant={variant}
+      label="Assigned to"
       className="max-w-xs"
+      defaultItems={usersData}
       classNames={{
         base: "min-h-16",
         listboxWrapper: "max-h-[400px]",
       }}
-      color={color}
-      defaultItems={usersData}
-      label="Assigned to"
+      popoverProps={{
+        classNames: {
+          base: "before:bg-default-200",
+          content: "p-0 border-small border-divider bg-background",
+        },
+      }}
       listboxProps={{
         itemClasses: {
           base: [
@@ -823,23 +835,16 @@ const CustomStylesTemplate = ({
           ],
         },
       }}
-      popoverProps={{
-        classNames: {
-          base: "before:bg-default-200",
-          content: "p-0 border-small border-divider bg-background",
-        },
-      }}
-      variant={variant}
       {...args}
     >
       {(item) => (
         <AutocompleteItem key={item.id} textValue={item.name}>
           <div className="flex items-center gap-2">
             <Avatar
-              alt={item.name}
-              className="shrink-0"
               size="sm"
+              alt={item.name}
               src={item.avatar}
+              className="shrink-0"
             />
             <div className="flex flex-col">
               <span className="text-small">{item.name}</span>
@@ -858,17 +863,31 @@ const CustomStylesWithCustomItemsTemplate = ({
 }: AutocompleteProps<User>) => {
   return (
     <Autocomplete
-      aria-label="Select an employee"
+      color={color}
       className="max-w-xs"
+      defaultItems={usersData}
+      aria-label="Select an employee"
+      placeholder="Enter employee name"
       classNames={{
         listboxWrapper: "max-h-[400px]",
       }}
-      color={color}
-      defaultItems={usersData}
       inputProps={{
         classNames: {
           input: "ml-1",
           inputWrapper: "h-[48px]",
+        },
+      }}
+      startContent={
+        <SearchLinearIcon
+          strokeWidth="2.5"
+          className="text-xl text-default-400"
+        />
+      }
+      popoverProps={{
+        offset: 10,
+        classNames: {
+          base: "rounded-large",
+          content: "p-1 border-small border-default-100 bg-background",
         },
       }}
       listboxProps={{
@@ -887,20 +906,6 @@ const CustomStylesWithCustomItemsTemplate = ({
           ],
         },
       }}
-      placeholder="Enter employee name"
-      popoverProps={{
-        offset: 10,
-        classNames: {
-          base: "rounded-large",
-          content: "p-1 border-small border-default-100 bg-background",
-        },
-      }}
-      startContent={
-        <SearchLinearIcon
-          className="text-xl text-default-400"
-          strokeWidth="2.5"
-        />
-      }
       {...args}
       radius="full"
       variant="bordered"
@@ -910,10 +915,10 @@ const CustomStylesWithCustomItemsTemplate = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Avatar
-                alt={item.name}
-                className="shrink-0"
                 size="sm"
+                alt={item.name}
                 src={item.avatar}
+                className="shrink-0"
               />
               <div className="flex flex-col">
                 <span className="text-small">{item.name}</span>
@@ -921,10 +926,10 @@ const CustomStylesWithCustomItemsTemplate = ({
               </div>
             </div>
             <Button
-              className="border-small font-medium shadow-small"
-              radius="full"
               size="sm"
+              radius="full"
               variant="bordered"
+              className="border-small font-medium shadow-small"
             >
               Add
             </Button>
@@ -938,26 +943,25 @@ const CustomStylesWithCustomItemsTemplate = ({
 const WithReactHookFormTemplate = (args: AutocompleteProps) => {
   const {
     register,
-    formState: { errors },
     handleSubmit,
+    formState: { errors },
   } = useForm({
     defaultValues: {
+      requiredField: "",
       withDefaultValue: "cat",
       withoutDefaultValue: "",
-      requiredField: "",
     },
   });
 
   const onSubmit = (data: Record<string, string>) => {
-    // eslint-disable-next-line no-console
     console.log(data);
     alert("Submitted value: " + JSON.stringify(data));
   };
 
   return (
     <form
-      className="flex w-full max-w-xs flex-col gap-2"
       onSubmit={handleSubmit(onSubmit)}
+      className="flex w-full max-w-xs flex-col gap-2"
     >
       <Autocomplete {...args} {...register("withDefaultValue")}>
         {items}
@@ -975,7 +979,7 @@ const WithReactHookFormTemplate = (args: AutocompleteProps) => {
       {errors.requiredField && (
         <span className="text-danger">This field is required</span>
       )}
-      <button className={button({ class: "w-fit" })} type="submit">
+      <button type="submit" className={button({ class: "w-fit" })}>
         Submit
       </button>
     </form>
@@ -1004,8 +1008,8 @@ export const ReadOnly = {
 
   args: {
     ...defaultProps,
-    selectedKey: "cat",
     isReadOnly: true,
+    selectedKey: "cat",
   },
 };
 
@@ -1014,9 +1018,9 @@ export const Disabled = {
 
   args: {
     ...defaultProps,
-    selectedKey: "cat",
     variant: "faded",
     isDisabled: true,
+    selectedKey: "cat",
   },
 };
 
@@ -1102,11 +1106,11 @@ export const WithoutScrollShadow = {
 };
 
 export const WithItemDescriptions = {
-  render: DynamicTemplateWithDescriptions,
-
   args: {
     ...defaultProps,
   },
+
+  render: DynamicTemplateWithDescriptions,
 };
 
 export const WithItemStartContent = {
@@ -1170,11 +1174,11 @@ export const WithSections = {
 };
 
 export const WithCustomSectionsStyles = {
-  render: WithCustomSectionsStylesTemplate,
-
   args: {
     ...defaultProps,
   },
+
+  render: WithCustomSectionsStylesTemplate,
 };
 
 export const WithAriaLabel = {
@@ -1188,11 +1192,11 @@ export const WithAriaLabel = {
 };
 
 export const WithReactHookForm = {
-  render: WithReactHookFormTemplate,
-
   args: {
     ...defaultProps,
   },
+
+  render: WithReactHookFormTemplate,
 };
 
 export const Controlled = {
@@ -1208,8 +1212,8 @@ export const CustomSelectorIcon = {
 
   args: {
     ...defaultProps,
-    disableSelectorIconRotation: true,
     selectorIcon: <SelectorIcon />,
+    disableSelectorIconRotation: true,
   },
 };
 
@@ -1231,11 +1235,11 @@ export const CustomStyles = {
 };
 
 export const CustomStylesWithCustomItems = {
-  render: CustomStylesWithCustomItemsTemplate,
-
   args: {
     ...defaultProps,
   },
+
+  render: CustomStylesWithCustomItemsTemplate,
 };
 
 export const FullyControlled = {

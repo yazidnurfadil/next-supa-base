@@ -1,15 +1,31 @@
-import React from "react";
-import { Meta } from "@storybook/react";
-
+import { chip } from "@nextui-org/theme";
 import { Avatar } from "@nextui-org/avatar";
 import { Chip, ChipProps } from "@nextui-org/chip";
 import { CheckIcon } from "@nextui-org/shared-icons";
-import { chip } from "@nextui-org/theme";
+
+import { Meta } from "@storybook/react";
 
 export default {
-  title: "Atoms/Chip",
   component: Chip,
+  title: "Atoms/Chip",
   argTypes: {
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
     variant: {
       control: {
         type: "select",
@@ -29,23 +45,6 @@ export default {
         "danger",
       ],
     },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
   },
 } as Meta<typeof Chip>;
 
@@ -64,7 +63,7 @@ export const StartContent = {
   args: {
     ...defaultProps,
     startContent: (
-      <span aria-label="celebration" className="ml-1" role="img">
+      <span role="img" className="ml-1" aria-label="celebration">
         🎉
       </span>
     ),
@@ -75,7 +74,7 @@ export const EndContent = {
   args: {
     ...defaultProps,
     endContent: (
-      <span aria-label="rocket" className="mr-1" role="img">
+      <span role="img" className="mr-1" aria-label="rocket">
         🚀
       </span>
     ),
@@ -85,7 +84,7 @@ export const EndContent = {
 export const Closeable = {
   args: {
     ...defaultProps,
-    // eslint-disable-next-line
+
     onClose: () => console.log("Close"),
   },
 };
@@ -94,7 +93,7 @@ export const CustomCloseIcon = {
   args: {
     ...defaultProps,
     endContent: <CheckIcon />,
-    // eslint-disable-next-line
+
     onClose: () => console.log("Close"),
   },
 };

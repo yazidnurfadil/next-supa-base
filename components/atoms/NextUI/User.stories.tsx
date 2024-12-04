@@ -1,12 +1,11 @@
-import React from "react";
-import { Meta } from "@storybook/react";
-
 import { Link } from "@nextui-org/link";
 import { User } from "@nextui-org/user";
 
+import { Meta } from "@storybook/react";
+
 export default {
-  title: "Atoms/User",
   component: User,
+  title: "Atoms/User",
 } as Meta<typeof User>;
 
 const url = "https://avatars.githubusercontent.com/u/30373425?v=4";
@@ -22,8 +21,8 @@ export const Default = {
 
 export const isFocusable = {
   args: {
-    name: "Junior Garcia",
     isFocusable: true,
+    name: "Junior Garcia",
     avatarProps: {
       src: url,
     },
@@ -57,13 +56,13 @@ export const WithDescription = {
 export const WithLinkDescription = {
   args: {
     name: "Junior Garcia",
-    description: (
-      <Link href="https://x.com/jrgarciadev" size="sm">
-        @jrgarciadev
-      </Link>
-    ),
     avatarProps: {
       src: url,
     },
+    description: (
+      <Link size="sm" href="https://x.com/jrgarciadev">
+        @jrgarciadev
+      </Link>
+    ),
   },
 };

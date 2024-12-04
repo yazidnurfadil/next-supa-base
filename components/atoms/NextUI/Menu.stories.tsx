@@ -1,20 +1,31 @@
 import React from "react";
-import type { Key } from "@react-types/shared";
-import { Meta } from "@storybook/react";
 
+import { menuItem } from "@nextui-org/theme";
+import { clsx } from "@nextui-org/shared-utils";
 import { Menu, MenuItem, MenuProps, MenuSection } from "@nextui-org/menu";
 import {
   AddNoteBulkIcon,
   CopyDocumentBulkIcon,
-  DeleteDocumentBulkIcon,
   EditDocumentBulkIcon,
+  DeleteDocumentBulkIcon,
 } from "@nextui-org/shared-icons";
-import { clsx } from "@nextui-org/shared-utils";
-import { menuItem } from "@nextui-org/theme";
+
+import { Meta } from "@storybook/react";
+
+import type { Key } from "@react-types/shared";
 
 export default {
-  title: "Atoms/Menu",
   component: Menu,
+  title: "Atoms/Menu",
+  decorators: [
+    (Story) => (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <div className="w-full max-w-[260px] rounded-small border-small border-default-200 px-1 py-2 dark:border-default-100">
+          <Story />
+        </div>
+      </div>
+    ),
+  ],
   argTypes: {
     variant: {
       control: {
@@ -36,15 +47,6 @@ export default {
       ],
     },
   },
-  decorators: [
-    (Story) => (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <div className="w-full max-w-[260px] rounded-small border-small border-default-200 px-1 py-2 dark:border-default-100">
-          <Story />
-        </div>
-      </div>
-    ),
-  ],
 } as Meta<typeof Menu>;
 
 const defaultProps = {
@@ -53,16 +55,16 @@ const defaultProps = {
 
 const Template = ({ color, variant, ...args }: MenuProps) => (
   <Menu
-    aria-label="Actions"
     color={color}
-    variant={variant}
     onAction={alert}
+    variant={variant}
+    aria-label="Actions"
     {...args}
   >
     <MenuItem key="new">New file</MenuItem>
     <MenuItem key="copy">Copy link</MenuItem>
     <MenuItem key="edit">Edit file</MenuItem>
-    <MenuItem key="delete" className="text-danger" color="danger">
+    <MenuItem key="delete" color="danger" className="text-danger">
       Delete file
     </MenuItem>
   </Menu>
@@ -70,35 +72,35 @@ const Template = ({ color, variant, ...args }: MenuProps) => (
 
 const DisabledKeysTemplate = ({ color, variant, ...args }: MenuProps) => (
   <Menu
-    aria-label="Actions"
     color={color}
-    disabledKeys={["edit", "delete"]}
-    variant={variant}
     onAction={alert}
+    variant={variant}
+    aria-label="Actions"
+    disabledKeys={["edit", "delete"]}
     {...args}
   >
     <MenuItem key="new">New file</MenuItem>
     <MenuItem key="copy">Copy link</MenuItem>
     <MenuItem key="edit">Edit file</MenuItem>
-    <MenuItem key="delete" className="text-danger" color="danger">
+    <MenuItem key="delete" color="danger" className="text-danger">
       Delete file
     </MenuItem>
   </Menu>
 );
 
 const SingleSelectionTemplate = ({ color, variant, ...args }: MenuProps) => {
-  const [selected, setSelected] = React.useState<string | Set<Key>>(
+  const [selected, setSelected] = React.useState<Set<Key> | string>(
     new Set(["text"])
   );
 
   return (
     <Menu
-      disallowEmptySelection
-      aria-label="Actions"
       color={color}
-      selectedKeys={selected}
-      selectionMode="single"
       variant={variant}
+      aria-label="Actions"
+      disallowEmptySelection
+      selectionMode="single"
+      selectedKeys={selected}
       onSelectionChange={setSelected}
       {...args}
     >
@@ -112,19 +114,19 @@ const SingleSelectionTemplate = ({ color, variant, ...args }: MenuProps) => {
 };
 
 const MultipleSelectionTemplate = ({ color, variant, ...args }: MenuProps) => {
-  const [selected, setSelected] = React.useState<string | Set<Key>>(
+  const [selected, setSelected] = React.useState<Set<Key> | string>(
     new Set(["text"])
   );
 
   return (
     <Menu
-      disallowEmptySelection
+      color={color}
+      variant={variant}
       aria-label="Actions"
       closeOnSelect={false}
-      color={color}
+      disallowEmptySelection
       selectedKeys={selected}
       selectionMode="multiple"
-      variant={variant}
       onSelectionChange={setSelected}
       {...args}
     >
@@ -139,10 +141,10 @@ const MultipleSelectionTemplate = ({ color, variant, ...args }: MenuProps) => {
 
 const WithShortcutTemplate = ({ color, variant, ...args }: MenuProps) => (
   <Menu
-    aria-label="Actions"
     color={color}
-    variant={variant}
     onAction={alert}
+    variant={variant}
+    aria-label="Actions"
     {...args}
   >
     <MenuItem key="new" shortcut="⌘N">
@@ -156,9 +158,9 @@ const WithShortcutTemplate = ({ color, variant, ...args }: MenuProps) => (
     </MenuItem>
     <MenuItem
       key="delete"
-      className="text-danger"
       color="danger"
       shortcut="⌘⇧D"
+      className="text-danger"
     >
       Delete file
     </MenuItem>
@@ -176,11 +178,11 @@ const WithStartContentTemplate = ({
 
   return (
     <Menu
-      aria-label="Actions"
       color={color}
-      disableAnimation={disableAnimation}
-      variant={variant}
       onAction={alert}
+      variant={variant}
+      aria-label="Actions"
+      disableAnimation={disableAnimation}
       {...args}
     >
       <MenuItem
@@ -206,9 +208,9 @@ const WithStartContentTemplate = ({
       </MenuItem>
       <MenuItem
         key="delete"
-        className="text-danger"
         color="danger"
         shortcut="⌘⇧D"
+        className="text-danger"
         startContent={
           <DeleteDocumentBulkIcon
             className={clsx(iconClasses, "!text-danger")}
@@ -232,11 +234,11 @@ const WithEndContentTemplate = ({
 
   return (
     <Menu
-      aria-label="Actions"
       color={color}
-      disableAnimation={disableAnimation}
-      variant={variant}
       onAction={alert}
+      variant={variant}
+      aria-label="Actions"
+      disableAnimation={disableAnimation}
       {...args}
     >
       <MenuItem
@@ -259,8 +261,8 @@ const WithEndContentTemplate = ({
       </MenuItem>
       <MenuItem
         key="delete"
-        className="text-danger"
         color="danger"
+        className="text-danger"
         endContent={
           <DeleteDocumentBulkIcon
             className={clsx(iconClasses, "!text-danger")}
@@ -284,43 +286,43 @@ const WithDescriptionTemplate = ({
 
   return (
     <Menu
-      aria-label="Actions"
       color={color}
-      disableAnimation={disableAnimation}
-      variant={variant}
       onAction={alert}
+      variant={variant}
+      aria-label="Actions"
+      disableAnimation={disableAnimation}
       {...args}
     >
       <MenuItem
         key="new"
-        description="Create a new file"
         shortcut="⌘N"
+        description="Create a new file"
         startContent={<AddNoteBulkIcon className={iconClasses} />}
       >
         New file
       </MenuItem>
       <MenuItem
         key="copy"
-        description="Copy the file link"
         shortcut="⌘C"
+        description="Copy the file link"
         startContent={<CopyDocumentBulkIcon className={iconClasses} />}
       >
         Copy link
       </MenuItem>
       <MenuItem
         key="edit"
-        description="Allows you to edit the file"
         shortcut="⌘⇧E"
+        description="Allows you to edit the file"
         startContent={<EditDocumentBulkIcon className={iconClasses} />}
       >
         Edit file
       </MenuItem>
       <MenuItem
         key="delete"
-        className="text-danger"
         color="danger"
-        description="Permanently delete the file"
         shortcut="⌘⇧D"
+        className="text-danger"
+        description="Permanently delete the file"
         startContent={
           <DeleteDocumentBulkIcon
             className={clsx(iconClasses, "!text-danger")}
@@ -344,35 +346,35 @@ const WithSectionsTemplate = ({
 
   return (
     <Menu
+      color={color}
+      onAction={alert}
+      variant={variant}
       aria-label="Actions"
       closeOnSelect={false}
-      color={color}
       disableAnimation={disableAnimation}
-      variant={variant}
-      onAction={alert}
       {...args}
     >
       <MenuSection title="Actions">
         <MenuItem
           key="new"
-          description="Create a new file"
           shortcut="⌘N"
+          description="Create a new file"
           startContent={<AddNoteBulkIcon className={iconClasses} />}
         >
           New file
         </MenuItem>
         <MenuItem
           key="copy"
-          description="Copy the file link"
           shortcut="⌘C"
+          description="Copy the file link"
           startContent={<CopyDocumentBulkIcon className={iconClasses} />}
         >
           Copy link
         </MenuItem>
         <MenuItem
           key="edit"
-          description="Allows you to edit the file"
           shortcut="⌘⇧E"
+          description="Allows you to edit the file"
           startContent={<EditDocumentBulkIcon className={iconClasses} />}
         >
           Edit file
@@ -381,10 +383,10 @@ const WithSectionsTemplate = ({
       <MenuSection title="Danger zone">
         <MenuItem
           key="delete"
-          className="text-danger"
           color="danger"
-          description="Permanently delete the file"
           shortcut="⌘⇧D"
+          className="text-danger"
+          description="Permanently delete the file"
           startContent={
             <DeleteDocumentBulkIcon
               className={clsx(iconClasses, "!text-danger")}
@@ -422,11 +424,11 @@ export const SingleSelection = {
 };
 
 export const MultipleSelection = {
-  render: MultipleSelectionTemplate,
-
   args: {
     ...defaultProps,
   },
+
+  render: MultipleSelectionTemplate,
 };
 
 export const WithShortcut = {

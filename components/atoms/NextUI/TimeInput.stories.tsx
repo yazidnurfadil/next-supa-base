@@ -1,31 +1,63 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React from "react";
-import {
-  parseAbsoluteToLocal,
-  parseZonedDateTime,
-  Time,
-  ZonedDateTime,
-} from "@internationalized/date";
-import { useDateFormatter } from "@react-aria/i18n";
-import { ValidationResult } from "@react-types/shared";
-import { Meta } from "@storybook/react";
 
+import { button, dateInput } from "@nextui-org/theme";
+import { ClockCircleLinearIcon } from "@nextui-org/shared-icons";
 import {
   TimeInput,
   TimeInputProps,
   TimeInputValue as TimeValue,
 } from "@nextui-org/date-input";
-import { ClockCircleLinearIcon } from "@nextui-org/shared-icons";
-import { button, dateInput } from "@nextui-org/theme";
+
+import { Meta } from "@storybook/react";
+
+import { useDateFormatter } from "@react-aria/i18n";
+import { ValidationResult } from "@react-types/shared";
+import {
+  Time,
+  ZonedDateTime,
+  parseZonedDateTime,
+  parseAbsoluteToLocal,
+} from "@internationalized/date";
 
 export default {
-  title: "Atoms/TimeInput",
   component: TimeInput,
+  title: "Atoms/TimeInput",
   argTypes: {
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    validationBehavior: {
+      options: ["aria", "native"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
     variant: {
       control: {
         type: "select",
       },
       options: ["flat", "faded", "bordered", "underlined"],
+    },
+    labelPlacement: {
+      control: {
+        type: "select",
+      },
+      options: ["inside", "outside", "outside-left"],
     },
     color: {
       control: {
@@ -39,35 +71,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    labelPlacement: {
-      control: {
-        type: "select",
-      },
-      options: ["inside", "outside", "outside-left"],
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    validationBehavior: {
-      control: {
-        type: "select",
-      },
-      options: ["aria", "native"],
     },
   },
 } as Meta<typeof TimeInput>;
@@ -88,7 +91,7 @@ const FormTemplate = (args: TimeInputProps) => (
     }}
   >
     <TimeInput {...args} name="time" />
-    <button className={button({ className: "max-w-fit" })} type="submit">
+    <button type="submit" className={button({ className: "max-w-fit" })}>
       Submit
     </button>
   </form>
@@ -111,16 +114,16 @@ const ControlledTemplate = (args: TimeInputProps) => {
     parseAbsoluteToLocal("2024-04-08T18:45:22Z")
   );
 
-  const formatter = useDateFormatter({ dateStyle: "short", timeStyle: "long" });
+  const formatter = useDateFormatter({ timeStyle: "long", dateStyle: "short" });
 
   return (
     <div className="flex w-full flex-row gap-2">
       <div className="flex w-full flex-col gap-y-2">
         <TimeInput
           {...args}
-          label="Time (controlled)"
           value={value}
           onChange={setValue}
+          label="Time (controlled)"
         />
         <p className="text-sm text-default-500">
           {value instanceof ZonedDateTime
@@ -133,8 +136,8 @@ const ControlledTemplate = (args: TimeInputProps) => {
 
       <TimeInput
         {...args}
-        defaultValue={new Time(11, 45)}
         label="Time (uncontrolled)"
+        defaultValue={new Time(11, 45)}
       />
     </div>
   );
@@ -144,13 +147,13 @@ const TimeZonesTemplate = (args: TimeInputProps) => (
   <div className="flex w-full max-w-xl flex-col items-end gap-4">
     <TimeInput
       {...args}
-      defaultValue={parseZonedDateTime("2022-11-07T00:45[America/Los_Angeles]")}
       labelPlacement="outside"
+      defaultValue={parseZonedDateTime("2022-11-07T00:45[America/Los_Angeles]")}
     />
     <TimeInput
       {...args}
-      defaultValue={parseAbsoluteToLocal("2021-11-07T07:45:00Z")}
       labelPlacement="outside"
+      defaultValue={parseAbsoluteToLocal("2021-11-07T07:45:00Z")}
     />
   </div>
 );
@@ -164,24 +167,24 @@ const GranularityTemplate = (args: TimeInputProps) => {
     <div className="flex w-full max-w-xl flex-col items-start gap-4">
       <TimeInput
         {...args}
-        granularity="hour"
         label="Hour"
         value={date}
+        granularity="hour"
         onChange={setDate}
       />
       <TimeInput
         {...args}
-        granularity="minute"
+        value={date}
         label="Minute"
-        value={date}
         onChange={setDate}
+        granularity="minute"
       />
       <TimeInput
         {...args}
-        granularity="second"
-        label="Second"
         value={date}
+        label="Second"
         onChange={setDate}
+        granularity="second"
       />
     </div>
   );
@@ -357,8 +360,8 @@ export const HideTimeZone = {
 
   args: {
     ...defaultProps,
-    label: "Meeting time",
     hideTimeZone: true,
+    label: "Meeting time",
     defaultValue: parseZonedDateTime("2022-11-07T10:45[America/Los_Angeles]"),
   },
 };
@@ -368,10 +371,10 @@ export const HourCycle = {
 
   args: {
     ...defaultProps,
-    label: "Meeting time",
     hourCycle: 24,
-    defaultValue: parseZonedDateTime("2022-11-07T00:45[America/Los_Angeles]"),
+    label: "Meeting time",
     granularity: "minute",
+    defaultValue: parseZonedDateTime("2022-11-07T00:45[America/Los_Angeles]"),
   },
 };
 export const WithValidation = {
@@ -379,6 +382,7 @@ export const WithValidation = {
 
   args: {
     ...defaultProps,
+    label: "Time (9 A.M. or later)",
     validate: (value: TimeValue) => {
       if (!value) {
         return "Please enter a time";
@@ -387,6 +391,5 @@ export const WithValidation = {
         return "Please select a time at 9 A.M. or later";
       }
     },
-    label: "Time (9 A.M. or later)",
   },
 };

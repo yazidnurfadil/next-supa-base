@@ -1,19 +1,38 @@
-/* eslint-disable react/display-name */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React from "react";
 import { useForm } from "react-hook-form";
-import { VisuallyHidden } from "@react-aria/visually-hidden";
+
+import { clsx } from "@nextui-org/shared-utils";
+import { button, toggle } from "@nextui-org/theme";
+import { Switch, useSwitch, SwitchProps } from "@nextui-org/switch";
+import { SunFilledIcon, MoonFilledIcon } from "@nextui-org/shared-icons";
+
 import { Meta } from "@storybook/react";
 
-import { MoonFilledIcon, SunFilledIcon } from "@nextui-org/shared-icons";
-import { clsx } from "@nextui-org/shared-utils";
 import type { SwitchThumbIconProps } from "@nextui-org/switch";
-import { Switch, SwitchProps, useSwitch } from "@nextui-org/switch";
-import { button, toggle } from "@nextui-org/theme";
+
+import { VisuallyHidden } from "@react-aria/visually-hidden";
 
 export default {
-  title: "Atoms/Switch",
   component: Switch,
+  title: "Atoms/Switch",
   argTypes: {
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    disableAnimation: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
     color: {
       control: {
         type: "select",
@@ -26,22 +45,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    disableAnimation: {
-      control: {
-        type: "boolean",
-      },
     },
   },
 } as Meta<typeof Switch>;
@@ -57,13 +60,13 @@ const WithIconsTemplate = (args: SwitchProps) => {
     <div className="flex flex-col gap-2">
       <Switch
         {...args}
+        isSelected={isSelected}
+        onValueChange={setIsSelected}
+        endContent={<MoonFilledIcon />}
+        startContent={<SunFilledIcon />}
         classNames={{
           startContent: "text-white",
         }}
-        endContent={<MoonFilledIcon />}
-        isSelected={isSelected}
-        startContent={<SunFilledIcon />}
-        onValueChange={setIsSelected}
       />
       <p className="text-default-500">
         Selected: {isSelected ? "true" : "false"}
@@ -91,6 +94,9 @@ const CustomWithClassNamesTemplate = (args: SwitchProps) => {
   return (
     <div className="flex flex-col gap-2">
       <Switch
+        size="lg"
+        isSelected={isSelected}
+        onValueChange={setIsSelected}
         classNames={{
           base: clsx(
             "inline-flex w-full max-w-md cursor-pointer flex-row-reverse items-center justify-between gap-2 rounded-lg border-2 border-transparent bg-content1 p-4 hover:bg-content2",
@@ -99,9 +105,6 @@ const CustomWithClassNamesTemplate = (args: SwitchProps) => {
             }
           ),
         }}
-        isSelected={isSelected}
-        size="lg"
-        onValueChange={setIsSelected}
         {...args}
       >
         <div className="flex flex-col gap-1">
@@ -120,8 +123,8 @@ const CustomWithClassNamesTemplate = (args: SwitchProps) => {
 
 const CustomWithHooksTemplate = (args: SwitchProps) => {
   const {
-    Component,
     slots,
+    Component,
     isSelected,
     getBaseProps,
     getInputProps,
@@ -157,8 +160,8 @@ const CustomWithHooksTemplate = (args: SwitchProps) => {
 const WithReactHookFormTemplate = (args: SwitchProps) => {
   const {
     register,
-    formState: { errors },
     handleSubmit,
+    formState: { errors },
   } = useForm({
     defaultValues: {
       defaultTrue: true,
@@ -167,8 +170,7 @@ const WithReactHookFormTemplate = (args: SwitchProps) => {
     },
   });
 
-  const onSubmit = (data: Record<string, string | boolean>) => {
-    // eslint-disable-next-line no-console
+  const onSubmit = (data: Record<string, boolean | string>) => {
     console.log(data);
     alert("Submitted value: " + JSON.stringify(data));
   };
@@ -187,7 +189,7 @@ const WithReactHookFormTemplate = (args: SwitchProps) => {
       {errors.requiredField && (
         <span className="text-danger">This switch is required</span>
       )}
-      <button className={button({ class: "w-fit" })} type="submit">
+      <button type="submit" className={button({ class: "w-fit" })}>
         Submit
       </button>
     </form>
@@ -245,11 +247,11 @@ export const WithIcons = {
 };
 
 export const WithReactHookForm = {
-  render: WithReactHookFormTemplate,
-
   args: {
     ...defaultProps,
   },
+
+  render: WithReactHookFormTemplate,
 };
 
 export const Controlled = {
@@ -261,11 +263,11 @@ export const Controlled = {
 };
 
 export const CustomWithClassNames = {
-  render: CustomWithClassNamesTemplate,
-
   args: {
     ...defaultProps,
   },
+
+  render: CustomWithClassNamesTemplate,
 };
 
 export const CustomWithHooks = {

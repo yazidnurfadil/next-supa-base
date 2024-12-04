@@ -1,13 +1,13 @@
 import { tv } from "@nextui-org/react";
 
 export const SidebarWrapper = tv({
-  base: "fixed z-[202] h-full w-64 shrink-0 -translate-x-full flex-col overflow-y-auto border-r border-divider bg-background px-3 py-6 transition-transform md:static md:ml-0 md:flex md:h-screen md:translate-x-0 ",
-
   variants: {
     collapsed: {
       true: "ml-0 translate-x-0 pt-20 [display:inherit]",
     },
   },
+
+  base: "fixed z-[202] h-full w-64 shrink-0 -translate-x-full flex-col overflow-y-auto border-r border-divider bg-background px-3 py-6 transition-transform md:static md:ml-0 md:flex md:h-screen md:translate-x-0 ",
   // ""
   //   "@md": {
   //     marginLeft: "0",
@@ -51,10 +51,10 @@ export const Footer = tv({
 });
 
 export const Sidebar = Object.assign(SidebarWrapper, {
-  Header,
   Logo,
-  Notification,
   Body,
-  Overlay,
+  Header,
   Footer,
+  Overlay,
+  Notification,
 });

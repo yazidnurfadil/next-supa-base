@@ -1,18 +1,17 @@
 import localFont from "next/font/local";
 
 import "@/app/globals.css";
-
 import Providers from "@/providers";
 
 const geistSans = localFont({
-  src: "../../app/fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
   weight: "100 900",
+  variable: "--font-geist-sans",
+  src: "../../app/fonts/GeistVF.woff",
 });
 const geistMono = localFont({
-  src: "../../app/fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
   weight: "100 900",
+  variable: "--font-geist-mono",
+  src: "../../app/fonts/GeistMonoVF.woff",
 });
 
 type RootLayoutWrapperProps = {

@@ -1,19 +1,40 @@
-import React from "react";
-import { Meta } from "@storybook/react";
-
+import { badge } from "@nextui-org/theme";
 import { Avatar } from "@nextui-org/avatar";
+import { Switch } from "@nextui-org/switch";
 import { Badge, BadgeProps } from "@nextui-org/badge";
 import { CartIcon, CheckIcon, Notification } from "@nextui-org/shared-icons";
-import { Switch } from "@nextui-org/switch";
-import { badge } from "@nextui-org/theme";
+
+import { Meta } from "@storybook/react";
 
 export default {
-  title: "Atoms/Badge",
   component: Badge,
+  title: "Atoms/Badge",
   argTypes: {
     content: {
       control: {
         type: "text",
+      },
+    },
+    isInvisible: {
+      control: {
+        type: "boolean",
+      },
+    },
+    disableAnimation: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    shape: {
+      options: ["rectangle", "circle"],
+      control: {
+        type: "select",
       },
     },
     variant: {
@@ -21,6 +42,12 @@ export default {
         type: "select",
       },
       options: ["solid", "flat", "faded", "shadow"],
+    },
+    placement: {
+      control: {
+        type: "select",
+      },
+      options: ["top-right", "top-left", "bottom-right", "bottom-left"],
     },
     color: {
       control: {
@@ -35,34 +62,6 @@ export default {
         "danger",
       ],
     },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    shape: {
-      control: {
-        type: "select",
-      },
-      options: ["rectangle", "circle"],
-    },
-    placement: {
-      control: {
-        type: "select",
-      },
-      options: ["top-right", "top-left", "bottom-right", "bottom-left"],
-    },
-    isInvisible: {
-      control: {
-        type: "boolean",
-      },
-    },
-    disableAnimation: {
-      control: {
-        type: "boolean",
-      },
-    },
   },
 } as Meta<typeof Badge>;
 
@@ -74,9 +73,9 @@ const defaultProps = {
 const Template = (args: BadgeProps) => (
   <Badge {...args}>
     <Avatar
-      isBordered={(args.classNames?.badge as string[])?.includes("bottom")}
       radius={args.shape === "rectangle" ? "lg" : "full"}
       src="https://i.pravatar.cc/300?u=a042581f4e29026709d"
+      isBordered={(args.classNames?.badge as string[])?.includes("bottom")}
     />
   </Badge>
 );
@@ -108,19 +107,19 @@ const InvisibleTemplate = (args: BadgeProps) => {
       <div className="flex items-center gap-2">
         <Badge
           {...args}
-          color="danger"
           content={5}
-          isInvisible={isInvisible}
+          color="danger"
           shape="circle"
+          isInvisible={isInvisible}
         >
-          <Notification className="fill-current" size={30} />
+          <Notification size={30} className="fill-current" />
         </Badge>
         <Badge
           {...args}
-          color="danger"
           content={50}
-          isInvisible={isInvisible}
+          color="danger"
           shape="circle"
+          isInvisible={isInvisible}
         >
           <CartIcon size={30} />
         </Badge>
@@ -148,9 +147,9 @@ export const Dot = {
 
   args: {
     ...defaultProps,
+    size: "sm",
     content: "",
     color: "success",
-    size: "sm",
   },
 };
 
@@ -159,11 +158,11 @@ export const HorizontalOffset = {
 
   args: {
     ...defaultProps,
+    size: "md",
     variant: "shadow",
     color: "secondary",
     content: <CheckIcon />,
     placement: "bottom-right",
-    size: "md",
     classNames: {
       badge: "p-0.5 right-[50%]",
     },
@@ -175,11 +174,11 @@ export const VerticalOffset = {
 
   args: {
     ...defaultProps,
+    size: "md",
     variant: "shadow",
     color: "secondary",
     content: <CheckIcon />,
     placement: "bottom-right",
-    size: "md",
     classNames: {
       badge: "p-0.5 right-[50%] bottom-[50%]",
     },

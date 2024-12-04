@@ -1,11 +1,11 @@
-import { Meta } from "@storybook/react";
-
 import { Kbd } from "@nextui-org/kbd";
 import { kbd } from "@nextui-org/theme";
 
+import { Meta } from "@storybook/react";
+
 export default {
-  title: "Atoms/Kbd",
   component: Kbd,
+  title: "Atoms/Kbd",
   argTypes: {
     keys: {
       control: {

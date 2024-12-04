@@ -1,33 +1,67 @@
-import React, { useCallback, useMemo } from "react";
-import { useAsyncList } from "@react-stately/data";
-import { Meta } from "@storybook/react";
-import useSWR from "swr";
+/* eslint-disable @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
+import React, { useMemo, useCallback } from "react";
+
+import { User } from "@nextui-org/user";
+import { table } from "@nextui-org/theme";
 import { Button } from "@nextui-org/button";
+import { Switch } from "@nextui-org/switch";
+import { Spinner } from "@nextui-org/spinner";
+import { Tooltip } from "@nextui-org/tooltip";
 import { Chip, ChipProps } from "@nextui-org/chip";
 import { Pagination } from "@nextui-org/pagination";
-import { DeleteIcon, EditIcon, EyeIcon } from "@nextui-org/shared-icons";
-import { Spinner } from "@nextui-org/spinner";
-import { Switch } from "@nextui-org/switch";
+import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
+import { EyeIcon, EditIcon, DeleteIcon } from "@nextui-org/shared-icons";
 import {
-  getKeyValue,
   Table,
+  TableRow,
   TableBody,
   TableCell,
+  TableProps,
+  getKeyValue,
   TableColumn,
   TableHeader,
-  TableProps,
-  TableRow,
 } from "@nextui-org/table";
-import { table } from "@nextui-org/theme";
-import { Tooltip } from "@nextui-org/tooltip";
-import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
-import { User } from "@nextui-org/user";
+
+import { Meta } from "@storybook/react";
+
+import useSWR from "swr";
+import { useAsyncList } from "@react-stately/data";
 
 export default {
-  title: "Atoms/Table",
   component: Table,
+  title: "Atoms/Table",
   argTypes: {
+    isStriped: {
+      control: {
+        type: "boolean",
+      },
+    },
+    layout: {
+      options: ["auto", "fixed"],
+      control: {
+        type: "select",
+      },
+    },
+    shadow: {
+      options: ["none", "sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
+    selectionMode: {
+      options: ["none", "single", "multiple"],
+      control: {
+        type: "select",
+      },
+    },
     color: {
       control: {
         type: "select",
@@ -41,35 +75,6 @@ export default {
         "danger",
       ],
     },
-    layout: {
-      control: {
-        type: "select",
-      },
-      options: ["auto", "fixed"],
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    shadow: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg"],
-    },
-    selectionMode: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "single", "multiple"],
-    },
-    isStriped: {
-      control: {
-        type: "boolean",
-      },
-    },
   },
 } as Meta<typeof Table>;
 
@@ -81,27 +86,27 @@ const defaultProps = {
 const rows = [
   {
     key: "1",
-    name: "Tony Reichert",
     role: "CEO",
     status: "Active",
+    name: "Tony Reichert",
   },
   {
     key: "2",
+    status: "Paused",
     name: "Zoey Lang",
     role: "Technical Lead",
-    status: "Paused",
   },
   {
     key: "3",
+    status: "Active",
     name: "Jane Fisher",
     role: "Senior Developer",
-    status: "Active",
   },
   {
     key: "4",
+    status: "Vacation",
     name: "William Howard",
     role: "Community Manager",
-    status: "Vacation",
   },
 ];
 
@@ -122,8 +127,8 @@ const columns = [
 
 type SWCharacter = {
   name: string;
-  height: string;
   mass: string;
+  height: string;
   birth_year: string;
 };
 
@@ -227,69 +232,69 @@ const DynamicTemplate = (args: TableProps) => (
 
 const CustomCellTemplate = (args: TableProps) => {
   const columns = [
-    { name: "NAME", uid: "name" },
-    { name: "ROLE", uid: "role" },
-    { name: "STATUS", uid: "status" },
-    { name: "ACTIONS", uid: "actions" },
+    { uid: "name", name: "NAME" },
+    { uid: "role", name: "ROLE" },
+    { uid: "status", name: "STATUS" },
+    { uid: "actions", name: "ACTIONS" },
   ];
   const users = [
     {
       id: 1,
-      name: "Tony Reichert",
-      role: "CEO",
-      team: "Management",
-      status: "active",
       age: "29",
-      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
+      role: "CEO",
+      status: "active",
+      team: "Management",
+      name: "Tony Reichert",
       email: "tony.reichert@example.com",
+      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
     },
     {
       id: 2,
-      name: "Zoey Lang",
-      role: "Technical Lead",
-      team: "Development",
-      status: "paused",
       age: "25",
-      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+      status: "paused",
+      name: "Zoey Lang",
+      team: "Development",
+      role: "Technical Lead",
       email: "zoey.lang@example.com",
+      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
     },
     {
       id: 3,
-      name: "Jane Fisher",
-      role: "Senior Developer",
-      team: "Development",
-      status: "active",
       age: "22",
-      avatar: "https://i.pravatar.cc/150?u=a04258114e29026702d",
+      status: "active",
+      name: "Jane Fisher",
+      team: "Development",
+      role: "Senior Developer",
       email: "jane.fisher@example.com",
+      avatar: "https://i.pravatar.cc/150?u=a04258114e29026702d",
     },
     {
       id: 4,
-      name: "William Howard",
-      role: "Community Manager",
+      age: "28",
       team: "Marketing",
       status: "vacation",
-      age: "28",
-      avatar: "https://i.pravatar.cc/150?u=a048581f4e29026701d",
+      name: "William Howard",
+      role: "Community Manager",
       email: "william.howard@example.com",
+      avatar: "https://i.pravatar.cc/150?u=a048581f4e29026701d",
     },
     {
       id: 5,
-      name: "Kristen Copper",
-      role: "Sales Manager",
+      age: "24",
       team: "Sales",
       status: "active",
-      age: "24",
-      avatar: "https://i.pravatar.cc/150?u=a092581d4ef9026700d",
+      role: "Sales Manager",
+      name: "Kristen Copper",
       email: "kristen.cooper@example.com",
+      avatar: "https://i.pravatar.cc/150?u=a092581d4ef9026700d",
     },
   ];
 
   type User = (typeof users)[number];
 
   const statusColorMap: Record<string, ChipProps["color"]> = {
-    active: "success",
     paused: "danger",
+    active: "success",
     vacation: "warning",
   };
 
@@ -300,9 +305,9 @@ const CustomCellTemplate = (args: TableProps) => {
       case "name":
         return (
           <User
-            avatarProps={{ radius: "lg", src: user.avatar }}
-            description={user.email}
             name={cellValue}
+            description={user.email}
+            avatarProps={{ radius: "lg", src: user.avatar }}
           >
             {user.email}
           </User>
@@ -319,10 +324,10 @@ const CustomCellTemplate = (args: TableProps) => {
       case "status":
         return (
           <Chip
-            className="capitalize"
-            color={statusColorMap[user.status]}
             size="sm"
             variant="flat"
+            className="capitalize"
+            color={statusColorMap[user.status]}
           >
             {cellValue}
           </Chip>
@@ -379,69 +384,69 @@ const CustomCellTemplate = (args: TableProps) => {
 
 const CustomCellWithClassnamesTemplate = (args: TableProps) => {
   const columns = [
-    { name: "NAME", uid: "name" },
-    { name: "ROLE", uid: "role" },
-    { name: "STATUS", uid: "status" },
-    { name: "ACTIONS", uid: "actions" },
+    { uid: "name", name: "NAME" },
+    { uid: "role", name: "ROLE" },
+    { uid: "status", name: "STATUS" },
+    { uid: "actions", name: "ACTIONS" },
   ];
   const users = [
     {
       id: 1,
-      name: "Tony Reichert",
-      role: "CEO",
-      team: "Management",
-      status: "active",
       age: "29",
-      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
+      role: "CEO",
+      status: "active",
+      team: "Management",
+      name: "Tony Reichert",
       email: "tony.reichert@example.com",
+      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
     },
     {
       id: 2,
-      name: "Zoey Lang",
-      role: "Technical Lead",
-      team: "Development",
-      status: "paused",
       age: "25",
-      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+      status: "paused",
+      name: "Zoey Lang",
+      team: "Development",
+      role: "Technical Lead",
       email: "zoey.lang@example.com",
+      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
     },
     {
       id: 3,
-      name: "Jane Fisher",
-      role: "Senior Developer",
-      team: "Development",
-      status: "active",
       age: "22",
-      avatar: "https://i.pravatar.cc/150?u=a04258114e29026702d",
+      status: "active",
+      name: "Jane Fisher",
+      team: "Development",
+      role: "Senior Developer",
       email: "jane.fisher@example.com",
+      avatar: "https://i.pravatar.cc/150?u=a04258114e29026702d",
     },
     {
       id: 4,
-      name: "William Howard",
-      role: "Community Manager",
+      age: "28",
       team: "Marketing",
       status: "vacation",
-      age: "28",
-      avatar: "https://i.pravatar.cc/150?u=a048581f4e29026701d",
+      name: "William Howard",
+      role: "Community Manager",
       email: "william.howard@example.com",
+      avatar: "https://i.pravatar.cc/150?u=a048581f4e29026701d",
     },
     {
       id: 5,
-      name: "Kristen Copper",
-      role: "Sales Manager",
+      age: "24",
       team: "Sales",
       status: "active",
-      age: "24",
-      avatar: "https://i.pravatar.cc/150?u=a092581d4ef9026700d",
+      role: "Sales Manager",
+      name: "Kristen Copper",
       email: "kristen.cooper@example.com",
+      avatar: "https://i.pravatar.cc/150?u=a092581d4ef9026700d",
     },
   ];
 
   type User = (typeof users)[number];
 
   const statusColorMap: Record<string, ChipProps["color"]> = {
-    active: "success",
     paused: "danger",
+    active: "success",
     vacation: "warning",
   };
 
@@ -452,12 +457,12 @@ const CustomCellWithClassnamesTemplate = (args: TableProps) => {
       case "name":
         return (
           <User
+            name={cellValue}
+            description={user.email}
             avatarProps={{ radius: "lg", src: user.avatar }}
             classNames={{
               description: "text-default-400",
             }}
-            description={user.email}
-            name={cellValue}
           >
             {user.email}
           </User>
@@ -474,10 +479,10 @@ const CustomCellWithClassnamesTemplate = (args: TableProps) => {
       case "status":
         return (
           <Chip
-            className="font-semibold capitalize"
-            color={statusColorMap[user.status]}
             size="sm"
             variant="flat"
+            color={statusColorMap[user.status]}
+            className="font-semibold capitalize"
           >
             {cellValue}
           </Chip>
@@ -485,7 +490,7 @@ const CustomCellWithClassnamesTemplate = (args: TableProps) => {
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip color="foreground" content="Details">
+            <Tooltip content="Details" color="foreground">
               <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
                 <EyeIcon />
               </span>
@@ -547,12 +552,8 @@ const SortableTemplate = (args: TableProps) => {
     async sort({ items, sortDescriptor }) {
       return {
         items: items.sort((a, b) => {
-          const first = a[
-            sortDescriptor.column! as keyof SWCharacter
-          ] as string;
-          const second = b[
-            sortDescriptor.column! as keyof SWCharacter
-          ] as string;
+          const first = a[sortDescriptor.column! as keyof SWCharacter];
+          const second = b[sortDescriptor.column! as keyof SWCharacter];
           let cmp =
             (parseInt(first) || first) < (parseInt(second) || second) ? -1 : 1;
 
@@ -568,9 +569,9 @@ const SortableTemplate = (args: TableProps) => {
 
   return (
     <Table
-      aria-label="Example table with client side sorting"
-      sortDescriptor={list.sortDescriptor}
       onSortChange={list.sort}
+      sortDescriptor={list.sortDescriptor}
+      aria-label="Example table with client side sorting"
       {...args}
     >
       <TableHeader>
@@ -583,7 +584,7 @@ const SortableTemplate = (args: TableProps) => {
         <TableColumn key="mass" allowsSorting>
           Mass
         </TableColumn>
-        <TableColumn key="birth_year" allowsSorting>
+        <TableColumn allowsSorting key="birth_year">
           Birth year
         </TableColumn>
       </TableHeader>
@@ -618,8 +619,8 @@ const LoadMoreTemplate = (args: TableProps) => {
       const json = await res.json();
 
       return {
-        items: json.results,
         cursor: json.next,
+        items: json.results,
       };
     },
   });
@@ -633,11 +634,11 @@ const LoadMoreTemplate = (args: TableProps) => {
         hasMore ? (
           <div className="flex w-full justify-center">
             <Button
-              isDisabled={list.isLoading}
               variant="flat"
               onPress={list.loadMore}
+              isDisabled={list.isLoading}
             >
-              {list.isLoading && <Spinner color="white" size="sm" />}
+              {list.isLoading && <Spinner size="sm" color="white" />}
               Load More
             </Button>
           </div>
@@ -674,129 +675,129 @@ const PaginatedTemplate = (args: TableProps) => {
       ...rows,
       {
         key: "5",
+        status: "Active",
         name: "Emily Collins",
         role: "Marketing Manager",
-        status: "Active",
       },
       {
         key: "6",
+        status: "Active",
         name: "Brian Kim",
         role: "Product Manager",
-        status: "Active",
       },
       {
         key: "7",
-        name: "Laura Thompson",
-        role: "UX Designer",
         status: "Active",
+        role: "UX Designer",
+        name: "Laura Thompson",
       },
       {
         key: "8",
-        name: "Michael Stevens",
-        role: "Data Analyst",
         status: "Paused",
+        role: "Data Analyst",
+        name: "Michael Stevens",
       },
       {
         key: "9",
+        status: "Active",
         name: "Sophia Nguyen",
         role: "Quality Assurance",
-        status: "Active",
       },
       {
         key: "10",
+        status: "Vacation",
         name: "James Wilson",
         role: "Front-end Developer",
-        status: "Vacation",
       },
       {
         key: "11",
+        status: "Active",
         name: "Ava Johnson",
         role: "Back-end Developer",
-        status: "Active",
       },
       {
         key: "12",
+        status: "Active",
         name: "Isabella Smith",
         role: "Graphic Designer",
-        status: "Active",
       },
       {
         key: "13",
+        status: "Paused",
         name: "Oliver Brown",
         role: "Content Writer",
-        status: "Paused",
       },
       {
         key: "14",
+        status: "Active",
         name: "Lucas Jones",
         role: "Project Manager",
-        status: "Active",
       },
       {
         key: "15",
-        name: "Grace Davis",
-        role: "HR Manager",
         status: "Active",
+        role: "HR Manager",
+        name: "Grace Davis",
       },
       {
         key: "16",
+        status: "Active",
         name: "Elijah Garcia",
         role: "Network Administrator",
-        status: "Active",
       },
       {
         key: "17",
-        name: "Emma Martinez",
         role: "Accountant",
         status: "Vacation",
+        name: "Emma Martinez",
       },
       {
         key: "18",
+        status: "Active",
         name: "Benjamin Lee",
         role: "Operations Manager",
-        status: "Active",
       },
       {
         key: "19",
+        status: "Paused",
         name: "Mia Hernandez",
         role: "Sales Manager",
-        status: "Paused",
       },
       {
         key: "20",
+        status: "Active",
         name: "Daniel Lewis",
         role: "DevOps Engineer",
-        status: "Active",
       },
       {
         key: "21",
+        status: "Active",
         name: "Amelia Clark",
         role: "Social Media Specialist",
-        status: "Active",
       },
       {
         key: "22",
+        status: "Active",
         name: "Jackson Walker",
         role: "Customer Support",
-        status: "Active",
       },
       {
         key: "23",
+        status: "Active",
         name: "Henry Hall",
         role: "Security Analyst",
-        status: "Active",
       },
       {
         key: "24",
-        name: "Charlotte Young",
-        role: "PR Specialist",
         status: "Paused",
+        role: "PR Specialist",
+        name: "Charlotte Young",
       },
       {
         key: "25",
+        status: "Active",
         name: "Liam King",
         role: "Mobile App Developer",
-        status: "Active",
       },
     ],
     []
@@ -818,11 +819,11 @@ const PaginatedTemplate = (args: TableProps) => {
         <div className="flex w-full justify-center">
           <Pagination
             isCompact
-            showControls
             showShadow
-            color="secondary"
             page={page}
+            showControls
             total={pages}
+            color="secondary"
             onChange={(page) => setPage(page)}
           />
         </div>
@@ -877,11 +878,11 @@ const AsyncPaginatedTemplate = (args: TableProps) => {
           <div className="flex w-full justify-center">
             <Pagination
               isCompact
-              showControls
               showShadow
-              color="primary"
               page={page}
+              showControls
               total={pages}
+              color="primary"
               onChange={(page) => setPage(page)}
             />
           </div>
@@ -897,8 +898,8 @@ const AsyncPaginatedTemplate = (args: TableProps) => {
       </TableHeader>
       <TableBody
         items={data?.results ?? []}
-        loadingContent={<Spinner />}
         loadingState={loadingState}
+        loadingContent={<Spinner />}
       >
         {(item) => (
           <TableRow key={item?.name}>
@@ -928,8 +929,8 @@ const InfinitePaginationTemplate = (args: TableProps) => {
       setHasMore(json.next !== null);
 
       return {
-        items: json.results,
         cursor: json.next,
+        items: json.results,
       };
     },
   });
@@ -941,12 +942,12 @@ const InfinitePaginationTemplate = (args: TableProps) => {
 
   return (
     <Table
-      aria-label="Example table with client side sorting"
       baseRef={scrollerRef}
+      aria-label="Example table with client side sorting"
       bottomContent={
         hasMore ? (
           <div className="flex w-full justify-center">
-            <Spinner ref={loaderRef} color="white" />
+            <Spinner color="white" ref={loaderRef} />
           </div>
         ) : null
       }
@@ -1027,10 +1028,10 @@ export const RemoveWrapper = {
 
   args: {
     ...defaultProps,
+    removeWrapper: true,
     classNames: {
       table: "max-w-lg",
     },
-    removeWrapper: true,
   },
 };
 
@@ -1048,8 +1049,8 @@ export const MultipleSelection = {
 
   args: {
     ...defaultProps,
-    selectionMode: "multiple",
     color: "secondary",
+    selectionMode: "multiple",
   },
 };
 
@@ -1058,9 +1059,9 @@ export const DisabledKeys = {
 
   args: {
     ...defaultProps,
-    selectionMode: "multiple",
-    disabledKeys: ["2"],
     color: "warning",
+    disabledKeys: ["2"],
+    selectionMode: "multiple",
   },
 };
 
@@ -1069,10 +1070,10 @@ export const DisallowEmptySelection = {
 
   args: {
     ...defaultProps,
-    disallowEmptySelection: true,
     color: "primary",
-    defaultSelectedKeys: ["2"],
     selectionMode: "multiple",
+    defaultSelectedKeys: ["2"],
+    disallowEmptySelection: true,
   },
 };
 
@@ -1137,6 +1138,7 @@ export const CustomWithClassNames = {
   args: {
     ...defaultProps,
     classNames: {
+      th: ["bg-transparent", "text-default-700", "border-b", "border-default"],
       base: [
         "max-w-3xl",
         "bg-gradient-to-br",
@@ -1144,7 +1146,6 @@ export const CustomWithClassNames = {
         "to-indigo-900/90",
         "shadow-xl",
       ],
-      th: ["bg-transparent", "text-default-700", "border-b", "border-default"],
       td: [
         "py-4",
         "text-sm",
@@ -1162,9 +1163,9 @@ export const DisableAnimation = {
 
   args: {
     ...defaultProps,
-    selectionMode: "multiple",
     color: "secondary",
     disableAnimation: true,
+    selectionMode: "multiple",
   },
 };
 

@@ -1,31 +1,64 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
 import React from "react";
-import {
-  CalendarDate,
-  DateValue,
-  getLocalTimeZone,
-  now,
-  parseAbsoluteToLocal,
-  parseDate,
-  parseZonedDateTime,
-  today,
-} from "@internationalized/date";
-import { I18nProvider, useDateFormatter } from "@react-aria/i18n";
-import { ValidationResult } from "@react-types/shared";
+
+import { button, dateInput } from "@nextui-org/theme";
+import { CalendarBoldIcon } from "@nextui-org/shared-icons";
+import { DateInput, DateInputProps } from "@nextui-org/date-input";
+
 import { Meta } from "@storybook/react";
 
-import { DateInput, DateInputProps } from "@nextui-org/date-input";
-import { CalendarBoldIcon } from "@nextui-org/shared-icons";
-import { button, dateInput } from "@nextui-org/theme";
+import { ValidationResult } from "@react-types/shared";
+import { I18nProvider, useDateFormatter } from "@react-aria/i18n";
+import {
+  now,
+  today,
+  DateValue,
+  parseDate,
+  CalendarDate,
+  getLocalTimeZone,
+  parseZonedDateTime,
+  parseAbsoluteToLocal,
+} from "@internationalized/date";
 
 export default {
-  title: "Atoms/DateInput",
   component: DateInput,
+  title: "Atoms/DateInput",
   argTypes: {
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    validationBehavior: {
+      options: ["aria", "native"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
     variant: {
       control: {
         type: "select",
       },
       options: ["flat", "faded", "bordered", "underlined"],
+    },
+    labelPlacement: {
+      control: {
+        type: "select",
+      },
+      options: ["inside", "outside", "outside-left"],
     },
     color: {
       control: {
@@ -39,35 +72,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    labelPlacement: {
-      control: {
-        type: "select",
-      },
-      options: ["inside", "outside", "outside-left"],
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    validationBehavior: {
-      control: {
-        type: "select",
-      },
-      options: ["aria", "native"],
     },
   },
 } as Meta<typeof DateInput>;
@@ -90,7 +94,7 @@ const FormTemplate = (args: DateInputProps) => (
     }}
   >
     <DateInput {...args} name="date" />
-    <button className={button({ className: "max-w-fit" })} type="submit">
+    <button type="submit" className={button({ className: "max-w-fit" })}>
       Submit
     </button>
   </form>
@@ -118,9 +122,9 @@ const ControlledTemplate = (args: DateInputProps) => {
       <div className="flex w-full flex-col gap-y-2">
         <DateInput
           {...args}
-          label="Date (controlled)"
           value={value}
           onChange={setValue}
+          label="Date (controlled)"
         />
         <p className="text-sm text-default-500">
           Selected date:{" "}
@@ -129,8 +133,8 @@ const ControlledTemplate = (args: DateInputProps) => {
       </div>
       <DateInput
         {...args}
-        defaultValue={parseDate("2024-04-04")}
         label="Date (uncontrolled)"
+        defaultValue={parseDate("2024-04-04")}
       />
     </div>
   );
@@ -140,13 +144,13 @@ const TimeZonesTemplate = (args: DateInputProps) => (
   <div className="flex w-full max-w-xl flex-col items-end gap-4">
     <DateInput
       {...args}
-      defaultValue={parseZonedDateTime("2022-11-07T00:45[America/Los_Angeles]")}
       labelPlacement="outside"
+      defaultValue={parseZonedDateTime("2022-11-07T00:45[America/Los_Angeles]")}
     />
     <DateInput
       {...args}
-      defaultValue={parseAbsoluteToLocal("2021-11-07T07:45:00Z")}
       labelPlacement="outside"
+      defaultValue={parseAbsoluteToLocal("2021-11-07T07:45:00Z")}
     />
   </div>
 );
@@ -160,23 +164,23 @@ const GranularityTemplate = (args: DateInputProps) => {
     <div className="flex w-full max-w-xl flex-col items-start gap-4">
       <DateInput
         {...args}
+        value={date}
+        onChange={setDate}
         granularity="second"
         label="Date and time"
-        value={date}
-        onChange={setDate}
       />
       <DateInput
         {...args}
-        granularity="day"
         label="Date"
         value={date}
+        granularity="day"
         onChange={setDate}
       />
-      <DateInput {...args} granularity="second" label="Event date" />
+      <DateInput {...args} label="Event date" granularity="second" />
       <DateInput
         {...args}
-        granularity="second"
         label="Event date"
+        granularity="second"
         placeholderValue={now("America/New_York")}
       />
     </div>
@@ -193,9 +197,9 @@ const InternationalCalendarsTemplate = (args: DateInputProps) => {
       <I18nProvider locale="hi-IN-u-ca-indian">
         <DateInput
           {...args}
-          label="Appointment date"
           value={date}
           onChange={setDate}
+          label="Appointment date"
         />
       </I18nProvider>
     </div>
@@ -315,8 +319,8 @@ export const IsInvalid = {
 
   args: {
     ...defaultProps,
-    variant: "bordered",
     isInvalid: true,
+    variant: "bordered",
     defaultValue: parseDate("2024-04-04"),
     errorMessage: "Please enter a valid date",
   },
@@ -350,11 +354,11 @@ export const Granularity = {
 };
 
 export const InternationalCalendars = {
-  render: InternationalCalendarsTemplate,
-
   args: {
     ...defaultProps,
   },
+
+  render: InternationalCalendarsTemplate,
 };
 
 export const MinDateValue = {
@@ -393,8 +397,8 @@ export const HideTimeZone = {
 
   args: {
     ...defaultProps,
-    label: "Appointment time",
     hideTimeZone: true,
+    label: "Appointment time",
     defaultValue: parseZonedDateTime("2022-11-07T00:45[America/Los_Angeles]"),
   },
 };
@@ -404,10 +408,10 @@ export const HourCycle = {
 
   args: {
     ...defaultProps,
-    label: "Appointment time",
     hourCycle: 24,
-    defaultValue: parseZonedDateTime("2022-11-07T00:45[America/Los_Angeles]"),
     granularity: "minute",
+    label: "Appointment time",
+    defaultValue: parseZonedDateTime("2022-11-07T00:45[America/Los_Angeles]"),
   },
 };
 
@@ -431,6 +435,7 @@ export const WithValidation = {
 
   args: {
     ...defaultProps,
+    label: "Date (Year 2024 or later)",
     validate: (value: DateValue) => {
       if (!value) {
         return "Please enter a date";
@@ -439,6 +444,5 @@ export const WithValidation = {
         return "Please select a date in the year 2024 or later";
       }
     },
-    label: "Date (Year 2024 or later)",
   },
 };

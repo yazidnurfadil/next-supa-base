@@ -1,52 +1,54 @@
 import React from "react";
-import type { Selection } from "@react-types/shared";
-import { Meta } from "@storybook/react";
 
+import { Input } from "@nextui-org/input";
+import { Avatar } from "@nextui-org/avatar";
+import { Button } from "@nextui-org/button";
+import { button, accordionItem } from "@nextui-org/theme";
 import {
   Accordion,
   AccordionItem,
-  AccordionItemProps,
   AccordionProps,
+  AccordionItemProps,
 } from "@nextui-org/accordion";
-import { Avatar } from "@nextui-org/avatar";
-import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/input";
 import {
-  AnchorIcon,
+  SunIcon,
   InfoIcon,
+  MoonIcon,
+  AnchorIcon,
   InvalidCardIcon,
   MonitorMobileIcon,
-  MoonIcon,
   ShieldSecurityIcon,
-  SunIcon,
 } from "@nextui-org/shared-icons";
-import { accordionItem, button } from "@nextui-org/theme";
+
+import { Meta } from "@storybook/react";
+
+import type { Selection } from "@react-types/shared";
 
 export default {
-  title: "Atoms/Accordion",
   component: Accordion,
+  title: "Atoms/Accordion",
   argTypes: {
-    variant: {
-      control: {
-        type: "select",
-      },
-      options: ["default", "shadow", "bordered", "splitted"],
-    },
     isDisabled: {
       control: {
         type: "boolean",
       },
     },
-    selectionMode: {
-      control: {
-        type: "select",
-      },
-      options: ["single", "multiple"],
-    },
     disableAnimation: {
       control: {
         type: "boolean",
       },
+    },
+    selectionMode: {
+      options: ["single", "multiple"],
+      control: {
+        type: "select",
+      },
+    },
+    variant: {
+      control: {
+        type: "select",
+      },
+      options: ["default", "shadow", "bordered", "splitted"],
     },
   },
 } as Meta<typeof Accordion>;
@@ -61,13 +63,13 @@ const defaultContent =
 
 const Template = (args: AccordionProps) => (
   <Accordion {...args}>
-    <AccordionItem key="1" aria-label="Accordion 1" title="Accordion 1">
+    <AccordionItem key="1" title="Accordion 1" aria-label="Accordion 1">
       {defaultContent}
     </AccordionItem>
-    <AccordionItem key="2" aria-label="Accordion 2" title="Accordion 2">
+    <AccordionItem key="2" title="Accordion 2" aria-label="Accordion 2">
       {defaultContent}
     </AccordionItem>
-    <AccordionItem key="3" aria-label="Accordion 3" title="Accordion 3">
+    <AccordionItem key="3" title="Accordion 3" aria-label="Accordion 3">
       {defaultContent}
     </AccordionItem>
   </Accordion>
@@ -77,29 +79,29 @@ const TemplateWithSubtitle = (args: AccordionProps) => (
   <Accordion {...args}>
     <AccordionItem
       key="1"
+      title="Accordion 1"
       aria-label="Accordion 1"
       subtitle="Press to expand"
-      title="Accordion 1"
     >
       {defaultContent}
     </AccordionItem>
     <AccordionItem
       key="2"
+      title="Accordion 2"
       aria-label="Accordion 2"
       subtitle={
         <span>
           Press to expand <strong>key 2</strong>
         </span>
       }
-      title="Accordion 2"
     >
       {defaultContent}
     </AccordionItem>
     <AccordionItem
       key="3"
+      title="Accordion 3"
       aria-label="Accordion 3"
       subtitle="Press to expand"
-      title="Accordion 3"
     >
       {defaultContent}
     </AccordionItem>
@@ -110,53 +112,53 @@ const TemplateWithStartContent = (args: AccordionProps) => (
   <Accordion {...args} variant="shadow">
     <AccordionItem
       key="1"
+      title="Chung Miller"
       aria-label="Chung Miller"
+      subtitle="4 unread messages"
       startContent={
         <Avatar
           isBordered
-          color="primary"
           radius="lg"
+          color="primary"
           src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
         />
       }
-      subtitle="4 unread messages"
-      title="Chung Miller"
     >
       {defaultContent}
     </AccordionItem>
     <AccordionItem
       key="2"
+      title="Janelle Lenard"
       aria-label="Janelle Lenard"
+      subtitle="3 incompleted steps"
       startContent={
         <Avatar
           isBordered
-          color="success"
           radius="lg"
+          color="success"
           src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
         />
       }
-      subtitle="3 incompleted steps"
-      title="Janelle Lenard"
     >
       {defaultContent}
     </AccordionItem>
     <AccordionItem
       key="3"
+      title="Zoey Lang"
       aria-label="Zoey Lang"
-      startContent={
-        <Avatar
-          isBordered
-          color="warning"
-          radius="lg"
-          src="https://i.pravatar.cc/150?u=a04258114e29026702d"
-        />
-      }
       subtitle={
         <p className="flex">
           2 issues to&nbsp;<span className="text-primary">fix now</span>
         </p>
       }
-      title="Zoey Lang"
+      startContent={
+        <Avatar
+          isBordered
+          radius="lg"
+          color="warning"
+          src="https://i.pravatar.cc/150?u=a04258114e29026702d"
+        />
+      }
     >
       {defaultContent}
     </AccordionItem>
@@ -182,13 +184,13 @@ const VariantsTemplate = (args: AccordionProps) => (
     <div className="flex flex-col gap-4">
       <h3>Shadow</h3>
       <Accordion {...args} variant="shadow">
-        <AccordionItem key="1" aria-label="Accordion 1" title="Accordion 1">
+        <AccordionItem key="1" title="Accordion 1" aria-label="Accordion 1">
           {defaultContent}
         </AccordionItem>
-        <AccordionItem key="2" aria-label="Accordion 2" title="Accordion 2">
+        <AccordionItem key="2" title="Accordion 2" aria-label="Accordion 2">
           {defaultContent}
         </AccordionItem>
-        <AccordionItem key="3" aria-label="Accordion 3" title="Accordion 3">
+        <AccordionItem key="3" title="Accordion 3" aria-label="Accordion 3">
           {defaultContent}
         </AccordionItem>
       </Accordion>
@@ -196,13 +198,13 @@ const VariantsTemplate = (args: AccordionProps) => (
     <div className="flex flex-col gap-4">
       <h3>Bordered</h3>
       <Accordion {...args} variant="bordered">
-        <AccordionItem key="1" aria-label="Accordion 1" title="Accordion 1">
+        <AccordionItem key="1" title="Accordion 1" aria-label="Accordion 1">
           {defaultContent}
         </AccordionItem>
-        <AccordionItem key="2" aria-label="Accordion 2" title="Accordion 2">
+        <AccordionItem key="2" title="Accordion 2" aria-label="Accordion 2">
           {defaultContent}
         </AccordionItem>
-        <AccordionItem key="3" aria-label="Accordion 3" title="Accordion 3">
+        <AccordionItem key="3" title="Accordion 3" aria-label="Accordion 3">
           {defaultContent}
         </AccordionItem>
       </Accordion>
@@ -210,13 +212,13 @@ const VariantsTemplate = (args: AccordionProps) => (
     <div className="flex flex-col gap-4">
       <h3>Splitted</h3>
       <Accordion {...args} variant="splitted">
-        <AccordionItem key="1" aria-label="Accordion 1" title="Accordion 1">
+        <AccordionItem key="1" title="Accordion 1" aria-label="Accordion 1">
           {defaultContent}
         </AccordionItem>
-        <AccordionItem key="2" aria-label="Accordion 2" title="Accordion 2">
+        <AccordionItem key="2" title="Accordion 2" aria-label="Accordion 2">
           {defaultContent}
         </AccordionItem>
-        <AccordionItem key="3" aria-label="Accordion 3" title="Accordion 3">
+        <AccordionItem key="3" title="Accordion 3" aria-label="Accordion 3">
           {defaultContent}
         </AccordionItem>
       </Accordion>
@@ -228,25 +230,25 @@ const CustomInidicatorTemplate = (args: AccordionProps) => (
   <Accordion {...args}>
     <AccordionItem
       key="anchor"
+      title="Anchor"
       aria-label="Anchor"
       indicator={<AnchorIcon />}
-      title="Anchor"
     >
       {defaultContent}
     </AccordionItem>
     <AccordionItem
       key="moon"
+      title="Moon"
       aria-label="Moon"
       indicator={<MoonIcon />}
-      title="Moon"
     >
       {defaultContent}
     </AccordionItem>
     <AccordionItem
       key="sun"
+      title="Sun"
       aria-label="Sun"
       indicator={<SunIcon />}
-      title="Sun"
     >
       {defaultContent}
     </AccordionItem>
@@ -258,19 +260,18 @@ const ControlledTemplate = (args: AccordionProps) => {
     new Set(["1"])
   );
 
-  // eslint-disable-next-line no-console
   console.log(selectedKeys);
 
   return (
     <div className="flex flex-col gap-4">
       <Accordion {...args} selectedKeys={selectedKeys}>
-        <AccordionItem key="1" aria-label="Accordion 1" title="Accordion 1">
+        <AccordionItem key="1" title="Accordion 1" aria-label="Accordion 1">
           {defaultContent}
         </AccordionItem>
-        <AccordionItem key="2" aria-label="Accordion 2" title="Accordion 2">
+        <AccordionItem key="2" title="Accordion 2" aria-label="Accordion 2">
           {defaultContent}
         </AccordionItem>
-        <AccordionItem key="3" aria-label="Accordion 3" title="Accordion 3">
+        <AccordionItem key="3" title="Accordion 3" aria-label="Accordion 3">
           {defaultContent}
         </AccordionItem>
       </Accordion>
@@ -305,60 +306,60 @@ const ControlledTemplate = (args: AccordionProps) => {
 const CustomWithClassNamesTemplate = (args: AccordionProps) => {
   const itemClasses: AccordionItemProps["classNames"] = {
     base: "py-0 w-full",
+    indicator: "text-base",
+    content: "text-sm px-2",
     title: "font-normal text-base",
     trigger:
       "px-2 py-0 data-[hover=true]:bg-default-100 rounded-lg h-14 flex items-center",
-    indicator: "text-base",
-    content: "text-sm px-2",
   };
 
   return (
     <Accordion
       {...args}
-      className="flex w-full max-w-[300px] flex-col gap-1 p-2"
-      showDivider={false}
       variant="shadow"
+      showDivider={false}
+      className="flex w-full max-w-[300px] flex-col gap-1 p-2"
     >
       <AccordionItem
         key="1"
-        aria-label="Connected devices"
         classNames={itemClasses}
+        title="Connected devices"
+        aria-label="Connected devices"
         startContent={<MonitorMobileIcon className="text-primary" />}
         subtitle={
           <p className="flex">
             2 issues to&nbsp;<span className="text-primary">fix now</span>
           </p>
         }
-        title="Connected devices"
       >
         {defaultContent}
       </AccordionItem>
       <AccordionItem
         key="2"
-        aria-label="Apps Permissions"
         classNames={itemClasses}
+        title="Apps Permissions"
+        aria-label="Apps Permissions"
         startContent={<ShieldSecurityIcon />}
         subtitle="3 apps have read permissions"
-        title="Apps Permissions"
       >
         {defaultContent}
       </AccordionItem>
       <AccordionItem
         key="3"
-        aria-label="Pending tasks"
-        classNames={{ ...itemClasses, subtitle: "text-warning" }}
-        startContent={<InfoIcon className="text-warning" />}
-        subtitle="Complete your profile"
         title="Pending tasks"
+        aria-label="Pending tasks"
+        subtitle="Complete your profile"
+        startContent={<InfoIcon className="text-warning" />}
+        classNames={{ ...itemClasses, subtitle: "text-warning" }}
       >
         {defaultContent}
       </AccordionItem>
       <AccordionItem
         key="4"
         aria-label="Card expired"
+        subtitle="Please, update now"
         classNames={{ ...itemClasses, subtitle: "text-danger" }}
         startContent={<InvalidCardIcon className="text-danger" />}
-        subtitle="Please, update now"
         title={
           <p className="flex items-center gap-1">
             Card expired
@@ -377,19 +378,16 @@ const WithFormTemplate = (args: AccordionProps) => {
     <form className="flex flex-col gap-4">
       <Input
         isRequired
+        type="email"
         label="Email"
         placeholder="Enter your email"
-        type="email"
-        onValueChange={(value) =>
-          // eslint-disable-next-line no-console
-          console.log(value)
-        }
+        onValueChange={(value) => console.log(value)}
       />
       <Input
         isRequired
+        type="password"
         label="Password"
         placeholder="Enter your password"
-        type="password"
       />
 
       <div className="flex justify-end gap-2">
@@ -400,13 +398,13 @@ const WithFormTemplate = (args: AccordionProps) => {
 
   return (
     <Accordion {...args}>
-      <AccordionItem key="1" aria-label="Accordion 1" title="Accordion 1">
+      <AccordionItem key="1" title="Accordion 1" aria-label="Accordion 1">
         {form}
       </AccordionItem>
-      <AccordionItem key="2" aria-label="Accordion 2" title="Accordion 2">
+      <AccordionItem key="2" title="Accordion 2" aria-label="Accordion 2">
         {defaultContent}
       </AccordionItem>
-      <AccordionItem key="3" aria-label="Accordion 3" title="Accordion 3">
+      <AccordionItem key="3" title="Accordion 3" aria-label="Accordion 3">
         {defaultContent}
       </AccordionItem>
     </Accordion>
@@ -505,35 +503,35 @@ export const CustomMotion = {
     ...defaultProps,
     motionProps: {
       variants: {
+        exit: {
+          y: -10,
+          height: 0,
+          opacity: 0,
+          transition: {
+            height: {
+              duration: 0.25,
+              easings: "ease",
+            },
+            opacity: {
+              duration: 0.3,
+              easings: "ease",
+            },
+          },
+        },
         enter: {
           y: 0,
           opacity: 1,
           height: "auto",
           transition: {
+            opacity: {
+              duration: 1,
+              easings: "ease",
+            },
             height: {
-              type: "spring",
-              stiffness: 500,
               damping: 30,
               duration: 1,
-            },
-            opacity: {
-              easings: "ease",
-              duration: 1,
-            },
-          },
-        },
-        exit: {
-          y: -10,
-          opacity: 0,
-          height: 0,
-          transition: {
-            height: {
-              easings: "ease",
-              duration: 0.25,
-            },
-            opacity: {
-              easings: "ease",
-              duration: 0.3,
+              type: "spring",
+              stiffness: 500,
             },
           },
         },
@@ -559,9 +557,9 @@ export const Controlled = {
 };
 
 export const CustomWithClassNames = {
-  render: CustomWithClassNamesTemplate,
-
   args: {
     ...defaultProps,
   },
+
+  render: CustomWithClassNamesTemplate,
 };

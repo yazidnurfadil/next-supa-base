@@ -1,36 +1,76 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
 import React from "react";
-import {
-  endOfMonth,
-  endOfWeek,
-  getLocalTimeZone,
-  isWeekend,
-  parseAbsoluteToLocal,
-  parseDate,
-  parseZonedDateTime,
-  startOfMonth,
-  startOfWeek,
-  today,
-} from "@internationalized/date";
-import { I18nProvider, useDateFormatter, useLocale } from "@react-aria/i18n";
-import { DateValue } from "@react-types/datepicker";
-import { RangeValue, ValidationResult } from "@react-types/shared";
+
+import { cn } from "@nextui-org/theme";
+import { button, dateInput } from "@nextui-org/theme";
+import { Button, ButtonGroup } from "@nextui-org/button";
+import { Radio, RadioGroup, RadioProps } from "@nextui-org/radio";
+import { DateRangePicker, DateRangePickerProps } from "@nextui-org/date-picker";
+
 import { Meta } from "@storybook/react";
 
-import { Button, ButtonGroup } from "@nextui-org/button";
-import { DateRangePicker, DateRangePickerProps } from "@nextui-org/date-picker";
-import { Radio, RadioGroup, RadioProps } from "@nextui-org/radio";
-import { button, dateInput } from "@nextui-org/theme";
-import { cn } from "@nextui-org/theme";
+import { DateValue } from "@react-types/datepicker";
+import { RangeValue, ValidationResult } from "@react-types/shared";
+import { useLocale, I18nProvider, useDateFormatter } from "@react-aria/i18n";
+import {
+  today,
+  endOfWeek,
+  isWeekend,
+  parseDate,
+  endOfMonth,
+  startOfWeek,
+  startOfMonth,
+  getLocalTimeZone,
+  parseZonedDateTime,
+  parseAbsoluteToLocal,
+} from "@internationalized/date";
 
 export default {
-  title: "Atoms/DateRangePicker",
   component: DateRangePicker,
+  title: "Atoms/DateRangePicker",
+  decorators: [
+    (Story) => (
+      <div className="flex items-center justify-start">
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    validationBehavior: {
+      options: ["aria", "native"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
     variant: {
       control: {
         type: "select",
       },
       options: ["flat", "faded", "bordered", "underlined"],
+    },
+    labelPlacement: {
+      control: {
+        type: "select",
+      },
+      options: ["inside", "outside", "outside-left"],
     },
     color: {
       control: {
@@ -45,43 +85,7 @@ export default {
         "danger",
       ],
     },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    labelPlacement: {
-      control: {
-        type: "select",
-      },
-      options: ["inside", "outside", "outside-left"],
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    validationBehavior: {
-      control: {
-        type: "select",
-      },
-      options: ["aria", "native"],
-    },
   },
-  decorators: [
-    (Story) => (
-      <div className="flex items-center justify-start">
-        <Story />
-      </div>
-    ),
-  ],
 } as Meta<typeof DateRangePicker>;
 
 const defaultProps = {
@@ -104,7 +108,7 @@ const FormTemplate = (args: DateRangePickerProps) => (
     }}
   >
     <DateRangePicker {...args} endName="end-date" startName="start-date" />
-    <button className={button({ className: "max-w-fit" })} type="submit">
+    <button type="submit" className={button({ className: "max-w-fit" })}>
       Submit
     </button>
   </form>
@@ -124,8 +128,8 @@ const LabelPlacementTemplate = (args: DateRangePickerProps) => (
 
 const ControlledTemplate = (args: DateRangePickerProps) => {
   const [value, setValue] = React.useState<RangeValue<DateValue>>({
-    start: parseDate("2024-04-01"),
     end: parseDate("2024-04-08"),
+    start: parseDate("2024-04-01"),
   });
 
   const formatter = useDateFormatter({ dateStyle: "long" });
@@ -135,9 +139,9 @@ const ControlledTemplate = (args: DateRangePickerProps) => {
       <div className="flex w-full flex-col gap-y-2">
         <DateRangePicker
           {...args}
-          label="Date range (controlled)"
           value={value}
           onChange={setValue}
+          label="Date range (controlled)"
         />
         <p className="text-sm text-default-500">
           Selected date:{" "}
@@ -151,11 +155,11 @@ const ControlledTemplate = (args: DateRangePickerProps) => {
       </div>
       <DateRangePicker
         {...args}
-        defaultValue={{
-          start: parseDate("2024-04-01"),
-          end: parseDate("2024-04-08"),
-        }}
         label="Date range (uncontrolled)"
+        defaultValue={{
+          end: parseDate("2024-04-08"),
+          start: parseDate("2024-04-01"),
+        }}
       />
     </div>
   );
@@ -166,29 +170,29 @@ const TimeZonesTemplate = (args: DateRangePickerProps) => (
     <DateRangePicker
       {...args}
       className="max-w-xs"
-      defaultValue={{
-        start: parseZonedDateTime("2024-04-01T00:45[America/Los_Angeles]"),
-        end: parseZonedDateTime("2024-04-14T11:15[America/Los_Angeles]"),
-      }}
       labelPlacement="outside"
+      defaultValue={{
+        end: parseZonedDateTime("2024-04-14T11:15[America/Los_Angeles]"),
+        start: parseZonedDateTime("2024-04-01T00:45[America/Los_Angeles]"),
+      }}
     />
     <DateRangePicker
+      className="max-w-xs"
       // {...args}
       aria-label="Event date"
-      className="max-w-xs"
-      defaultValue={{
-        start: parseAbsoluteToLocal("2024-04-01T07:45:00Z"),
-        end: parseAbsoluteToLocal("2024-04-14T19:15:00Z"),
-      }}
       labelPlacement="outside"
+      defaultValue={{
+        end: parseAbsoluteToLocal("2024-04-14T19:15:00Z"),
+        start: parseAbsoluteToLocal("2024-04-01T07:45:00Z"),
+      }}
     />
   </div>
 );
 
 const GranularityTemplate = (args: DateRangePickerProps) => {
   const [date, setDate] = React.useState<RangeValue<DateValue>>({
-    start: parseAbsoluteToLocal("2024-04-01T18:45:22Z"),
     end: parseAbsoluteToLocal("2024-04-08T19:15:22Z"),
+    start: parseAbsoluteToLocal("2024-04-01T18:45:22Z"),
   });
 
   return (
@@ -196,17 +200,17 @@ const GranularityTemplate = (args: DateRangePickerProps) => {
       <DateRangePicker
         {...args}
         fullWidth
-        granularity="second"
-        label="Date and time range"
         value={date}
         onChange={setDate}
+        granularity="second"
+        label="Date and time range"
       />
       <DateRangePicker
         {...args}
         fullWidth
+        value={date}
         granularity="day"
         label="Date range"
-        value={date}
         onChange={setDate}
       />
     </div>
@@ -215,8 +219,8 @@ const GranularityTemplate = (args: DateRangePickerProps) => {
 
 const InternationalCalendarsTemplate = (args: DateRangePickerProps) => {
   const [date, setDate] = React.useState<RangeValue<DateValue>>({
-    start: parseAbsoluteToLocal("2021-04-01T18:45:22Z"),
     end: parseAbsoluteToLocal("2021-04-14T19:15:22Z"),
+    start: parseAbsoluteToLocal("2021-04-01T18:45:22Z"),
   });
 
   return (
@@ -224,9 +228,9 @@ const InternationalCalendarsTemplate = (args: DateRangePickerProps) => {
       <I18nProvider locale="hi-IN-u-ca-indian">
         <DateRangePicker
           {...args}
-          label="Appointment date"
           value={date}
           onChange={setDate}
+          label="Appointment date"
         />
       </I18nProvider>
     </div>
@@ -245,13 +249,13 @@ const UnavailableDatesTemplate = (args: DateRangePickerProps) => {
   return (
     <DateRangePicker
       aria-label="Appointment date"
+      minValue={today(getLocalTimeZone())}
       isDateUnavailable={(date) =>
         disabledRanges.some(
           (interval) =>
             date.compare(interval[0]) >= 0 && date.compare(interval[1]) <= 0
         )
       }
-      minValue={today(getLocalTimeZone())}
       validate={(value) =>
         disabledRanges.some(
           (interval) =>
@@ -273,11 +277,11 @@ const NonContiguousRangesTemplate = (args: DateRangePickerProps) => {
   return (
     <DateRangePicker
       {...args}
-      allowsNonContiguousRanges
-      isDateUnavailable={(date) => isWeekend(date, locale)}
-      label="Time off request"
-      minValue={today(getLocalTimeZone())}
       visibleMonths={2}
+      label="Time off request"
+      allowsNonContiguousRanges
+      minValue={today(getLocalTimeZone())}
+      isDateUnavailable={(date) => isWeekend(date, locale)}
     />
   );
 };
@@ -295,12 +299,12 @@ const PresetsTemplate = (args: DateRangePickerProps) => {
 
   const now = today(getLocalTimeZone());
   const nextWeek = {
-    start: startOfWeek(now.add({ weeks: 1 }), locale),
     end: endOfWeek(now.add({ weeks: 1 }), locale),
+    start: startOfWeek(now.add({ weeks: 1 }), locale),
   };
   const nextMonth = {
-    start: startOfMonth(now.add({ months: 1 })),
     end: endOfMonth(now.add({ months: 1 })),
+    start: startOfMonth(now.add({ months: 1 })),
   };
 
   const CustomRadio = (props: RadioProps) => {
@@ -310,14 +314,14 @@ const PresetsTemplate = (args: DateRangePickerProps) => {
       <Radio
         {...otherProps}
         classNames={{
+          wrapper: "hidden",
+          labelWrapper: "px-1 m-0",
+          label: "text-tiny text-default-500",
           base: cn(
             "flex-none m-0 h-8 bg-content1 hover:bg-content2 items-center justify-between",
             "cursor-pointer rounded-full border-2 border-default-200/60",
             "data-[selected=true]:border-primary"
           ),
-          label: "text-tiny text-default-500",
-          labelWrapper: "px-1 m-0",
-          wrapper: "hidden",
         }}
       >
         {children}
@@ -328,32 +332,25 @@ const PresetsTemplate = (args: DateRangePickerProps) => {
   return (
     <div className="flex w-full max-w-sm flex-col gap-4">
       <DateRangePicker
-        CalendarBottomContent={
-          <RadioGroup
-            aria-label="Date precision"
-            classNames={{
-              base: "w-full pb-2",
-              wrapper:
-                "-my-2.5 py-2.5 px-3 gap-1 flex-nowrap max-w-[w-[calc(var(--visible-months)_*_var(--calendar-width))]] overflow-scroll",
-            }}
-            defaultValue="exact_dates"
-            orientation="horizontal"
-          >
-            <CustomRadio value="exact_dates">Exact dates</CustomRadio>
-            <CustomRadio value="1_day">1 day</CustomRadio>
-            <CustomRadio value="2_days">2 days</CustomRadio>
-            <CustomRadio value="3_days">3 days</CustomRadio>
-            <CustomRadio value="7_days">7 days</CustomRadio>
-            <CustomRadio value="14_days">14 days</CustomRadio>
-          </RadioGroup>
-        }
+        value={value}
+        onChange={setValue}
+        calendarProps={{
+          focusedValue: value?.start,
+          onFocusChange: (val) => setValue({ ...value, start: val }),
+          nextButtonProps: {
+            variant: "bordered",
+          },
+          prevButtonProps: {
+            variant: "bordered",
+          },
+        }}
         CalendarTopContent={
           <ButtonGroup
             fullWidth
-            className="bg-content1 px-3 pb-2 pt-3 [&>button]:border-default-200/60 [&>button]:text-default-500"
-            radius="full"
             size="sm"
+            radius="full"
             variant="bordered"
+            className="bg-content1 px-3 pb-2 pt-3 [&>button]:border-default-200/60 [&>button]:text-default-500"
           >
             <Button
               onPress={() =>
@@ -369,18 +366,25 @@ const PresetsTemplate = (args: DateRangePickerProps) => {
             <Button onPress={() => setValue(nextMonth)}>Next month</Button>
           </ButtonGroup>
         }
-        calendarProps={{
-          focusedValue: value?.start,
-          onFocusChange: (val) => setValue({ ...value, start: val }),
-          nextButtonProps: {
-            variant: "bordered",
-          },
-          prevButtonProps: {
-            variant: "bordered",
-          },
-        }}
-        value={value}
-        onChange={setValue}
+        CalendarBottomContent={
+          <RadioGroup
+            orientation="horizontal"
+            defaultValue="exact_dates"
+            aria-label="Date precision"
+            classNames={{
+              base: "w-full pb-2",
+              wrapper:
+                "-my-2.5 py-2.5 px-3 gap-1 flex-nowrap max-w-[w-[calc(var(--visible-months)_*_var(--calendar-width))]] overflow-scroll",
+            }}
+          >
+            <CustomRadio value="exact_dates">Exact dates</CustomRadio>
+            <CustomRadio value="1_day">1 day</CustomRadio>
+            <CustomRadio value="2_days">2 days</CustomRadio>
+            <CustomRadio value="3_days">3 days</CustomRadio>
+            <CustomRadio value="7_days">7 days</CustomRadio>
+            <CustomRadio value="14_days">14 days</CustomRadio>
+          </RadioGroup>
+        }
         {...args}
         label="Event date"
       />
@@ -424,12 +428,12 @@ export const WithTimeField = {
   render: Template,
   args: {
     ...defaultProps,
-    label: "Event duration",
-    hideTimeZone: true,
     visibleMonths: 2,
+    hideTimeZone: true,
+    label: "Event duration",
     defaultValue: {
-      start: parseZonedDateTime("2024-04-01T00:45[America/Los_Angeles]"),
       end: parseZonedDateTime("2024-04-08T11:15[America/Los_Angeles]"),
+      start: parseZonedDateTime("2024-04-01T00:45[America/Los_Angeles]"),
     },
   },
 };
@@ -455,8 +459,8 @@ export const Disabled = {
     ...defaultProps,
     isDisabled: true,
     defaultValue: {
-      start: parseDate("2024-04-01"),
       end: parseDate("2024-04-08"),
+      start: parseDate("2024-04-01"),
     },
   },
 };
@@ -467,8 +471,8 @@ export const ReadOnly = {
     ...defaultProps,
     isReadOnly: true,
     defaultValue: {
-      start: parseDate("2024-04-01"),
       end: parseDate("2024-04-08"),
+      start: parseDate("2024-04-01"),
     },
   },
 };
@@ -498,16 +502,16 @@ export const SelectorIcon = {
   args: {
     ...defaultProps,
     selectorIcon: (
-      <svg height="1em" viewBox="0 0 24 24" width="1em">
+      <svg width="1em" height="1em" viewBox="0 0 24 24">
         <g
           fill="none"
+          strokeWidth="2"
           stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="2"
         >
           <path d="M8 2v4m8-4v4" />
-          <rect height="18" rx="2" width="18" x="3" y="4" />
+          <rect x="3" y="4" rx="2" width="18" height="18" />
           <path d="M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01" />
         </g>
       </svg>
@@ -544,13 +548,13 @@ export const IsInvalid = {
 
   args: {
     ...defaultProps,
-    variant: "bordered",
     isInvalid: true,
-    defaultValue: {
-      start: parseDate("2024-04-01"),
-      end: parseDate("2024-04-08"),
-    },
+    variant: "bordered",
     errorMessage: "Please enter a valid date",
+    defaultValue: {
+      end: parseDate("2024-04-08"),
+      start: parseDate("2024-04-01"),
+    },
   },
 };
 
@@ -589,8 +593,8 @@ export const MinDateValue = {
     ...defaultProps,
     minValue: today(getLocalTimeZone()),
     defaultValue: {
-      start: today(getLocalTimeZone()).subtract({ days: 1 }),
       end: parseDate("2024-04-08"),
+      start: today(getLocalTimeZone()).subtract({ days: 1 }),
     },
   },
 };
@@ -625,10 +629,10 @@ export const PageBehavior = {
 };
 
 export const NonContiguous = {
-  render: NonContiguousRangesTemplate,
   args: {
     ...defaultProps,
   },
+  render: NonContiguousRangesTemplate,
 };
 
 export const Presets = {
@@ -644,17 +648,17 @@ export const WithValidation = {
 
   args: {
     ...defaultProps,
+    label: "Date Range (Year 2024 or later)",
     validate: (value: RangeValue<DateValue>) => {
       if (!value || !value.start || !value.end) {
         return "Please enter a valid date range";
       }
-      const { start, end } = value;
+      const { end, start } = value;
 
       if (start.year < 2024 || end.year < 2024) {
         return "Both start and end dates must be in the year 2024 or later";
       }
     },
-    label: "Date Range (Year 2024 or later)",
   },
 };
 

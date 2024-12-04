@@ -1,9 +1,9 @@
 "use client";
 
-import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { ThemeProviderProps } from "next-themes/dist/types";
-
 import { NextUIProvider as Provider } from "@nextui-org/react";
+
+import { ThemeProviderProps } from "next-themes/dist/types";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 export interface NextUIProviderProps {
   children: React.ReactNode;
@@ -17,8 +17,8 @@ export const NextUIProvider = ({
   return (
     <Provider>
       <NextThemesProvider
-        defaultTheme="system"
         attribute="class"
+        defaultTheme="system"
         {...themeProps}
       >
         {children}

@@ -1,14 +1,25 @@
-import React from "react";
+import { avatar } from "@nextui-org/theme";
+import { Avatar } from "@nextui-org/avatar";
+import { Camera, Activity } from "@nextui-org/shared-icons";
+
 import { Meta } from "@storybook/react";
 
-import { Avatar } from "@nextui-org/avatar";
-import { Activity, Camera } from "@nextui-org/shared-icons";
-import { avatar } from "@nextui-org/theme";
-
 export default {
-  title: "Atoms/Avatar",
   component: Avatar,
+  title: "Atoms/Avatar",
   argTypes: {
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
     color: {
       control: {
         type: "select",
@@ -21,18 +32,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
     },
   },
 } as Meta<typeof Avatar>;
@@ -58,10 +57,10 @@ export const WithText = {
 export const IsDisabled = {
   args: {
     ...defaultProps,
-    src: "https://i.pravatar.cc/300?u=a042581f4e29026709d",
-    color: "secondary",
     isBordered: true,
     isDisabled: true,
+    color: "secondary",
+    src: "https://i.pravatar.cc/300?u=a042581f4e29026709d",
   },
 };
 
@@ -75,17 +74,17 @@ export const WithImage = {
 export const isBordered = {
   args: {
     ...defaultProps,
-    src: "https://i.pravatar.cc/300?u=a042581f4e29026709d",
-    color: "secondary",
     isBordered: true,
+    color: "secondary",
+    src: "https://i.pravatar.cc/300?u=a042581f4e29026709d",
   },
 };
 
 export const isFocusable = {
   args: {
     ...defaultProps,
-    src: "https://i.pravatar.cc/300?u=a042581f4e29026707d",
     isFocusable: true,
+    src: "https://i.pravatar.cc/300?u=a042581f4e29026707d",
   },
 };
 
@@ -99,8 +98,8 @@ export const WithIcon = {
 export const Custom = {
   args: {
     ...defaultProps,
-    icon: <Activity fill="currentColor" size={20} />,
     radius: "xl",
+    icon: <Activity size={20} fill="currentColor" />,
     classNames: {
       base: "shadow-lg bg-cyan-200 dark:bg-cyan-800",
     },
@@ -119,8 +118,8 @@ export const CustomSize = {
 export const CustomSizeImg = {
   args: {
     ...defaultProps,
-    src: "https://i.pravatar.cc/300?u=a042581f4e29026705d",
     name: "Junior",
+    src: "https://i.pravatar.cc/300?u=a042581f4e29026705d",
     classNames: {
       base: "w-32 h-32 text-base",
     },
@@ -139,30 +138,30 @@ export const DefaultIcon = {
 export const IconFallback = {
   args: {
     ...defaultProps,
-    src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
     showFallback: true,
+    src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
   },
 };
 
 export const InitialsFallback = {
   args: {
     ...defaultProps,
-    src: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6",
     name: "Junior",
     showFallback: true,
+    src: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6",
   },
 };
 
 export const CustomFallback = {
   args: {
     ...defaultProps,
-    src: "https://images.unsplash.com/broken",
     showFallback: true,
+    src: "https://images.unsplash.com/broken",
     fallback: (
       <Camera
-        className="size-6 animate-pulse text-default-500"
-        fill="currentColor"
         size={20}
+        fill="currentColor"
+        className="size-6 animate-pulse text-default-500"
       />
     ),
   },
@@ -171,8 +170,8 @@ export const CustomFallback = {
 export const BrokenImage = {
   args: {
     ...defaultProps,
-    src: "https://images.unsplash.com/broken-image",
     name: "Junior",
     showFallback: true,
+    src: "https://images.unsplash.com/broken-image",
   },
 };

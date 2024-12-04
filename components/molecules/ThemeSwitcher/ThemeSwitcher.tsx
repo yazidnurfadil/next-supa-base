@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 
 import { Button } from "@nextui-org/button";
-import { MoonFilledIcon, SunFilledIcon } from "@nextui-org/shared-icons";
 import { Spinner } from "@nextui-org/spinner";
+import { SunFilledIcon, MoonFilledIcon } from "@nextui-org/shared-icons";
+
+import { useTheme } from "next-themes";
 
 import { Theme } from "@/types/utils";
 
@@ -21,24 +22,24 @@ export const ThemeSwitcher = () => {
     <>
       {resolvedTheme === Theme.Dark ? (
         <Button
+          size="sm"
+          isIconOnly
           radius="full"
+          color="secondary"
           title={resolvedTheme}
           aria-label="Toggle Light Mode"
-          color="secondary"
-          isIconOnly
           onClick={() => setTheme(Theme.Light)}
-          size="sm"
         >
           <SunFilledIcon />
         </Button>
       ) : (
         <Button
+          size="sm"
+          isIconOnly
           radius="full"
+          color="secondary"
           title={resolvedTheme}
           aria-label="Toggle Dark Mode"
-          color="secondary"
-          isIconOnly
-          size="sm"
           onClick={() => setTheme(Theme.Dark)}
         >
           <MoonFilledIcon />

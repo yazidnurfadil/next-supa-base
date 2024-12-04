@@ -1,36 +1,19 @@
 import React from "react";
 import Lorem from "react-lorem-component";
-import { Meta } from "@storybook/react";
 
+import { button, scrollShadow } from "@nextui-org/theme";
 import {
   ScrollShadow,
-  ScrollShadowOrientation,
   ScrollShadowProps,
   ScrollShadowVisibility,
+  ScrollShadowOrientation,
 } from "@nextui-org/scroll-shadow";
-import { button, scrollShadow } from "@nextui-org/theme";
+
+import { Meta } from "@storybook/react";
 
 export default {
-  title: "Atoms/ScrollShadow",
   component: ScrollShadow,
-  argTypes: {
-    orientation: {
-      control: { type: "select" },
-      options: ["horizontal", "vertical"],
-    },
-    offset: {
-      control: { type: "number" },
-    },
-    visibility: {
-      control: { type: "select" },
-      options: ["auto", "top", "bottom", "both", "left", "right"],
-    },
-    children: {
-      table: {
-        disable: true,
-      },
-    },
-  },
+  title: "Atoms/ScrollShadow",
   decorators: [
     (Story) => (
       <div className="flex h-screen w-screen items-center justify-center">
@@ -38,13 +21,31 @@ export default {
       </div>
     ),
   ],
+  argTypes: {
+    offset: {
+      control: { type: "number" },
+    },
+    children: {
+      table: {
+        disable: true,
+      },
+    },
+    orientation: {
+      control: { type: "select" },
+      options: ["horizontal", "vertical"],
+    },
+    visibility: {
+      control: { type: "select" },
+      options: ["auto", "top", "bottom", "both", "left", "right"],
+    },
+  },
 } as Meta<typeof ScrollShadow>;
 
 const defaultProps = {
   ...scrollShadow.defaultVariants,
   visible: "auto",
-  className: "w-[300px] h-[400px]",
   children: <Lorem count={10} />,
+  className: "w-[300px] h-[400px]",
 };
 
 const Template = (args: ScrollShadowProps) => <ScrollShadow {...args} />;
@@ -68,13 +69,13 @@ const ControlledTemplate = ({ children, ...args }: ScrollShadowProps) => {
     <div className="flex flex-col gap-3">
       <ScrollShadow
         {...args}
+        visible={visible}
+        orientation={orientation}
         className={
           orientation === "horizontal"
             ? "max-h-[400px] max-w-[300px]"
             : args.className
         }
-        orientation={orientation}
-        visible={visible}
       >
         {orientation === "horizontal" ? (
           <div className="w-[800px]">{children}</div>
@@ -108,10 +109,10 @@ const ControlledTemplate = ({ children, ...args }: ScrollShadowProps) => {
         {states[orientation].map((state) => (
           <button
             key={state}
+            onClick={() => setVisible(state)}
             className={button({
               color: visible === state ? "primary" : "default",
             })}
-            onClick={() => setVisible(state)}
           >
             {state}
           </button>

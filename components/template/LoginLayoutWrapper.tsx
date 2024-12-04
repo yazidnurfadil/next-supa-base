@@ -1,5 +1,5 @@
-import { Divider } from "@nextui-org/divider";
 import { Image } from "@nextui-org/image";
+import { Divider } from "@nextui-org/divider";
 
 interface LoginLayoutWrapperProps {
   children: React.ReactNode;
@@ -11,9 +11,9 @@ export const LoginLayoutWrapper = ({ children }: LoginLayoutWrapperProps) => {
       <div className="flex flex-1 flex-col items-center justify-center p-6">
         <div className="absolute inset-0 z-0 md:hidden">
           <Image
+            alt="gradient"
             className="size-full"
             src="https://nextui.org/gradients/docs-right.png"
-            alt="gradient"
           />
         </div>
         {children}
@@ -26,13 +26,13 @@ export const LoginLayoutWrapper = ({ children }: LoginLayoutWrapperProps) => {
       <div className="relative hidden flex-1 items-center justify-center overflow-hidden p-6 md:flex">
         <div className="absolute inset-0 z-0 flex justify-end">
           <Image
-            className="size-full"
-            radius="none"
-            isBlurred
-            disableSkeleton
             isZoomed
-            src="https://www.xentech.eu/wp-content/uploads/2021/03/green-gradient-1.png"
+            isBlurred
+            radius="none"
             alt="gradient"
+            disableSkeleton
+            className="size-full"
+            src="https://www.xentech.eu/wp-content/uploads/2021/03/green-gradient-1.png"
           />
         </div>
 

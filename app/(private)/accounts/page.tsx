@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Account",
 };
 
-const AccountPage = async () => {
+const AccountPage = () => {
   return <AccountsContainer />;
 };
 

@@ -1,14 +1,31 @@
-import React from "react";
+import { tv, link } from "@nextui-org/theme";
+import { Link, LinkProps } from "@nextui-org/link";
+
 import { Meta } from "@storybook/react";
 
-import { Link, LinkProps } from "@nextui-org/link";
 import type { VariantProps } from "@nextui-org/theme";
-import { link, tv } from "@nextui-org/theme";
 
 export default {
-  title: "Atoms/Link",
   component: Link,
+  title: "Atoms/Link",
   argTypes: {
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    underline: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "hover", "always", "active", "focus"],
+    },
     color: {
       control: {
         type: "select",
@@ -22,23 +39,6 @@ export default {
         "danger",
       ],
     },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    underline: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "hover", "always", "active", "focus"],
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
   },
 } as Meta<typeof Link>;
 
@@ -46,16 +46,16 @@ const children = `"First solve the problem. Then, write the code." - Jon Johnson
 
 const defaultProps: Partial<LinkProps> = {
   ...link.defaultVariants,
+  children,
   isDisabled: false,
   showAnchorIcon: true,
-  children,
 };
 
 const Template = (args: LinkProps) => <Link {...args} href="#" />;
 
 type ComponentType = {
-  render: (args: LinkProps) => React.JSX.Element;
   args: Partial<LinkProps>;
+  render: (args: LinkProps) => React.JSX.Element;
 };
 
 export const Default: ComponentType = {
@@ -63,32 +63,32 @@ export const Default: ComponentType = {
 
   args: {
     ...defaultProps,
+    size: "md",
     isDisabled: false,
     color: "foreground",
-    size: "md",
   },
 };
 
 export const Underline = Template.bind({}) as unknown as ComponentType;
 Underline.args = {
   ...defaultProps,
-  underline: "always",
-  isDisabled: false,
   size: "md",
+  isDisabled: false,
+  underline: "always",
 };
 
 const CustomLink = () => (
   <svg
-    className="ml-1"
     fill="none"
+    width="1em"
     height="1em"
-    shapeRendering="geometricPrecision"
+    strokeWidth="2"
+    className="ml-1"
+    viewBox="0 0 24 24"
     stroke="currentColor"
     strokeLinecap="round"
     strokeLinejoin="round"
-    strokeWidth="2"
-    viewBox="0 0 24 24"
-    width="1em"
+    shapeRendering="geometricPrecision"
   >
     <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
     <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
@@ -111,9 +111,9 @@ export const isBlock = Template.bind({}) as unknown as ComponentType;
 
 isBlock.args = {
   ...defaultProps,
+  size: "md",
   isBlock: true,
   isDisabled: false,
-  size: "md",
   color: "secondary",
 };
 
@@ -133,12 +133,12 @@ type MyLinkVariantProps = VariantProps<typeof customLink>;
 type MyLinkProps = MyLinkVariantProps & Omit<LinkProps, "color">;
 
 const MyLink = (props: MyLinkProps) => {
-  const { isLink, color, ...otherProps } = props;
+  const { color, isLink, ...otherProps } = props;
 
   return (
     <Link
-      className={customLink({ color, isLink })}
       isExternal={!!isLink}
+      className={customLink({ color, isLink })}
       {...otherProps}
     />
   );
@@ -146,7 +146,7 @@ const MyLink = (props: MyLinkProps) => {
 
 export const CustomVariant = () => {
   return (
-    <MyLink isLink color="teal" href="#">
+    <MyLink isLink href="#" color="teal">
       Visit out new Store
     </MyLink>
   );

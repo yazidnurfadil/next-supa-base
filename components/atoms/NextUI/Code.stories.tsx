@@ -1,12 +1,24 @@
-import { Meta } from "@storybook/react";
-
 import { Code } from "@nextui-org/code";
 import { code } from "@nextui-org/theme";
 
+import { Meta } from "@storybook/react";
+
 export default {
-  title: "Atoms/Code",
   component: Code,
+  title: "Atoms/Code",
   argTypes: {
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
     color: {
       control: {
         type: "select",
@@ -19,18 +31,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
     },
   },
 } as Meta<typeof Code>;

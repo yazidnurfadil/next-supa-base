@@ -1,16 +1,15 @@
-import React from "react";
-
+/* eslint-disable tailwindcss/no-custom-classname */
 import { tv } from "@nextui-org/react";
 
 import { useSidebarContext } from "@/hooks/useLayoutContext";
 
 const StyledBurgerButton = tv({
-  base: "absolute z-[202] flex size-6 cursor-pointer flex-col justify-around border-none bg-transparent p-0 focus:outline-none [&_div]:relative [&_div]:h-px [&_div]:w-6 [&_div]:origin-[1px] [&_div]:rounded-xl  [&_div]:bg-default-900  [&_div]:transition-all ",
   variants: {
     open: {
       true: "[&",
     },
   },
+  base: "absolute z-[202] flex size-6 cursor-pointer flex-col justify-around border-none bg-transparent p-0 focus:outline-none [&_div]:relative [&_div]:h-px [&_div]:w-6 [&_div]:origin-[1px] [&_div]:rounded-xl  [&_div]:bg-default-900  [&_div]:transition-all ",
   //   "",
   //   "& div": {
 
@@ -44,13 +43,13 @@ const StyledBurgerButton = tv({
 });
 
 export const BurgerButton = () => {
-  const { collapsed: _collapsed, setCollapsed } = useSidebarContext();
+  const { setCollapsed, collapsed: _collapsed } = useSidebarContext();
 
   return (
     <div
-      className={StyledBurgerButton()}
       //   open={collapsed}
       onClick={setCollapsed}
+      className={StyledBurgerButton()}
     >
       <div />
       <div />

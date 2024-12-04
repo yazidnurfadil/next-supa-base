@@ -1,31 +1,39 @@
 import React from "react";
-import {
-  getLocalTimeZone,
-  isWeekend,
-  parseDate,
-  startOfMonth,
-  startOfWeek,
-  today,
-} from "@internationalized/date";
-import { I18nProvider, useLocale } from "@react-aria/i18n";
-import { Meta } from "@storybook/react";
 
-import { Button, ButtonGroup } from "@nextui-org/button";
-import { Calendar, CalendarProps, DateValue } from "@nextui-org/calendar";
-import { Radio, RadioGroup } from "@nextui-org/radio";
+import { calendar } from "@nextui-org/theme";
 import { RadioProps } from "@nextui-org/react";
 import { clsx } from "@nextui-org/shared-utils";
-import { calendar } from "@nextui-org/theme";
+import { Radio, RadioGroup } from "@nextui-org/radio";
+import { Button, ButtonGroup } from "@nextui-org/button";
+import { Calendar, DateValue, CalendarProps } from "@nextui-org/calendar";
+
+import { Meta } from "@storybook/react";
+
+import { useLocale, I18nProvider } from "@react-aria/i18n";
+import {
+  today,
+  isWeekend,
+  parseDate,
+  startOfWeek,
+  startOfMonth,
+  getLocalTimeZone,
+} from "@internationalized/date";
 
 export default {
-  title: "Atoms/Calendar",
   component: Calendar,
+  title: "Atoms/Calendar",
   parameters: {
     layout: "centered",
   },
   argTypes: {
     visibleMonths: {
-      control: { type: "number", min: 1, max: 3 },
+      control: { min: 1, max: 3, type: "number" },
+    },
+    weekdayStyle: {
+      options: ["narrow", "short", "long"],
+      control: {
+        type: "select",
+      },
     },
     color: {
       control: {
@@ -39,12 +47,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    weekdayStyle: {
-      control: {
-        type: "select",
-      },
-      options: ["narrow", "short", "long"],
     },
   },
 } as Meta<typeof Calendar>;
@@ -72,9 +74,9 @@ const ControlledTemplate = (args: CalendarProps) => {
       <div className="flex flex-col items-center gap-4">
         <p className="text-small text-default-600">Date (controlled)</p>
         <Calendar
-          aria-label="Date (controlled)"
           value={value}
           onChange={setValue}
+          aria-label="Date (controlled)"
           {...args}
           color="secondary"
         />
@@ -104,8 +106,8 @@ const UnavailableDatesTemplate = (args: CalendarProps) => {
   return (
     <Calendar
       aria-label="Appointment date"
-      isDateUnavailable={isDateUnavailable}
       minValue={today(getLocalTimeZone())}
+      isDateUnavailable={isDateUnavailable}
       {...args}
     />
   );
@@ -118,15 +120,15 @@ const ControlledFocusedValueTemplate = (args: CalendarProps) => {
   return (
     <div className="flex flex-col gap-4">
       <Calendar
-        focusedValue={focusedDate}
         value={defaultDate}
+        focusedValue={focusedDate}
         onFocusChange={setFocusedDate}
         {...args}
       />
       <Button
-        className="max-w-fit"
-        color="primary"
         variant="flat"
+        color="primary"
+        className="max-w-fit"
         onPress={() => setFocusedDate(defaultDate)}
       >
         Reset focused date
@@ -143,11 +145,11 @@ const InvalidDateTemplate = (args: CalendarProps) => {
   return (
     <Calendar
       {...args}
-      aria-label="Appointment date"
-      errorMessage={isInvalid ? "We are closed on weekends" : undefined}
-      isInvalid={isInvalid}
       value={date}
       onChange={setDate}
+      isInvalid={isInvalid}
+      aria-label="Appointment date"
+      errorMessage={isInvalid ? "We are closed on weekends" : undefined}
     />
   );
 };
@@ -178,14 +180,14 @@ const PresetsTemplate = (args: CalendarProps) => {
       <Radio
         {...otherProps}
         classNames={{
+          wrapper: "hidden",
+          labelWrapper: "px-1 m-0",
+          label: "text-tiny text-default-500",
           base: clsx(
             "m-0 h-8 flex-none items-center justify-between bg-content1 hover:bg-content2",
             "cursor-pointer rounded-full border-2 border-default-200/60",
             "data-[selected=true]:border-primary"
           ),
-          label: "text-tiny text-default-500",
-          labelWrapper: "px-1 m-0",
-          wrapper: "hidden",
         }}
       >
         {children}
@@ -196,29 +198,13 @@ const PresetsTemplate = (args: CalendarProps) => {
   return (
     <div className="flex flex-col gap-4">
       <Calendar
-        bottomContent={
-          <RadioGroup
-            aria-label="Date precision"
-            classNames={{
-              base: "w-full pb-2",
-              wrapper:
-                "-my-2.5 py-2.5 px-3 gap-1 flex-nowrap max-w-[280px] overflow-scroll",
-            }}
-            defaultValue="exact_dates"
-            orientation="horizontal"
-          >
-            <CustomRadio value="exact_dates">Exact dates</CustomRadio>
-            <CustomRadio value="1_day">1 day</CustomRadio>
-            <CustomRadio value="2_days">2 days</CustomRadio>
-            <CustomRadio value="3_days">3 days</CustomRadio>
-            <CustomRadio value="7_days">7 days</CustomRadio>
-            <CustomRadio value="14_days">14 days</CustomRadio>
-          </RadioGroup>
-        }
+        value={value}
+        onChange={setValue}
+        focusedValue={value}
+        onFocusChange={setValue}
         classNames={{
           content: "w-full",
         }}
-        focusedValue={value}
         nextButtonProps={{
           variant: "bordered",
         }}
@@ -228,19 +214,35 @@ const PresetsTemplate = (args: CalendarProps) => {
         topContent={
           <ButtonGroup
             fullWidth
-            className="bg-content1 px-3 pb-2 pt-3 [&>button]:border-default-200/60 [&>button]:text-default-500"
-            radius="full"
             size="sm"
+            radius="full"
             variant="bordered"
+            className="bg-content1 px-3 pb-2 pt-3 [&>button]:border-default-200/60 [&>button]:text-default-500"
           >
             <Button onPress={() => setValue(now)}>Today</Button>
             <Button onPress={() => setValue(nextWeek)}>Next week</Button>
             <Button onPress={() => setValue(nextMonth)}>Next month</Button>
           </ButtonGroup>
         }
-        value={value}
-        onChange={setValue}
-        onFocusChange={setValue}
+        bottomContent={
+          <RadioGroup
+            orientation="horizontal"
+            defaultValue="exact_dates"
+            aria-label="Date precision"
+            classNames={{
+              base: "w-full pb-2",
+              wrapper:
+                "-my-2.5 py-2.5 px-3 gap-1 flex-nowrap max-w-[280px] overflow-scroll",
+            }}
+          >
+            <CustomRadio value="exact_dates">Exact dates</CustomRadio>
+            <CustomRadio value="1_day">1 day</CustomRadio>
+            <CustomRadio value="2_days">2 days</CustomRadio>
+            <CustomRadio value="3_days">3 days</CustomRadio>
+            <CustomRadio value="7_days">7 days</CustomRadio>
+            <CustomRadio value="14_days">14 days</CustomRadio>
+          </RadioGroup>
+        }
         {...args}
       />
     </div>
@@ -266,8 +268,8 @@ export const ReadOnly = {
   render: Template,
   args: {
     ...defaultProps,
-    value: today(getLocalTimeZone()),
     isReadOnly: true,
+    value: today(getLocalTimeZone()),
   },
 };
 
@@ -282,8 +284,8 @@ export const MinDateValue = {
   render: Template,
   args: {
     ...defaultProps,
-    defaultValue: today(getLocalTimeZone()),
     minValue: today(getLocalTimeZone()),
+    defaultValue: today(getLocalTimeZone()),
   },
 };
 
@@ -291,8 +293,8 @@ export const MaxDateValue = {
   render: Template,
   args: {
     ...defaultProps,
-    defaultValue: today(getLocalTimeZone()),
     maxValue: today(getLocalTimeZone()),
+    defaultValue: today(getLocalTimeZone()),
   },
 };
 
@@ -306,10 +308,10 @@ export const UnavailableDates = {
 };
 
 export const ControlledFocusedValue = {
-  render: ControlledFocusedValueTemplate,
   args: {
     ...defaultProps,
   },
+  render: ControlledFocusedValueTemplate,
 };
 
 export const InvalidDate = {

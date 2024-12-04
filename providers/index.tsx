@@ -1,13 +1,14 @@
 import { ReactNode } from "react";
 
-import { FetchProvider } from "./FetchProvider";
-import { SessionProvider } from "./NextAuth";
-import { NextUIProvider } from "./NextUIProvider";
+import type { NextUIProviderProps } from "@/providers/NextUIProvider";
 
 import { JotaiProviders } from "@/providers/Jotai";
-import type { NextUIProviderProps } from "@/providers/NextUIProvider";
-import { TanstackProvider } from "@/providers/Tanstack";
 import { ToasterContainer } from "@/providers/Toaster";
+import { TanstackProvider } from "@/providers/Tanstack";
+
+import { SessionProvider } from "./NextAuth";
+import { FetchProvider } from "./FetchProvider";
+import { NextUIProvider } from "./NextUIProvider";
 
 export interface ProvidersProps extends NextUIProviderProps {
   children: ReactNode;

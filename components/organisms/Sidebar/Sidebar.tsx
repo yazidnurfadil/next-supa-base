@@ -1,30 +1,32 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
 "use client";
 
-import React from "react";
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
 
 import { Avatar, Tooltip } from "@nextui-org/react";
 
-import { generateSidebarMenu } from "./menu";
-import { Sidebar } from "./Sidebar.styles";
+import { useSession } from "next-auth/react";
 
-import { AccountsIcon } from "@/components/atoms/Icons/sidebar/accounts-icon";
-import { BalanceIcon } from "@/components/atoms/Icons/sidebar/balance-icon";
-import { ChangeLogIcon } from "@/components/atoms/Icons/sidebar/changelog-icon";
-import { CustomersIcon } from "@/components/atoms/Icons/sidebar/customers-icon";
-import { DevIcon } from "@/components/atoms/Icons/sidebar/dev-icon";
-import { HomeIcon } from "@/components/atoms/Icons/sidebar/home-icon";
-import { PaymentsIcon } from "@/components/atoms/Icons/sidebar/payments-icon";
-import { ProductsIcon } from "@/components/atoms/Icons/sidebar/products-icon";
-import { ReportsIcon } from "@/components/atoms/Icons/sidebar/reports-icon";
-import { SettingsIcon } from "@/components/atoms/Icons/sidebar/settings-icon";
-import { ViewIcon } from "@/components/atoms/Icons/sidebar/view-icon";
-import { CollapseItems } from "@/components/molecules/CollapseItems";
-import { NotificationsDropdown } from "@/components/molecules/NotificationsDropdown";
+import { useSidebarContext } from "@/hooks/useLayoutContext";
 import { SidebarItem } from "@/components/molecules/SidebarItem";
 import { SidebarMenu } from "@/components/molecules/SidebarMenu";
-import { useSidebarContext } from "@/hooks/useLayoutContext";
+import { DevIcon } from "@/components/atoms/Icons/sidebar/dev-icon";
+import { CollapseItems } from "@/components/molecules/CollapseItems";
+import { HomeIcon } from "@/components/atoms/Icons/sidebar/home-icon";
+import { ViewIcon } from "@/components/atoms/Icons/sidebar/view-icon";
+import { BalanceIcon } from "@/components/atoms/Icons/sidebar/balance-icon";
+import { ReportsIcon } from "@/components/atoms/Icons/sidebar/reports-icon";
+import { AccountsIcon } from "@/components/atoms/Icons/sidebar/accounts-icon";
+import { PaymentsIcon } from "@/components/atoms/Icons/sidebar/payments-icon";
+import { ProductsIcon } from "@/components/atoms/Icons/sidebar/products-icon";
+import { SettingsIcon } from "@/components/atoms/Icons/sidebar/settings-icon";
+import { ChangeLogIcon } from "@/components/atoms/Icons/sidebar/changelog-icon";
+import { CustomersIcon } from "@/components/atoms/Icons/sidebar/customers-icon";
+import { NotificationsDropdown } from "@/components/molecules/NotificationsDropdown";
+
+import { Sidebar } from "./Sidebar.styles";
+import { generateSidebarMenu } from "./menu";
 
 export const SidebarWrapper = () => {
   const { data: session } = useSession();
@@ -35,7 +37,7 @@ export const SidebarWrapper = () => {
   return (
     <aside className="sticky top-0 z-20 h-screen">
       {collapsed ? (
-        <div className={Sidebar.Overlay()} onClick={setCollapsed} />
+        <div onClick={setCollapsed} className={Sidebar.Overlay()} />
       ) : null}
       <div
         className={Sidebar({
@@ -51,86 +53,86 @@ export const SidebarWrapper = () => {
         <div className="flex h-full flex-col justify-between">
           <div className={Sidebar.Body()}>
             <SidebarItem
+              href="/"
               title="Dashboard"
               icon={<HomeIcon />}
               isActive={pathname === "/"}
-              href="/"
             />
             <SidebarMenu title="Data">
               <SidebarItem
-                isActive={pathname === "/customers"}
                 title="Customers"
                 icon={<CustomersIcon />}
+                isActive={pathname === "/customers"}
               />
               <SidebarItem
-                isActive={pathname === "/accounts"}
+                href="accounts"
                 title="Accounts"
                 icon={<AccountsIcon />}
-                href="accounts"
+                isActive={pathname === "/accounts"}
               />
               <SidebarItem
-                isActive={pathname === "/payments"}
                 title="Payments"
                 icon={<PaymentsIcon />}
+                isActive={pathname === "/payments"}
               />
               <CollapseItems
+                title="Balances"
                 icon={<BalanceIcon />}
                 items={["Banks Accounts", "Credit Cards", "Loans"]}
-                title="Balances"
               />
               <SidebarItem
-                isActive={pathname === "/customers"}
                 title="Customers"
                 icon={<CustomersIcon />}
+                isActive={pathname === "/customers"}
               />
               <SidebarItem
-                isActive={pathname === "/products"}
                 title="Products"
                 icon={<ProductsIcon />}
+                isActive={pathname === "/products"}
               />
               <SidebarItem
-                isActive={pathname === "/reports"}
                 title="Reports"
                 icon={<ReportsIcon />}
+                isActive={pathname === "/reports"}
               />
             </SidebarMenu>
 
             <SidebarMenu title="General">
               <SidebarItem
-                isActive={pathname === "/developers"}
                 title="Developers"
                 icon={<DevIcon />}
+                isActive={pathname === "/developers"}
               />
               <SidebarItem
-                isActive={pathname === "/view"}
-                title="View Test Data"
                 icon={<ViewIcon />}
+                title="View Test Data"
+                isActive={pathname === "/view"}
               />
               <SidebarItem
-                isActive={pathname === "/settings"}
                 title="Settings"
                 icon={<SettingsIcon />}
+                isActive={pathname === "/settings"}
               />
             </SidebarMenu>
 
             <SidebarMenu title="Updates">
               <SidebarItem
-                isActive={pathname === "/changelog"}
                 title="Changelog"
                 icon={<ChangeLogIcon />}
+                isActive={pathname === "/changelog"}
               />
             </SidebarMenu>
           </div>
           <div className={Sidebar.Footer()}>
-            <Tooltip content={"Settings"} color="primary">
+            <Tooltip color="primary" content={"Settings"}>
               <div className="max-w-fit">
                 <SettingsIcon />
               </div>
             </Tooltip>
-            <Tooltip content={session?.user?.name} color="primary">
+            <Tooltip color="primary" content={session?.user?.name}>
               <Avatar
-                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
                 size="sm"
+                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
               />
             </Tooltip>
           </div>

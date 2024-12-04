@@ -1,34 +1,83 @@
-/* eslint-disable jsx-a11y/no-autofocus */
 import React from "react";
-import { Meta } from "@storybook/react";
 
-import { Button } from "@nextui-org/button";
-import { Card, CardFooter, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
 import { Input } from "@nextui-org/input";
+import { Button } from "@nextui-org/button";
+import { Card, CardFooter, CardHeader } from "@nextui-org/card";
+import { popover, ButtonVariantProps } from "@nextui-org/theme";
 import {
   Popover,
-  PopoverContent,
   PopoverProps,
+  PopoverContent,
   PopoverTrigger,
 } from "@nextui-org/popover";
-import { ButtonVariantProps, popover } from "@nextui-org/theme";
+
+import { Meta } from "@storybook/react";
 
 export default {
-  title: "Atoms/Popover",
   component: Popover,
+  title: "Atoms/Popover",
+  decorators: [
+    (Story) => (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
+    offset: {
+      control: {
+        type: "number",
+      },
+    },
+    isOpen: {
+      control: {
+        type: "boolean",
+      },
+    },
+    children: {
+      control: {
+        disable: true,
+      },
+    },
+    showArrow: {
+      control: {
+        type: "boolean",
+      },
+    },
+    defaultOpen: {
+      control: {
+        type: "boolean",
+      },
+    },
+    disableAnimation: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
+    backdrop: {
+      control: {
+        type: "select",
+      },
+      options: ["transparent", "blur", "opaque"],
+    },
     variant: {
       control: {
         type: "select",
       },
       options: ["solid", "bordered", "light", "flat", "faded", "shadow"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
     },
     color: {
       control: {
@@ -43,12 +92,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
     },
     placement: {
       control: {
@@ -69,56 +112,13 @@ export default {
         "right-end",
       ],
     },
-    backdrop: {
-      control: {
-        type: "select",
-      },
-      options: ["transparent", "blur", "opaque"],
-    },
-    offset: {
-      control: {
-        type: "number",
-      },
-    },
-    isOpen: {
-      control: {
-        type: "boolean",
-      },
-    },
-    defaultOpen: {
-      control: {
-        type: "boolean",
-      },
-    },
-    showArrow: {
-      control: {
-        type: "boolean",
-      },
-    },
-    disableAnimation: {
-      control: {
-        type: "boolean",
-      },
-    },
-    children: {
-      control: {
-        disable: true,
-      },
-    },
   },
-  decorators: [
-    (Story) => (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <Story />
-      </div>
-    ),
-  ],
 } as Meta<typeof Popover>;
 
 const defaultProps = {
   ...popover.defaultVariants,
-  placement: "top",
   offset: 7,
+  placement: "top",
   defaultOpen: false,
 };
 
@@ -169,10 +169,10 @@ const OpenChangeTemplate = (args: PopoverProps) => {
     <div className="flex flex-col gap-2">
       <Popover
         {...args}
+        onOpenChange={(open) => setIsOpen(open)}
         style={{
           zIndex: 10,
         }}
-        onOpenChange={(open) => setIsOpen(open)}
       >
         <PopoverTrigger>
           <Button>Open Popover</Button>
@@ -196,7 +196,7 @@ const PlacementsTemplate = (args: PopoverProps) => {
     <div className="inline-grid grid-cols-3 gap-4">
       <Popover {...args} placement="top-start">
         <PopoverTrigger>
-          <Button color={buttonColor} variant="flat">
+          <Button variant="flat" color={buttonColor}>
             Top Start
           </Button>
         </PopoverTrigger>
@@ -205,7 +205,7 @@ const PlacementsTemplate = (args: PopoverProps) => {
 
       <Popover {...args}>
         <PopoverTrigger>
-          <Button color={buttonColor} variant="flat">
+          <Button variant="flat" color={buttonColor}>
             Top
           </Button>
         </PopoverTrigger>
@@ -214,7 +214,7 @@ const PlacementsTemplate = (args: PopoverProps) => {
 
       <Popover {...args} placement="top-end">
         <PopoverTrigger>
-          <Button color={buttonColor} variant="flat">
+          <Button variant="flat" color={buttonColor}>
             Top End
           </Button>
         </PopoverTrigger>
@@ -223,7 +223,7 @@ const PlacementsTemplate = (args: PopoverProps) => {
 
       <Popover {...args} placement="bottom-start">
         <PopoverTrigger>
-          <Button color={buttonColor} variant="flat">
+          <Button variant="flat" color={buttonColor}>
             Bottom Start
           </Button>
         </PopoverTrigger>
@@ -232,7 +232,7 @@ const PlacementsTemplate = (args: PopoverProps) => {
 
       <Popover {...args} placement="bottom">
         <PopoverTrigger>
-          <Button color={buttonColor} variant="flat">
+          <Button variant="flat" color={buttonColor}>
             Bottom
           </Button>
         </PopoverTrigger>
@@ -241,7 +241,7 @@ const PlacementsTemplate = (args: PopoverProps) => {
 
       <Popover {...args} placement="bottom-end">
         <PopoverTrigger>
-          <Button color={buttonColor} variant="flat">
+          <Button variant="flat" color={buttonColor}>
             Bottom End
           </Button>
         </PopoverTrigger>
@@ -250,7 +250,7 @@ const PlacementsTemplate = (args: PopoverProps) => {
 
       <Popover {...args} placement="right-start">
         <PopoverTrigger>
-          <Button color={buttonColor} variant="flat">
+          <Button variant="flat" color={buttonColor}>
             Right Start
           </Button>
         </PopoverTrigger>
@@ -259,7 +259,7 @@ const PlacementsTemplate = (args: PopoverProps) => {
 
       <Popover {...args} placement="right">
         <PopoverTrigger>
-          <Button color={buttonColor} variant="flat">
+          <Button variant="flat" color={buttonColor}>
             Right
           </Button>
         </PopoverTrigger>
@@ -268,7 +268,7 @@ const PlacementsTemplate = (args: PopoverProps) => {
 
       <Popover {...args} placement="right-end">
         <PopoverTrigger>
-          <Button color={buttonColor} variant="flat">
+          <Button variant="flat" color={buttonColor}>
             Right End
           </Button>
         </PopoverTrigger>
@@ -277,7 +277,7 @@ const PlacementsTemplate = (args: PopoverProps) => {
 
       <Popover {...args} placement="left-start">
         <PopoverTrigger>
-          <Button color={buttonColor} variant="flat">
+          <Button variant="flat" color={buttonColor}>
             Left Start
           </Button>
         </PopoverTrigger>
@@ -286,7 +286,7 @@ const PlacementsTemplate = (args: PopoverProps) => {
 
       <Popover {...args} placement="left">
         <PopoverTrigger>
-          <Button color={buttonColor} variant="flat">
+          <Button variant="flat" color={buttonColor}>
             Left
           </Button>
         </PopoverTrigger>
@@ -295,7 +295,7 @@ const PlacementsTemplate = (args: PopoverProps) => {
 
       <Popover {...args} placement="left-end">
         <PopoverTrigger>
-          <Button color={buttonColor} variant="flat">
+          <Button variant="flat" color={buttonColor}>
             Left End
           </Button>
         </PopoverTrigger>
@@ -348,28 +348,28 @@ const WithFormTemplate = (args: PopoverProps) => (
           <div className="mt-2 flex w-full flex-col gap-2">
             <Input
               autoFocus
-              defaultValue="100%"
+              size="sm"
               label="Width"
-              size="sm"
               variant="bordered"
+              defaultValue="100%"
             />
             <Input
-              defaultValue="300px"
+              size="sm"
               label="Max. width"
-              size="sm"
               variant="bordered"
+              defaultValue="300px"
             />
             <Input
-              defaultValue="24px"
+              size="sm"
               label="Height"
-              size="sm"
               variant="bordered"
+              defaultValue="24px"
             />
             <Input
+              size="sm"
+              variant="bordered"
               defaultValue="30px"
               label="Max. height"
-              size="sm"
-              variant="bordered"
             />
           </div>
         </div>
@@ -394,28 +394,28 @@ const BackdropsTemplate = (args: PopoverProps) => {
           </p>
           <div className="mt-2 flex w-full flex-col gap-2">
             <Input
-              defaultValue="100%"
+              size="sm"
               label="Width"
-              size="sm"
               variant="bordered"
+              defaultValue="100%"
             />
             <Input
-              defaultValue="300px"
+              size="sm"
               label="Max. width"
-              size="sm"
               variant="bordered"
+              defaultValue="300px"
             />
             <Input
-              defaultValue="24px"
+              size="sm"
               label="Height"
-              size="sm"
               variant="bordered"
+              defaultValue="24px"
             />
             <Input
+              size="sm"
+              variant="bordered"
               defaultValue="30px"
               label="Max. height"
-              size="sm"
-              variant="bordered"
             />
           </div>
         </div>
@@ -427,15 +427,15 @@ const BackdropsTemplate = (args: PopoverProps) => {
     <div className="flex flex-wrap gap-4">
       {backdrops.map((backdrop) => (
         <Popover
-          key={backdrop}
           showArrow
           offset={10}
+          key={backdrop}
           placement="bottom"
           {...args}
           backdrop={backdrop}
         >
           <PopoverTrigger>
-            <Button className="capitalize" color="warning" variant="flat">
+            <Button variant="flat" color="warning" className="capitalize">
               {backdrop}
             </Button>
           </PopoverTrigger>
@@ -480,7 +480,7 @@ const WithBackdropTemplate = (args: PopoverProps) => (
       </div>
       <Popover {...args}>
         <PopoverTrigger>
-          <Button color="primary" radius="full">
+          <Button radius="full" color="primary">
             Open Popover
           </Button>
         </PopoverTrigger>
@@ -492,28 +492,28 @@ const WithBackdropTemplate = (args: PopoverProps) => (
               </p>
               <div className="mt-2 flex w-full flex-col gap-2">
                 <Input
-                  defaultValue="100%"
+                  size="sm"
                   label="Width"
-                  size="sm"
                   variant="bordered"
+                  defaultValue="100%"
                 />
                 <Input
-                  defaultValue="300px"
+                  size="sm"
                   label="Max. width"
-                  size="sm"
                   variant="bordered"
+                  defaultValue="300px"
                 />
                 <Input
-                  defaultValue="24px"
+                  size="sm"
                   label="Height"
-                  size="sm"
                   variant="bordered"
+                  defaultValue="24px"
                 />
                 <Input
+                  size="sm"
+                  variant="bordered"
                   defaultValue="30px"
                   label="Max. height"
-                  size="sm"
-                  variant="bordered"
                 />
               </div>
             </div>
@@ -608,8 +608,8 @@ export const WithForm = {
 
   args: {
     ...defaultProps,
-    showArrow: true,
     offset: 10,
+    showArrow: true,
     placement: "top",
     className: "w-[280px] bg-content1",
   },
@@ -620,8 +620,8 @@ export const Backdrops = {
 
   args: {
     ...defaultProps,
-    showArrow: true,
     offset: 10,
+    showArrow: true,
     placement: "bottom",
   },
 };
@@ -631,10 +631,10 @@ export const WithBackdrop = {
 
   args: {
     ...defaultProps,
-    showArrow: true,
     offset: 10,
-    placement: "left",
+    showArrow: true,
     backdrop: "blur",
+    placement: "left",
   },
 };
 
@@ -646,13 +646,13 @@ export const CustomMotion = {
     placement: "bottom",
     motionProps: {
       variants: {
-        enter: {
-          opacity: 1,
-          duration: 0.2,
-        },
         exit: {
           opacity: 0,
           duration: 0.1,
+        },
+        enter: {
+          opacity: 1,
+          duration: 0.2,
         },
       },
     },

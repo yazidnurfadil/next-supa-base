@@ -1,15 +1,27 @@
 import React from "react";
+
+import { Chip } from "@nextui-org/chip";
+import { circularProgress } from "@nextui-org/theme";
+import { Card, CardBody, CardFooter } from "@nextui-org/card";
+import { CircularProgress, CircularProgressProps } from "@nextui-org/progress";
+
 import { Meta } from "@storybook/react";
 
-import { Card, CardBody, CardFooter } from "@nextui-org/card";
-import { Chip } from "@nextui-org/chip";
-import { CircularProgress, CircularProgressProps } from "@nextui-org/progress";
-import { circularProgress } from "@nextui-org/theme";
-
 export default {
-  title: "Atoms/CircularProgress",
   component: CircularProgress,
+  title: "Atoms/CircularProgress",
   argTypes: {
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
     color: {
       control: {
         type: "select",
@@ -22,17 +34,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
     },
   },
 } as Meta<typeof CircularProgress>;
@@ -60,22 +61,22 @@ const CustomClassnamesTemplate = (args: CircularProgressProps) => (
     <CardBody className="items-center justify-center pb-0">
       <CircularProgress
         {...args}
+        strokeWidth={4}
         classNames={{
-          svg: "w-36 h-36 drop-shadow-md",
-          indicator: "stroke-white",
           track: "stroke-white/10",
+          indicator: "stroke-white",
+          svg: "w-36 h-36 drop-shadow-md",
           value: "text-3xl font-semibold text-white",
         }}
-        strokeWidth={4}
       />
     </CardBody>
     <CardFooter className="items-center justify-center pt-0">
       <Chip
+        variant="bordered"
         classNames={{
           base: "border-1 border-white/30",
           content: "text-white/80 text-sm font-semibold",
         }}
-        variant="bordered"
       >
         2800 Data points
       </Chip>
@@ -102,8 +103,8 @@ export const WithValueLabel = {
 
   args: {
     ...defaultProps,
-    size: "lg",
     value: 70,
+    size: "lg",
     color: "secondary",
     showValueLabel: true,
   },
@@ -112,10 +113,10 @@ export const WithValueLabel = {
 export const WithValueFormatting = {
   args: {
     ...defaultProps,
-    label: "Loading...",
-    size: "xl",
     value: 70,
+    size: "xl",
     color: "warning",
+    label: "Loading...",
     showValueLabel: true,
     formatOptions: { style: "unit", unit: "kilometer" },
   },
@@ -126,9 +127,9 @@ export const CustomClassnames = {
 
   args: {
     ...defaultProps,
+    value: 70,
     size: "xl",
     strokeWidth: 4,
-    value: 70,
     showValueLabel: true,
   },
 };

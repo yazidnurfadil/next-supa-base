@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { ReactNode, HTMLAttributes } from "react";
 
 export interface TextProps extends HTMLAttributes<HTMLHeadingElement> {
   text: ReactNode;

@@ -1,8 +1,8 @@
 import type { User } from "next-auth";
 
 export type JWT = {
-  header: string;
   payload: User;
+  header: string;
   signature: string;
 };
 

@@ -1,11 +1,9 @@
 "use client";
 
-import React from "react";
-
-import { NavbarWrapper } from "@/components/organisms/Navbar";
-import { SidebarWrapper } from "@/components/organisms/Sidebar";
 import { useLockedBody } from "@/hooks/useBodyLock";
 import { SidebarContext } from "@/hooks/useLayoutContext";
+import { NavbarWrapper } from "@/components/organisms/Navbar";
+import { SidebarWrapper } from "@/components/organisms/Sidebar";
 
 interface Props {
   children: React.ReactNode;

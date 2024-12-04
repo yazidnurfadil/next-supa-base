@@ -6,6 +6,6 @@ export const metadata: Metadata = {
   title: "Home",
 };
 
-const HomePage = async () => <HomepageContainer />;
+const HomePage = () => <HomepageContainer />;
 
 export default HomePage;

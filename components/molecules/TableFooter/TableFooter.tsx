@@ -1,19 +1,20 @@
 import { ChangeEvent } from "react";
-import { useAtom } from "jotai";
 
 import { Pagination } from "@nextui-org/react";
 
-import useRouterParameter from "@/hooks/useRouterParameter";
+import { useAtom } from "jotai";
+
 import { tableStates } from "@/states/components";
+import useRouterParameter from "@/hooks/useRouterParameter";
 
 export const TableFooter = ({
+  isLoading,
   footerText,
   footerRowsText = "Row per page:",
-  isLoading,
 }: {
   footerText: string;
-  footerRowsText?: string;
   isLoading?: boolean;
+  footerRowsText?: string;
 }) => {
   const [{ page, pages, rowsPerPage }, setTableConfig] = useAtom(tableStates);
   const rowsOption = [15, 25, 50, 100, 1000];
@@ -26,7 +27,7 @@ export const TableFooter = ({
 
   const onRowsPerPageChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = Number(e.target.value);
-    setTableConfig((prev) => ({ ...prev, rowsPerPage: value, page: 1 }));
+    setTableConfig((prev) => ({ ...prev, page: 1, rowsPerPage: value }));
     updateQueryString("rows", String(value));
     updateQueryString("page", String(1));
   };
@@ -39,8 +40,8 @@ export const TableFooter = ({
           {footerRowsText}
           <select
             defaultValue={rowsPerPage}
-            className="bg-transparent text-small text-default-400 outline-none"
             onChange={onRowsPerPageChange}
+            className="bg-transparent text-small text-default-400 outline-none"
           >
             {rowsOption.map((row) => (
               <option key={row} value={row}>
@@ -53,12 +54,12 @@ export const TableFooter = ({
 
       {pages > 1 && (
         <Pagination
-          isDisabled={isLoading}
           isCompact
-          showControls
           showShadow
           page={page}
+          showControls
           total={pages}
+          isDisabled={isLoading}
           onChange={onPageChanges}
         />
       )}

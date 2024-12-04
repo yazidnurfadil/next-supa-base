@@ -1,25 +1,49 @@
 import React, { useState } from "react";
-import { Key } from "@react-types/shared";
-import { Meta } from "@storybook/react";
 
+import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import { Card, CardBody } from "@nextui-org/card";
-import { Input } from "@nextui-org/input";
+import { link, tabs, button } from "@nextui-org/theme";
+import { Tab, Tabs, TabsProps } from "@nextui-org/tabs";
 import {
-  AlignBottomBoldIcon,
-  AlignHorizontallyBoldIcon,
+  AlignTopBoldIcon,
   AlignLeftBoldIcon,
   AlignRightBoldIcon,
-  AlignTopBoldIcon,
+  AlignBottomBoldIcon,
   AlignVerticallyBoldIcon,
+  AlignHorizontallyBoldIcon,
 } from "@nextui-org/shared-icons";
-import { Tab, Tabs, TabsProps } from "@nextui-org/tabs";
-import { button, link, tabs } from "@nextui-org/theme";
+
+import { Meta } from "@storybook/react";
+
+import { Key } from "@react-types/shared";
 
 export default {
-  title: "Atoms/Tabs",
   component: Tabs,
+  title: "Atoms/Tabs",
   argTypes: {
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    disableAnimation: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
     variant: {
       control: {
         type: "select",
@@ -38,28 +62,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    disableAnimation: {
-      control: {
-        type: "boolean",
-      },
     },
   },
 } as Meta<typeof Tabs>;
@@ -118,29 +120,29 @@ const WithIconsTemplate = (args: TabsProps) => (
   >
     <Tab
       key="align-left"
-      title={<AlignLeftBoldIcon />}
       titleValue="Align left"
+      title={<AlignLeftBoldIcon />}
     />
     <Tab
       key="align-vertically"
-      title={<AlignVerticallyBoldIcon />}
       titleValue="Align vertically"
+      title={<AlignVerticallyBoldIcon />}
     />
     <Tab
       key="align-right"
-      title={<AlignRightBoldIcon />}
       titleValue="Align right"
+      title={<AlignRightBoldIcon />}
     />
-    <Tab key="align-top" title={<AlignTopBoldIcon />} titleValue="Align top" />
+    <Tab key="align-top" titleValue="Align top" title={<AlignTopBoldIcon />} />
     <Tab
       key="align-horizontally"
-      title={<AlignHorizontallyBoldIcon />}
       titleValue="Align horizontally"
+      title={<AlignHorizontallyBoldIcon />}
     />
     <Tab
       key="align-bottom"
-      title={<AlignBottomBoldIcon />}
       titleValue="Align bottom"
+      title={<AlignBottomBoldIcon />}
     />
   </Tabs>
 );
@@ -198,14 +200,14 @@ const ControlledTemplate = (args: TabsProps) => {
 
       <div className="flex justify-start gap-2">
         <button
-          className={button({ color: "secondary", variant: "flat" })}
           onClick={() => setSelected("arts")}
+          className={button({ variant: "flat", color: "secondary" })}
         >
           Select &quot;Arts&quot;
         </button>
         <button
-          className={button({ color: "secondary", variant: "flat" })}
           onClick={() => setSelected("science")}
+          className={button({ variant: "flat", color: "secondary" })}
         >
           Select &quot;Science&quot;
         </button>
@@ -281,15 +283,15 @@ const WithFormTemplate = (args: TabsProps) => {
               <form className="flex flex-col gap-4">
                 <Input
                   isRequired
+                  type="email"
                   label="Email"
                   placeholder="Enter your email"
-                  type="email"
                 />
                 <Input
                   isRequired
+                  type="password"
                   label="Password"
                   placeholder="Enter your password"
-                  type="password"
                 />
                 <p className="text-center text-sm">
                   Need to create an account?&nbsp;
@@ -312,20 +314,20 @@ const WithFormTemplate = (args: TabsProps) => {
                 <Input
                   isRequired
                   label="Name"
-                  placeholder="Enter your name"
                   type="password"
+                  placeholder="Enter your name"
                 />
                 <Input
                   isRequired
+                  type="email"
                   label="Email"
                   placeholder="Enter your email"
-                  type="email"
                 />
                 <Input
                   isRequired
+                  type="password"
                   label="Password"
                   placeholder="Enter your password"
-                  type="password"
                 />
                 <p className="text-center text-sm">
                   Already have an account?&nbsp;
@@ -408,14 +410,14 @@ export const Placement = {
     placement: "top",
   },
   argTypes: {
+    isVertical: {
+      type: "boolean",
+    },
     placement: {
       options: ["top", "bottom", "start", "end"],
       control: {
         type: "inline-radio",
       },
-    },
-    isVertical: {
-      type: "boolean",
     },
   },
 };

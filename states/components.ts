@@ -1,21 +1,21 @@
-import { atomWithReset } from "jotai/utils";
-
 import { Selection, SortDescriptor } from "@nextui-org/react";
 
+import { atomWithReset } from "jotai/utils";
+
 export const tableStates = atomWithReset<{
-  searchValue: string;
   page: number;
   pages: number;
-  rowsPerPage: number;
   totalItems: number;
-  sortDescriptor: SortDescriptor;
+  searchValue: string;
+  rowsPerPage: number;
   selectedKeys: Selection;
+  sortDescriptor: SortDescriptor;
 }>({
-  searchValue: "",
   page: 1,
   pages: 1,
-  rowsPerPage: 15,
   totalItems: 0,
+  searchValue: "",
+  rowsPerPage: 15,
   selectedKeys: new Set([]),
   sortDescriptor: {
     column: "createdBy",

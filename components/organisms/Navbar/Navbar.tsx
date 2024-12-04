@@ -1,11 +1,9 @@
 "use client";
 
-import React from "react";
-
 import { Navbar, NavbarContent } from "@nextui-org/react";
 
-import { BurgerButton } from "@/components/molecules/BurgerButton";
 import { NavbarUser } from "@/components/molecules/NavbarUser";
+import { BurgerButton } from "@/components/molecules/BurgerButton";
 
 interface NavbarWrapperProps {
   children: React.ReactNode;

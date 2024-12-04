@@ -1,27 +1,52 @@
 import React from "react";
+
+import { button } from "@nextui-org/theme";
+import { Button, ButtonProps } from "@nextui-org/button";
+import { Camera, Notification, HeadphonesIcon } from "@nextui-org/shared-icons";
+
 import { Meta } from "@storybook/react";
 
-import { Button, ButtonProps } from "@nextui-org/button";
-import { Camera, HeadphonesIcon, Notification } from "@nextui-org/shared-icons";
-import { button } from "@nextui-org/theme";
-
 export default {
-  title: "Atoms/Button",
   component: Button,
+  title: "Atoms/Button",
   argTypes: {
-    variant: {
+    fullWidth: {
+      control: {
+        type: "boolean",
+      },
+    },
+    isLoading: {
+      control: {
+        type: "boolean",
+      },
+    },
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    disableAnimation: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
       control: {
         type: "select",
       },
-      options: [
-        "solid",
-        "bordered",
-        "light",
-        "flat",
-        "faded",
-        "shadow",
-        "ghost",
-      ],
+    },
+    spinnerPlacement: {
+      options: ["start", "end"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
     },
     color: {
       control: {
@@ -36,43 +61,19 @@ export default {
         "danger",
       ],
     },
-    size: {
+    variant: {
       control: {
         type: "select",
       },
-      options: ["sm", "md", "lg"],
-    },
-    spinnerPlacement: {
-      control: {
-        type: "select",
-      },
-      options: ["start", "end"],
-    },
-    fullWidth: {
-      control: {
-        type: "boolean",
-      },
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    isLoading: {
-      control: {
-        type: "boolean",
-      },
-    },
-    disableAnimation: {
-      control: {
-        type: "boolean",
-      },
+      options: [
+        "solid",
+        "bordered",
+        "light",
+        "flat",
+        "faded",
+        "shadow",
+        "ghost",
+      ],
     },
   },
 } as Meta<typeof Button>;
@@ -87,7 +88,6 @@ const StateTemplate = (args: ButtonProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const handlePress = () => {
-    // eslint-disable-next-line no-console
     console.log("Pressed");
     setIsOpen((prev) => !prev);
   };
@@ -135,8 +135,8 @@ export const DisableRipple = {
 export const WithIcons = {
   args: {
     ...defaultProps,
-    startContent: <Notification className="fill-current" />,
     endContent: <Camera className="fill-current" />,
+    startContent: <Notification className="fill-current" />,
   },
 };
 
@@ -151,8 +151,8 @@ export const IconButton = {
 export const IsLoading = {
   args: {
     ...defaultProps,
-    color: "primary",
     isLoading: true,
+    color: "primary",
   },
 };
 

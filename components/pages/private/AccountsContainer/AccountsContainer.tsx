@@ -1,16 +1,14 @@
 "use client";
-import React from "react";
+
 import Link from "next/link";
 
-import { Button, Input } from "@nextui-org/react";
-
-import { columns, User, users } from "./data";
+import { Input, Button } from "@nextui-org/react";
 
 // import { AddUser } from "./add-user";
 import { DotsIcon } from "@/components/atoms/Icons/accounts/dots-icon";
-import { ExportIcon } from "@/components/atoms/Icons/accounts/export-icon";
 import { InfoIcon } from "@/components/atoms/Icons/accounts/info-icon";
 import { TrashIcon } from "@/components/atoms/Icons/accounts/trash-icon";
+import { ExportIcon } from "@/components/atoms/Icons/accounts/export-icon";
 import { HouseIcon } from "@/components/atoms/Icons/breadcrumb/house-icon";
 import { UsersIcon } from "@/components/atoms/Icons/breadcrumb/users-icon";
 import { SettingsIcon } from "@/components/atoms/Icons/sidebar/settings-icon";
@@ -18,6 +16,8 @@ import {
   TableWrapper,
   TableWrapperItem,
 } from "@/components/molecules/TableWrapper";
+
+import { User, users, columns } from "./data";
 
 export const AccountsContainer = () => {
   return (
@@ -45,11 +45,11 @@ export const AccountsContainer = () => {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3 md:flex-nowrap">
           <Input
+            placeholder="Search users"
             classNames={{
               input: "w-full",
               mainWrapper: "w-full",
             }}
-            placeholder="Search users"
           />
           <SettingsIcon />
           <TrashIcon />

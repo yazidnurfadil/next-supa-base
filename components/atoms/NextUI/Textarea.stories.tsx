@@ -1,20 +1,63 @@
 import React, { FormEvent } from "react";
-import type { ValidationResult } from "@react-types/shared";
-import { Meta } from "@storybook/react";
 
+import { input, button } from "@nextui-org/theme";
 import { Textarea, TextAreaProps } from "@nextui-org/input";
 import { PlusFilledIcon, SendFilledIcon } from "@nextui-org/shared-icons";
-import { button, input } from "@nextui-org/theme";
+
+import { Meta } from "@storybook/react";
+
+import type { ValidationResult } from "@react-types/shared";
 
 export default {
-  title: "Atoms/Textarea",
   component: Textarea,
+  title: "Atoms/Textarea",
+  decorators: [
+    (Story) => (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    disableAutosize: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    validationBehavior: {
+      options: ["aria", "native"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
     variant: {
       control: {
         type: "select",
       },
       options: ["flat", "faded", "bordered", "underlined"],
+    },
+    labelPlacement: {
+      control: {
+        type: "select",
+      },
+      options: ["inside", "outside", "outside-left"],
     },
     color: {
       control: {
@@ -29,54 +72,13 @@ export default {
         "danger",
       ],
     },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    labelPlacement: {
-      control: {
-        type: "select",
-      },
-      options: ["inside", "outside", "outside-left"],
-    },
-    disableAutosize: {
-      control: {
-        type: "boolean",
-      },
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    validationBehavior: {
-      control: {
-        type: "select",
-      },
-      options: ["aria", "native"],
-    },
   },
-  decorators: [
-    (Story) => (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <Story />
-      </div>
-    ),
-  ],
 } as Meta<typeof Textarea>;
 
 const defaultProps = {
   ...input.defaultVariants,
-  disableAutosize: false,
   label: "Description",
+  disableAutosize: false,
   placeholder: "Enter your description",
 };
 
@@ -100,16 +102,16 @@ const ControlledTemplate = (args: TextAreaProps) => {
 const MinRowsTemplate = (args: TextAreaProps) => (
   <div className="flex w-full max-w-xl flex-row gap-4">
     <Textarea {...args} description="Default minRows is 3" />
-    <Textarea {...args} description="minRows is 5" minRows={5} />
-    <Textarea {...args} description="minRows is 10" minRows={10} />
+    <Textarea {...args} minRows={5} description="minRows is 5" />
+    <Textarea {...args} minRows={10} description="minRows is 10" />
   </div>
 );
 
 const MaxRowsTemplate = (args: TextAreaProps) => (
   <div className="flex w-full max-w-xl flex-row gap-4">
     <Textarea {...args} description="Default maxRows is 8" />
-    <Textarea {...args} description="maxRows is 5" maxRows={5} />
-    <Textarea {...args} description="maxRows is 3" maxRows={3} />
+    <Textarea {...args} maxRows={5} description="maxRows is 5" />
+    <Textarea {...args} maxRows={3} description="maxRows is 3" />
   </div>
 );
 
@@ -130,7 +132,7 @@ const FormTemplate = (args: TextAreaProps) => (
       <Textarea name="textarea" {...args} />
     </div>
 
-    <button className={button({ color: "primary" })} type="submit">
+    <button type="submit" className={button({ color: "primary" })}>
       Submit
     </button>
   </form>
@@ -151,13 +153,13 @@ export const FullRounded = {
     ...defaultProps,
     minRows: 1,
     label: null,
+    radius: "full",
+    variant: "bordered",
+    "aria-label": "Description",
+    placeholder: "Enter your description",
     classNames: {
       input: "py-1",
     },
-    "aria-label": "Description",
-    placeholder: "Enter your description",
-    variant: "bordered",
-    radius: "full",
   },
 };
 
@@ -175,9 +177,9 @@ export const Disabled = {
 
   args: {
     ...defaultProps,
-    defaultValue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     variant: "faded",
     isDisabled: true,
+    defaultValue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
 };
 
@@ -186,9 +188,9 @@ export const ReadOnly = {
 
   args: {
     ...defaultProps,
-    defaultValue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    variant: "bordered",
     isReadOnly: true,
+    variant: "bordered",
+    defaultValue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
 };
 
@@ -208,18 +210,18 @@ export const WithEndContent = {
     ...defaultProps,
     minRows: 1,
     label: null,
+    radius: "full",
+    variant: "bordered",
+    "aria-label": "Description",
+    placeholder: "Enter your description",
+    classNames: {
+      input: "py-1",
+    },
     endContent: (
       <div className="p-1">
         <SendFilledIcon className="text-xl" />
       </div>
     ),
-    classNames: {
-      input: "py-1",
-    },
-    "aria-label": "Description",
-    placeholder: "Enter your description",
-    variant: "bordered",
-    radius: "full",
   },
 };
 
@@ -264,9 +266,9 @@ export const WithErrorMessageFunction = {
 
   args: {
     ...defaultProps,
-    isRequired: true,
-    minLength: "10",
     maxLength: "",
+    minLength: "10",
+    isRequired: true,
     label: "Comment",
     placeholder: "Enter your comment (10-100 characters)",
     errorMessage: (value: ValidationResult) => {
@@ -288,6 +290,9 @@ export const WithValidation = {
 
   args: {
     ...defaultProps,
+    isRequired: true,
+    label: "Comment",
+    placeholder: "Enter your comment (10-100 characters)",
     validate: (value: string) => {
       if (value.length < 10) {
         return "Comment is too short. Min 10 characters.";
@@ -296,9 +301,6 @@ export const WithValidation = {
         return "Comment is too long. Max 100 characters.";
       }
     },
-    isRequired: true,
-    label: "Comment",
-    placeholder: "Enter your comment (10-100 characters)",
   },
 };
 
@@ -308,7 +310,7 @@ export const IsInvalid = {
   args: {
     ...defaultProps,
     isInvalid: true,
-    defaultValue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     errorMessage: "Please enter a valid description",
+    defaultValue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
 };

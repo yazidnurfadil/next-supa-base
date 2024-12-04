@@ -1,5 +1,6 @@
 import { useCallback } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 import { createQueryString } from "@/utils";
 
@@ -16,7 +17,7 @@ const useRouterParameter = () => {
   }, []);
 
   const deleteQueryParameter = useCallback(
-    (query: string | string[]) => {
+    (query: string[] | string) => {
       const params = new URLSearchParams(searchParams.toString());
       if (Array.isArray(query)) {
         query.forEach((q) => params.delete(q));
@@ -31,11 +32,11 @@ const useRouterParameter = () => {
   );
 
   return {
-    updateQueryString,
-    deleteQueryParameter,
     router,
     pathname,
     searchParams,
+    updateQueryString,
+    deleteQueryParameter,
   };
 };
 

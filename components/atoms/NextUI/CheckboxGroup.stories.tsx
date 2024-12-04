@@ -1,19 +1,51 @@
-import React from "react";
-import type { ValidationResult } from "@react-types/shared";
-import { Meta } from "@storybook/react";
+/* eslint-disable @typescript-eslint/no-base-to-string */
 
+import React from "react";
+
+import { button } from "@nextui-org/theme";
+import { checkbox } from "@nextui-org/theme";
 import {
   Checkbox,
   CheckboxGroup,
   CheckboxGroupProps,
 } from "@nextui-org/checkbox";
-import { checkbox } from "@nextui-org/theme";
-import { button } from "@nextui-org/theme";
+
+import { Meta } from "@storybook/react";
+
+import type { ValidationResult } from "@react-types/shared";
 
 export default {
-  title: "Atoms/CheckboxGroup",
   component: CheckboxGroup,
+  title: "Atoms/CheckboxGroup",
   argTypes: {
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    lineThrough: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    validationBehavior: {
+      options: ["aria", "native"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
     color: {
       control: {
         type: "select",
@@ -26,34 +58,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    lineThrough: {
-      control: {
-        type: "boolean",
-      },
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    validationBehavior: {
-      control: {
-        type: "select",
-      },
-      options: ["aria", "native"],
     },
   },
 } as Meta<typeof Checkbox>;
@@ -80,9 +84,9 @@ const InvalidTemplate = (args: CheckboxGroupProps) => {
       <CheckboxGroup
         {...args}
         isRequired
-        description="Select the cities you want to visit"
         isInvalid={isInvalid}
         label="Select cities"
+        description="Select the cities you want to visit"
         onValueChange={(value) => {
           setIsInvalid(value.length < 1);
         }}
@@ -116,7 +120,7 @@ const FormTemplate = (args: CheckboxGroupProps) => {
         <Checkbox value="london">London</Checkbox>
         <Checkbox value="tokyo">Tokyo</Checkbox>
       </CheckboxGroup>
-      <button className={button({ color: "primary" })} type="submit">
+      <button type="submit" className={button({ color: "primary" })}>
         Submit
       </button>
     </form>
@@ -127,7 +131,6 @@ const ControlledTemplate = (args: CheckboxGroupProps) => {
   const [selected, setSelected] = React.useState<string[]>(["buenos-aires"]);
 
   React.useEffect(() => {
-    // eslint-disable-next-line no-console
     console.log("Checkbox ", selected);
   }, [selected]);
 
@@ -135,8 +138,8 @@ const ControlledTemplate = (args: CheckboxGroupProps) => {
     <div className="flex flex-col gap-2">
       <CheckboxGroup
         {...args}
-        label="Select cities"
         value={selected}
+        label="Select cities"
         onValueChange={setSelected}
       >
         <Checkbox value="buenos-aires">Buenos Aires</Checkbox>
@@ -197,8 +200,8 @@ export const IsDisabled = {
   render: Template,
 
   args: {
-    label: "Select cities",
     isDisabled: true,
+    label: "Select cities",
   },
 };
 
@@ -206,8 +209,8 @@ export const LineThrough = {
   render: Template,
 
   args: {
-    label: "Select cities",
     lineThrough: true,
+    label: "Select cities",
   },
 };
 

@@ -1,22 +1,23 @@
-type DefaultFetchOptions = {
-  headers: Record<string, string | undefined>;
-} & RequestInit;
+type DefaultFetchOptions = RequestInit & {
+  headers: Record<string, undefined | string>;
+};
 
 export const defaultOptions: DefaultFetchOptions = {
+  mode: "cors" as RequestMode,
+  credentials: "omit" as RequestCredentials,
   headers: {
     "Content-Type": "application/json",
   },
-  credentials: "omit" as RequestCredentials,
-  mode: "cors" as RequestMode,
 };
 
-type fetcherOptions = {
-  params?: Record<string, string | number | undefined>;
-} & RequestInit;
+type fetcherOptions = RequestInit & {
+  params?: Record<string, undefined | string | number>;
+};
 
 const getFetchOptions: (
   method: string,
   options?: RequestInit
+  // eslint-disable-next-line @typescript-eslint/require-await
 ) => Promise<RequestInit> = async (method, options) => {
   const { headers: defaultHeaders, ...restDefaultOptions } = defaultOptions;
   const { headers: propsHeaders, ...restPropsOptions } = options || {};

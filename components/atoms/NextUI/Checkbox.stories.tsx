@@ -1,19 +1,50 @@
-import React, { FormEvent } from "react";
-import { FieldValues, useForm } from "react-hook-form";
-import { Meta } from "@storybook/react";
+/* eslint-disable @typescript-eslint/no-misused-promises */
+import React from "react";
+import { FormEvent } from "react";
+import { useForm, FieldValues } from "react-hook-form";
 
-import {
-  Checkbox,
-  CheckboxIconProps,
-  CheckboxProps,
-} from "@nextui-org/checkbox";
 import { CloseIcon } from "@nextui-org/shared-icons";
 import { button, checkbox } from "@nextui-org/theme";
+import {
+  Checkbox,
+  CheckboxProps,
+  CheckboxIconProps,
+} from "@nextui-org/checkbox";
+
+import { Meta } from "@storybook/react";
 
 export default {
-  title: "Atoms/Checkbox",
   component: Checkbox,
+  title: "Atoms/Checkbox",
   argTypes: {
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    lineThrough: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    validationBehavior: {
+      options: ["aria", "native"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
+    },
     color: {
       control: {
         type: "select",
@@ -27,34 +58,6 @@ export default {
         "danger",
       ],
     },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    lineThrough: {
-      control: {
-        type: "boolean",
-      },
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    validationBehavior: {
-      control: {
-        type: "select",
-      },
-      options: ["aria", "native"],
-    },
   },
 } as Meta<typeof Checkbox>;
 
@@ -67,7 +70,6 @@ const ControlledTemplate = (args: CheckboxProps) => {
   const [selected, setSelected] = React.useState<boolean>(true);
 
   React.useEffect(() => {
-    // eslint-disable-next-line no-console
     console.log("Checkbox ", selected);
   }, [selected]);
 
@@ -104,7 +106,7 @@ const FormTemplate = (args: CheckboxProps) => {
       <Checkbox name="check" value="checked" {...args}>
         Check
       </Checkbox>
-      <button className={button({ color: "primary" })} type="submit">
+      <button type="submit" className={button({ color: "primary" })}>
         Submit
       </button>
     </form>
@@ -132,8 +134,8 @@ const GroupTemplate = (args: CheckboxProps) => {
         <Checkbox
           {...args}
           key={index}
-          className="text-white"
           color="primary"
+          className="text-white"
           isSelected={isSelected(item)}
           onValueChange={() => handleValueChange(item)}
         >
@@ -147,12 +149,11 @@ const GroupTemplate = (args: CheckboxProps) => {
 const WithReactHookFormTemplate = (args: CheckboxProps) => {
   const {
     register,
-    formState: { errors },
     handleSubmit,
+    formState: { errors },
   } = useForm();
 
   const onSubmit = (data: FieldValues) => {
-    // eslint-disable-next-line no-console
     console.log(data);
     alert("Submitted value: " + data.example);
   };
@@ -163,7 +164,7 @@ const WithReactHookFormTemplate = (args: CheckboxProps) => {
       {errors.example && (
         <span className="text-danger">This field is required</span>
       )}
-      <button className={button({ class: "w-fit" })} type="submit">
+      <button type="submit" className={button({ class: "w-fit" })}>
         Submit
       </button>
     </form>
@@ -206,17 +207,16 @@ export const Group = {
 };
 
 export const WithReactHookForm = {
-  render: WithReactHookFormTemplate,
-
   args: {
     ...defaultProps,
   },
+
+  render: WithReactHookFormTemplate,
 };
 
 export const CustomIconFunction = {
   args: {
     ...defaultProps,
-    // eslint-disable-next-line react/display-name
     icon: (props: CheckboxIconProps) => <CloseIcon {...props} />,
   },
 };

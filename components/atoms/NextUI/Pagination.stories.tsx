@@ -1,19 +1,20 @@
 import React from "react";
-import { Meta } from "@storybook/react";
 
+import { clsx } from "@nextui-org/shared-utils";
+import { ChevronIcon } from "@nextui-org/shared-icons";
+import { button, pagination } from "@nextui-org/theme";
 import {
   Pagination,
-  PaginationItemRenderProps,
-  PaginationItemType,
   usePagination,
+  PaginationItemType,
+  PaginationItemRenderProps,
 } from "@nextui-org/pagination";
-import { ChevronIcon } from "@nextui-org/shared-icons";
-import { clsx } from "@nextui-org/shared-utils";
-import { button, pagination } from "@nextui-org/theme";
+
+import { Meta } from "@storybook/react";
 
 export default {
-  title: "Atoms/Pagination",
   component: Pagination,
+  title: "Atoms/Pagination",
   argTypes: {
     page: {
       control: {
@@ -29,6 +30,28 @@ export default {
       control: {
         type: "number",
       },
+    },
+    showShadow: {
+      control: {
+        type: "boolean",
+      },
+    },
+    isDisabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    radius: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md", "lg", "full"],
     },
     variant: {
       control: {
@@ -48,28 +71,6 @@ export default {
         "warning",
         "danger",
       ],
-    },
-    radius: {
-      control: {
-        type: "select",
-      },
-      options: ["none", "sm", "md", "lg", "full"],
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["sm", "md", "lg"],
-    },
-    showShadow: {
-      control: {
-        type: "boolean",
-      },
-    },
-    isDisabled: {
-      control: {
-        type: "boolean",
-      },
     },
   },
 } as Meta<typeof Pagination>;
@@ -98,8 +99,8 @@ export const WithControls = {
 export const PaginationLoop = {
   args: {
     ...defaultProps,
-    showControls: true,
     loop: true,
+    showControls: true,
   },
 };
 
@@ -113,8 +114,8 @@ export const InitialPage = {
 export const IsCompact = {
   args: {
     ...defaultProps,
-    showControls: true,
     isCompact: true,
+    showControls: true,
   },
 };
 
@@ -133,20 +134,20 @@ export const Controlled = () => {
       />
       <div className="flex gap-2">
         <button
+          onClick={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
           className={button({
-            color: "secondary",
             size: "sm",
             variant: "flat",
+            color: "secondary",
           })}
-          onClick={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
         >
           Previous
         </button>
         <button
           className={button({
-            color: "secondary",
             size: "sm",
             variant: "flat",
+            color: "secondary",
           })}
           onClick={() =>
             setCurrentPage((prev) =>
@@ -165,15 +166,15 @@ export const CustomItems = () => {
   const renderItem = ({
     ref,
     value,
-    isActive,
     onNext,
-    onPrevious,
     setPage,
+    isActive,
     className,
+    onPrevious,
   }: PaginationItemRenderProps) => {
     if (value === PaginationItemType.NEXT) {
       return (
-        <button className={clsx(className, "bg-default-200")} onClick={onNext}>
+        <button onClick={onNext} className={clsx(className, "bg-default-200")}>
           <ChevronIcon className="rotate-180" />
         </button>
       );
@@ -182,8 +183,8 @@ export const CustomItems = () => {
     if (value === PaginationItemType.PREV) {
       return (
         <button
-          className={clsx(className, "bg-default-200")}
           onClick={onPrevious}
+          className={clsx(className, "bg-default-200")}
         >
           <ChevronIcon />
         </button>
@@ -197,12 +198,12 @@ export const CustomItems = () => {
     return (
       <button
         ref={ref}
+        onClick={() => setPage(value)}
         className={clsx(
           className,
           isActive &&
             "bg-gradient-to-b from-default-500 to-default-800 font-bold text-white shadow-lg dark:from-default-300 dark:to-default-100"
         )}
-        onClick={() => setPage(value)}
       >
         {value}
       </button>
@@ -212,12 +213,12 @@ export const CustomItems = () => {
   return (
     <Pagination
       {...defaultProps}
-      disableCursorAnimation
       showControls
-      className="gap-2"
       radius="full"
-      renderItem={renderItem}
       variant="light"
+      className="gap-2"
+      disableCursorAnimation
+      renderItem={renderItem}
     />
   );
 };
@@ -236,12 +237,12 @@ export const CustomWithClassNames = {
 };
 
 export const CustomWithHooks = () => {
-  const { activePage, range, setPage, onNext, onPrevious } = usePagination({
+  const { range, onNext, setPage, activePage, onPrevious } = usePagination({
     ...defaultProps,
     total: 6,
-    showControls: true,
     siblings: 10,
     boundaries: 10,
+    showControls: true,
   });
 
   return (
@@ -251,10 +252,10 @@ export const CustomWithHooks = () => {
         {range.map((page) => {
           if (page === PaginationItemType.NEXT) {
             return (
-              <li key={page} aria-label="next page" className="size-4">
+              <li key={page} className="size-4" aria-label="next page">
                 <button
-                  className="size-full rounded-full bg-default-200"
                   onClick={onNext}
+                  className="size-full rounded-full bg-default-200"
                 >
                   <ChevronIcon className="rotate-180" />
                 </button>
@@ -264,10 +265,10 @@ export const CustomWithHooks = () => {
 
           if (page === PaginationItemType.PREV) {
             return (
-              <li key={page} aria-label="previous page" className="size-4">
+              <li key={page} className="size-4" aria-label="previous page">
                 <button
-                  className="size-full rounded-full bg-default-200"
                   onClick={onPrevious}
+                  className="size-full rounded-full bg-default-200"
                 >
                   <ChevronIcon />
                 </button>
@@ -284,13 +285,13 @@ export const CustomWithHooks = () => {
           }
 
           return (
-            <li key={page} aria-label={`page ${page}`} className="size-4">
+            <li key={page} className="size-4" aria-label={`page ${page}`}>
               <button
+                onClick={() => setPage(page)}
                 className={clsx(
                   "size-full rounded-full bg-default-300",
                   activePage === page && "bg-secondary"
                 )}
-                onClick={() => setPage(page)}
               />
             </li>
           );
