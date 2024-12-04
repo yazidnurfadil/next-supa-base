@@ -153,7 +153,7 @@ const eslintConfig = ts.config(
   },
   // Ignore patterns
   {
-    ignores: ["node_modules/", "dist/", ".next/", "*.config.js"],
+    ignores: ["node_modules/", "dist/", ".next/"],
   }
 );
 

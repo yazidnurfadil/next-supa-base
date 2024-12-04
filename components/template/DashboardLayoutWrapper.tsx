@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 import { useLockedBody } from "@/hooks/useBodyLock";
 import { SidebarContext } from "@/hooks/useLayoutContext";
 import { NavbarWrapper } from "@/components/organisms/Navbar";
