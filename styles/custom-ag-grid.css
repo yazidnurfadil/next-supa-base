@@ -1,0 +1,16 @@
+.ag-root .ag-header {
+  background-color: transparent;
+}
+
+.ag-header-cell {
+  background-color: var(--ag-header-background-color);
+}
+
+.ag-header-cell.ag-column-first {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.ag-header-cell.ag-column-last {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}

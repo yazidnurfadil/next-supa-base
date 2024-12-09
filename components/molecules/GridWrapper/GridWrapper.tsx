@@ -4,16 +4,18 @@ import { useRef, useMemo, useCallback } from "react";
 
 import { useAtom } from "jotai";
 import { useTheme } from "next-themes";
+import { themeQuartz } from "ag-grid-community";
 import { AgGridReact } from "@ag-grid-community/react";
 import { CsvExportModule } from "@ag-grid-community/csv-export";
 import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
+
+import "@/styles/custom-ag-grid.css";
+
 import {
   type ColDef,
   type RowSelectionOptions,
   type PaginationChangedEvent,
 } from "@ag-grid-community/core";
-import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
-import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
 
 import { Theme } from "@/types/utils";
 import { tableStates } from "@/states/components";
@@ -23,13 +25,12 @@ import { tableStates } from "@/states/components";
  * https://www.ag-grid.com/react-data-grid/getting-started/
  *
  */
-const GridWrapper = ({
+export const GridWrapper = ({
   items,
   columns,
   isLoading,
   rowOptions,
   pagination = true,
-  gridTheme = "ag-theme-quartz",
   defaultColumns = {
     flex: 1,
   },
@@ -38,7 +39,6 @@ const GridWrapper = ({
   items: unknown[];
   columns: ColDef[];
   isLoading: boolean;
-  gridTheme?: string;
   pagination?: boolean;
   defaultColumns?: ColDef;
   rowOptions?: RowSelectionOptions;
@@ -48,6 +48,60 @@ const GridWrapper = ({
 
   const { theme } = useTheme();
 
+  const anaGridThemeDark = themeQuartz.withParams({
+    spacing: "8px",
+    rowBorder: false,
+    headerFontSize: 14,
+    columnBorder: false,
+    wrapperBorder: false,
+    borderRadius: "14px",
+    fontFamily: "inherit",
+    sidePanelBorder: true,
+    accentColor: "#095028",
+    headerRowBorder: false,
+    foregroundColor: "#FFF",
+    wrapperBorderRadius: "0",
+    cellTextColor: "#ECEDEE",
+    headerTextColor: "#A1A1AA",
+    backgroundColor: "#18181B",
+    browserColorScheme: "dark",
+    rowVerticalPaddingScale: 1,
+    headerVerticalPaddingScale: 0.75,
+    headerBackgroundColor: "#3F3F4699",
+    oddRowBackgroundColor: "#3F3F4699",
+    borderColor:
+      "hsl(var(--nextui-divider) / var(--nextui-divider-opacity, var(--tw-border-opacity)))",
+    dropdownShadow:
+      "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
+  });
+
+  const anaGridThemeLight = themeQuartz.withParams({
+    spacing: "8px",
+    rowBorder: false,
+    headerFontSize: 14,
+    columnBorder: false,
+    wrapperBorder: false,
+    borderRadius: "14px",
+    fontFamily: "inherit",
+    sidePanelBorder: true,
+    accentColor: "#095028",
+    headerRowBorder: false,
+    cellTextColor: "#11181C",
+    wrapperBorderRadius: "0",
+    backgroundColor: "#FFFFFF",
+    foregroundColor: "#11181C",
+    rowVerticalPaddingScale: 1,
+    headerTextColor: "#71717A",
+    browserColorScheme: "light",
+    headerVerticalPaddingScale: 0.75,
+    headerBackgroundColor: "#F4F4F5",
+    oddRowBackgroundColor: "#F4F4F5",
+    borderColor:
+      "hsl(var(--nextui-divider) / var(--nextui-divider-opacity, var(--tw-border-opacity)))",
+    dropdownShadow:
+      "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
+  });
+
   const gridRef = useRef<AgGridReact>(null);
 
   const defaultColDef = useMemo(() => defaultColumns, [defaultColumns]);
@@ -55,8 +109,9 @@ const GridWrapper = ({
   const rowSelection = useMemo(() => rowOptions, [rowOptions]);
 
   const themeClass = useMemo(
-    () => `${gridTheme}${theme === Theme.Dark ? "-dark" : ""}`,
-    [gridTheme, theme]
+    () => (theme === Theme.Dark ? anaGridThemeDark : anaGridThemeLight),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [theme]
   );
 
   const onRowClicked = () => console.log("onCellClicked");
@@ -86,19 +141,17 @@ const GridWrapper = ({
       rowsPerPage: params.api.paginationGetPageSize(),
     }));
   };
-
   return (
     <div
-      className={`${themeClass} h-screen`} // applying the Data Grid theme
-      style={{
-        maxHeight: "80vh",
-      }}
+      className="relative z-0 flex size-full flex-1 flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small" // applying the Data Grid theme
     >
       <AgGridReact
         ref={gridRef}
         rowData={items}
+        theme={themeClass}
         loading={isLoading}
         columnDefs={columns}
+        cellSelection={false}
         pagination={pagination}
         suppressExcelExport={true}
         rowSelection={rowSelection}

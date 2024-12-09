@@ -1,10 +1,34 @@
+import type { ColDef } from "@ag-grid-community/core";
+
+import { ActionCell } from "@/components/molecules/GridWrapper";
+
 import { renderCell } from "./render-cell";
 
-export const columns = [
+export const tableColumns = [
   { uid: "name", name: "NAME" },
   { uid: "role", name: "ROLE" },
   { uid: "status", name: "STATUS" },
   { uid: "actions", name: "ACTIONS" },
+];
+
+export const gridColumn: ColDef[] = [
+  {
+    field: "name",
+  },
+  {
+    field: "role",
+    autoHeight: true,
+    filter: "agTextColumnFilter",
+  },
+  {
+    field: "status",
+    autoHeight: true,
+  },
+  {
+    headerName: "",
+    field: "actions",
+    cellRenderer: ActionCell,
+  },
 ];
 
 export type User = {
@@ -198,3 +222,10 @@ export const users = [
     avatar: "https://i.pravatar.cc/150?u=a092581d4ef9026700d",
   },
 ];
+
+export const response = {
+  number: 1,
+  data: users,
+  totalPages: 10,
+  totalElements: 100,
+};

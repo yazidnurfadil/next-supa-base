@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 "use client";
 
 import { usePathname } from "next/navigation";
@@ -60,6 +58,7 @@ export const SidebarWrapper = () => {
             />
             <SidebarMenu title="Data">
               <SidebarItem
+                href="customers"
                 title="Customers"
                 icon={<CustomersIcon />}
                 isActive={pathname === "/customers"}
@@ -79,11 +78,6 @@ export const SidebarWrapper = () => {
                 title="Balances"
                 icon={<BalanceIcon />}
                 items={["Banks Accounts", "Credit Cards", "Loans"]}
-              />
-              <SidebarItem
-                title="Customers"
-                icon={<CustomersIcon />}
-                isActive={pathname === "/customers"}
               />
               <SidebarItem
                 title="Products"
@@ -129,7 +123,7 @@ export const SidebarWrapper = () => {
                 <SettingsIcon />
               </div>
             </Tooltip>
-            <Tooltip color="primary" content={session?.user?.name}>
+            <Tooltip color="primary" content={"Fulan Someone" as string}>
               <Avatar
                 size="sm"
                 src="https://i.pravatar.cc/150?u=a042581f4e29026704d"

@@ -12,7 +12,7 @@
     },
     "eslint.format.enable": true,
     "eslint.nodePath": "./node_modules",
-    "[json][jsonc]": {
+    "[json][jsonc][css]": {
       "editor.formatOnSave": true,
       "editor.defaultFormatter": "esbenp.prettier-vscode",
       "editor.codeActionsOnSave": {

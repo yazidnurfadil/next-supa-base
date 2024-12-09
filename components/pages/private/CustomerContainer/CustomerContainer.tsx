@@ -13,21 +13,15 @@ import { ExportIcon } from "@/components/atoms/Icons/accounts/export-icon";
 import { HouseIcon } from "@/components/atoms/Icons/breadcrumb/house-icon";
 import { UsersIcon } from "@/components/atoms/Icons/breadcrumb/users-icon";
 import { SettingsIcon } from "@/components/atoms/Icons/sidebar/settings-icon";
-import {
-  TableWrapper,
-  TableWrapperItem,
-} from "@/components/molecules/TableWrapper";
+import { GridWrapper as TableWrapperMain } from "@/components/molecules/GridWrapper";
 
 import {
-  User,
-  users,
-  tableColumns as columns,
+  gridColumn as columns,
   response as userResponse,
-} from "./data";
+} from "../AccountsContainer/data";
 
-export const AccountsContainer = () => {
+export const CustomerContainer = () => {
   const response = useMemo(() => userResponse, []);
-
   return (
     <div className="mx-auto flex w-full max-w-[95rem] flex-1 flex-col gap-4 px-4 lg:px-6">
       <ul className="flex gap-2">
@@ -71,12 +65,11 @@ export const AccountsContainer = () => {
           </Button>
         </div>
       </div>
-      <div className="mx-auto w-full max-w-[95rem]">
-        <TableWrapper
+      <div className="mx-auto size-full">
+        <TableWrapperMain
           columns={columns}
-          isFetching={false}
-          response={response}
-          items={users as TableWrapperItem<User>[]}
+          isLoading={false}
+          items={response.data}
         />
       </div>
     </div>
