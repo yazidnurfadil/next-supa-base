@@ -28,7 +28,7 @@ export const LoginContainer = () => {
   const submitHandler = useCallback(async (values: LoginFormType) => {
     try {
       await signIn("credentials", {
-        npa: values.email,
+        email: values.email,
         password: values.password,
         callbackUrl: "/dashboard",
       });
@@ -49,31 +49,38 @@ export const LoginContainer = () => {
         initialValues={initialValues}
         validationSchema={LoginSchema}
       >
-        {({ errors, touched, handleChange, handleSubmit }) => (
+        {({
+          values,
+          errors,
+          touched,
+          handleBlur,
+          handleChange,
+          handleSubmit,
+        }) => (
           <>
             <div className="mb-4 flex w-1/2 flex-col gap-4">
               <Input
-                id="email"
                 type="email"
                 name="email"
                 label="Email"
                 variant="bordered"
+                onBlur={handleBlur}
+                value={values.email}
+                onChange={handleChange}
                 errorMessage={errors.email}
                 placeholder="example@domain.com"
-                onChange={handleChange("email")}
-                defaultValue={initialValues.email}
                 isInvalid={!!errors.email && !!touched.email}
               />
               <Input
-                id="password"
                 type="password"
                 name="password"
                 label="Password"
                 variant="bordered"
+                onBlur={handleBlur}
                 placeholder="••••••"
+                onChange={handleChange}
+                value={values.password}
                 errorMessage={errors.password}
-                onChange={handleChange("password")}
-                defaultValue={initialValues.password}
                 isInvalid={!!errors.password && !!touched.password}
               />
             </div>
