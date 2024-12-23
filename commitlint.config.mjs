@@ -1,16 +1,16 @@
-export default {
-  rules: { kominfo: [2, "always"] },
+const lintConfig = {
+  rules: { main: [2, "always"] },
   plugins: [
     {
       rules: {
-        kominfo: ({ raw }) => {
+        main: ({ raw }) => {
           const format =
-            "#<nomer-issue><spasi>|<spasi><nama><spasi>|<spasi><commit-message>";
-          const title = "FORMAT COMMIT KOMINFO PEMUDA PERSIS";
-          const description = "Format message yang benar";
-          const rightFormat = "#400 | Jhon Doe | contoh commit";
-
-          const regex = /#\d+\s\|\s[\w\s]+\s\|\s.+/;
+            "#<issue-number><space>|<space><name><space>|<space><conventional-commit-message>";
+          const title = "COMMIT MESSAGE'S FORMAT";
+          const description = "Please use the following format:";
+          const rightFormat = "#123 | Jhon Doe | chore: some commit message";
+          const regex =
+            /#\d+\s\|\s[\w\s]+\s\|\s(?<type>build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|BREAKING CHANGE)(?<scope>(?:\([^()\r\n]*\)|\())?(?<breaking>!)?(?<separator>:)? ?(?<subject>.+$)?/;
           if (!raw.match(regex))
             return [
               false,
@@ -22,3 +22,5 @@ export default {
     },
   ],
 };
+
+export default lintConfig;
