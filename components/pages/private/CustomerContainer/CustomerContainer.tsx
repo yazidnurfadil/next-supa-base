@@ -48,7 +48,7 @@ export const CustomerContainer = () => {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3 md:flex-nowrap">
           <Input
-            placeholder="Search users"
+            placeholder="Search customers"
             classNames={{
               input: "w-full",
               mainWrapper: "w-full",
