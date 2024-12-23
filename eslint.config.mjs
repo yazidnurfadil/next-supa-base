@@ -153,7 +153,7 @@ const eslintConfig = ts.config(
   },
   // Ignore patterns
   {
-    ignores: ["node_modules/", "dist/", ".next/"],
+    ignores: ["node_modules/", "dist/", ".next/", "types/database.types.ts"],
   }
 );
 

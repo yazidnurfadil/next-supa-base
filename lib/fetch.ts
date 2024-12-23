@@ -3,8 +3,6 @@ type DefaultFetchOptions = RequestInit & {
 };
 
 export const defaultOptions: DefaultFetchOptions = {
-  mode: "cors" as RequestMode,
-  credentials: "omit" as RequestCredentials,
   headers: {
     "Content-Type": "application/json",
   },

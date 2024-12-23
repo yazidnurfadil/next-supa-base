@@ -1,50 +1,43 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import type { NextAuthConfig } from "next-auth";
-
-import NextAuth, { CredentialsSignin } from "next-auth";
+import { SupabaseAdapter } from "@auth/supabase-adapter";
 import Credentials from "next-auth/providers/credentials";
+import NextAuth, { NextAuthConfig, CredentialsSignin } from "next-auth";
 
-import { decodeJWT } from "@/utils/text";
+import { createSupaClient } from "@/lib/supabase";
+import { getProfile } from "@/services/api/profile";
 
-// declare module "next-auth" {
-//   /**
-//    * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
-//    */
-//   interface Session {
-//     user: {
-//       /** The user's postal address. */
-//       address: string;
-//       /**
-//        * By default, TypeScript merges new interface properties and overwrites existing ones.
-//        * In this case, the default session user properties will be overwritten,
-//        * with the new ones defined above. To keep the default session user properties,
-//        * you need to add them back into the newly declared interface.
-//        */
-//     } & DefaultSession["user"];
-//   }
-// }
+const BASE_PATH = "/api/auth";
 
 class InvalidLoginError extends CredentialsSignin {
   code = "Invalid identifier or password";
 }
 
-export const BASE_PATH = "/api/auth";
-
 export const config = {
-  debug: true,
   basePath: BASE_PATH,
-  pages: {
-    signIn: "/login",
-  },
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV !== "production",
+  pages: {
+    error: "/login",
+    signIn: "/login",
+  },
+  adapter: SupabaseAdapter({
+    url: <string>process.env.SUPABASE_URL,
+    secret: <string>process.env.SUPABASE_SERVICE_ROLE_KEY,
+  }),
   callbacks: {
-    jwt({ user, token }) {
-      return { ...token, ...user };
+    jwt({ token }) {
+      return token;
+    },
+    authorized: ({ auth, request: _req }) => {
+      if (auth) {
+        return true;
+      }
+      return false;
+    },
+    async session({ session }) {
+      const userDetail = await getProfile();
+      return { ...session, user: { ...session.user, ...userDetail } };
     },
   },
   providers: [
@@ -65,6 +58,7 @@ export const config = {
       },
       authorize: async (credentials) => {
         try {
+          const supabase = await createSupaClient();
           // You need to provide your own logic here that takes the credentials
           // submitted and returns either a object representing a user or value
           // that is false/null if the credentials are invalid.
@@ -72,24 +66,18 @@ export const config = {
           // You can also use the `req` object to obtain additional parameters
           // (i.e., the request IP address)
           // If no error and we have user data, return it
-          const res = await fetch("/v1/api/auth", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email: credentials?.email,
-              password: credentials?.password,
-            }),
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email: credentials?.email as string,
+            password: credentials?.password as string,
           });
-          const jwtRes = await res.json();
-          if (jwtRes.accessToken) {
-            const user = decodeJWT(jwtRes.accessToken);
-            return { ...user.payload, apiToken: jwtRes.accessToken };
-          } else {
+
+          if (error) {
             throw new InvalidLoginError();
           }
+          return data.user;
         } catch {
           // Return null if user data could not be retrieved
-          return null;
+          throw new InvalidLoginError();
         }
       },
     }),

@@ -8,19 +8,19 @@ export const ActionCell = (params: { id: string }) => {
   return (
     <div className="flex h-full items-center justify-end gap-4">
       <Tooltip content="Details">
-        <button onClick={() => console.log("View event", params.id)}>
+        <button onClick={() => console.log("View business", params.id)}>
           <EyeIcon size={20} fill="#979797" />
         </button>
       </Tooltip>
-      <Tooltip color="secondary" content="Edit event">
-        <button onClick={() => console.log("Edit event", params.id)}>
+      <Tooltip color="secondary" content="Edit business">
+        <button onClick={() => console.log("Edit business", params.id)}>
           <EditIcon size={20} fill="#979797" />
         </button>
       </Tooltip>
       <Tooltip
         color="danger"
-        content="Delete event"
-        onClick={() => console.log("Delete event", params.id)}
+        content="Delete business"
+        onClick={() => console.log("Delete business", params.id)}
       >
         <button>
           <DeleteIcon size={20} fill="#FF0080" />

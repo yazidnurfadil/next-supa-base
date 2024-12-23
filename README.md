@@ -1,30 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next + Supabase Biolerplate
+
+A multi-tenancy boilerplate project to get started with Next.js and Supabase
 
 ## Getting Started
 
-First, run the development server:
+### Install dependencies
 
 ```bash
-bun dev
+bun install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Migrate the database
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+bun run migrate
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Run the development server
 
-## Learn More
+```bash
+bun run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Other Commands
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Build the project
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+bun run build
+```
 
-## Deploy on Vercel
+### Start the production server
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+bun run start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Generate types from database
+
+```bash
+bun run db:gentypes
+```
+
+### Seed the database
+
+```bash
+bun run migrate:seed
+```
+
+### Reset the database
+
+```bash
+bun run db:reset
+```
+
+### Run Storybook
+
+```bash
+bun run storybook
+```
+
+### Lint
+
+```bash
+bun run lint
+```
+
+### Format
+
+```bash
+bun run format
+```
+
+## Accounts
+
+### Super User
+
+```
+email: super@example.com
+password: superpassword123
+```
+
+### Owner Users
+
+```
+email: user1@example.com
+password: password123
+
+email: user2@example.com
+password: password123
+```
+
+## Features
+
+- **Personal accounts**: Every user that signs up using Supabase auth automatically gets their own personal account.
+  Billing on personal accounts can be enabled/disabled.
+- **Team accounts**: Team accounts are billable accounts that can be shared by multiple users. Team accounts can be
+  disabled if you only wish to allow personal accounts. Billing on team accounts can also be disabled.
+- **Permissions**: Permissions are handled using RLS, just like you're used to with Supabase. Basejump provides
+  convenience methods that let you restrict access to rows based on a user's account access and role within an account
+- **Billing**: Basejump provides out of the box billing support for Stripe, but you can add your own providers easily.
+  If you do, please consider contributing them so others can benefit!
+- **Testing**: Basejump is fully tested itself, but also provides a suite of testing tools that make it easier to test
+  your own Supabase functions and schema. You can check it out
+  at [database.dev/basejump/supabase_test_helpers](https://database.dev/basejump/supabase_test_helpers). You do not need
+  to be using Basejump to use the testing tools.

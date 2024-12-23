@@ -1,6 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import NextAuth, { DefaultJWT, DefaultSession } from "next-auth";
 
+import { Database } from "@/types/database.types";
+
 declare module "next-auth" {
   interface AdapterUser {
     exp: number;
@@ -9,10 +11,17 @@ declare module "next-auth" {
     email: string;
   }
 
-  interface Session extends DefaultSession {
-    user: User;
-    error: string;
-    expires_in: string;
+  interface Session {
+    // A JWT which can be used as Authorization header with supabase-js for RLS.
+    access?: string;
+    user: DefaultSession["user"] &
+      Database["basejump"]["Tables"]["accounts"]["Row"] &
+      Database["basejump"]["Tables"]["account_user"]["Row"] & {
+        // The user's postal address
+        image: string;
+        avatar: string;
+        address: string;
+      };
   }
 }
 
