@@ -35,7 +35,7 @@ export const CustomerContainer = () => {
         <li className="flex gap-2">
           <span>/</span>
           <UsersIcon />
-          <span>Account</span>
+          <span>Customer</span>
         </li>
         <li className="flex gap-2">
           <span>/</span>
@@ -43,11 +43,11 @@ export const CustomerContainer = () => {
         </li>
       </ul>
 
-      <h3 className="text-xl font-semibold">All Accounts</h3>
+      <h3 className="text-xl font-semibold">All Customers</h3>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3 md:flex-nowrap">
           <Input
-            placeholder="Search users"
+            placeholder="Search customers"
             classNames={{
               input: "w-full",
               mainWrapper: "w-full",

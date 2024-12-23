@@ -17,3 +17,14 @@ export const LoginSchema = object().shape({
 //     .required("Confirm password is required")
 //     .oneOf([ref("password")], "Passwords must match"),
 // });
+
+export const BusinessSchema = object().shape({
+  ownerName: string().required("Owner's Name is required"),
+  businessName: string().required("Business Name is required"),
+  businessSlug: string().required("Business Slug is required"),
+  ownerPhone: string().matches(phoneRegExp, "Phone number is not valid"),
+  businessPhone: string().matches(phoneRegExp, "Phone number is not valid"),
+  ownerEmail: string()
+    .email("Email is invalid")
+    .required("Owner's Email is required"),
+});
