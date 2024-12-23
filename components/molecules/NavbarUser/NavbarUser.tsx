@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 "use client";
 
 import { useCallback } from "react";
@@ -30,7 +29,7 @@ export const NavbarUser = () => {
             size="md"
             as="button"
             color="secondary"
-            src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+            src={session?.user.avatar}
           />
         </DropdownTrigger>
       </NavbarItem>
