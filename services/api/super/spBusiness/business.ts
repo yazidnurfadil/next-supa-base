@@ -52,7 +52,7 @@ export const createBusiness = async (req: Request) => {
   const { data: newData } = await supabase
     .from("business_accounts")
     .select("*")
-    .eq("id", newBusinessId!)
+    .eq("id", newBusinessId)
     .limit(1);
 
   const res = businessSelializer(newData?.[0] ?? {});
