@@ -353,7 +353,7 @@ create policy "Super users can view all accounts" on basejump.account_user
         basejump.is_super_user(auth.uid()) = true
     );
 
-create policy "Account users can be deleted by owners except primary account owner" on basejump.account_user
+create policy "Account users can be deleted by owners except primary owner" on basejump.account_user
     for delete
     to authenticated
     using (

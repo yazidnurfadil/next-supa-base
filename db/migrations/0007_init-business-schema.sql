@@ -1,28 +1,9 @@
---
--- Create business_accounts view
---
-CREATE VIEW business_accounts AS
-WITH create_accounts_json AS 
-(
-  SELECT get_accounts() account_arr
-) 
-SELECT 
-  accounts.account_id AS id,
-  accounts.is_primary_owner AS is_owner,
-  accounts.personal_account,
-  a.name,
-  a.slug,
-  a.created_at,
-  a.updated_at,
-  a.public_metadata as metadata
-FROM create_accounts_json
-CROSS JOIN LATERAL json_to_recordset(account_arr) AS accounts (
-    account_id uuid,
-    is_primary_owner boolean,
-    personal_account boolean
-)
-JOIN basejump.accounts a on a.id = accounts.account_id
-WHERE accounts.personal_account = false;
+CREATE SCHEMA "business";
+--> statement-breakpoint
+ 
+GRANT USAGE ON SCHEMA business TO service_role;
+GRANT ALL ON SCHEMA business TO postgres;
+GRANT USAGE ON SCHEMA business TO authenticated;
 
 --
 -- Create run_new_user_business_setup function
