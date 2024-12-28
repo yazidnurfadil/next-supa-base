@@ -1,3 +1,4 @@
+-- Custom SQL migration file, put your code below! --
 /**
       ____                 _
      |  _ \               (_)
