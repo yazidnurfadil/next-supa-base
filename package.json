@@ -15,10 +15,11 @@
     "db:stop": "supabase stop --project-id nextsupabase",
     "db:nuke": "supabase db reset",
     "db:reset": "supabase db reset && drizzle-kit migrate",
+    "db:reset:seed": "supabase db reset && drizzle-kit migrate && bun run ./db/seed/index.ts",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "db:migrate": "drizzle-kit migrate",
-    "db:seed": "supabase db reset",
+    "db:seed": "bun run ./db/seed/index.ts",
     "db:gentypes": "supabase gen types --lang=typescript --local > types/database.types.ts"
   },
   "dependencies": {
@@ -51,6 +52,7 @@
     "react-dom": "^19.0.0",
     "react-number-format": "^5.4.3",
     "sonner": "^2.0.1",
+    "uuid": "^11.0.3",
     "yup": "^1.4.0"
   },
   "devDependencies": {
