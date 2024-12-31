@@ -10,16 +10,16 @@ A multi-tenancy boilerplate project to get started with Next.js and Supabase
 bun install
 ```
 
-### Migrate the database
+### Migrate & seed the database
 
 ```bash
-bun run migrate
+bun db:reset:seed
 ```
 
 ### Run the development server
 
 ```bash
-bun run dev
+bun dev
 ```
 
 ## Other Commands
@@ -27,49 +27,67 @@ bun run dev
 ### Build the project
 
 ```bash
-bun run build
+bun build
 ```
 
 ### Start the production server
 
 ```bash
-bun run start
+bun start
 ```
 
 ### Generate types from database
 
 ```bash
-bun run db:gentypes
+bun db:gentypes
+```
+
+### Migrate database schema
+
+```bash
+bun db:migrate
 ```
 
 ### Seed the database
 
 ```bash
-bun run migrate:seed
+bun db:seed
 ```
 
 ### Reset the database
 
 ```bash
-bun run db:reset
+bun db:reset
+```
+
+### Reset -> migrate -> seed the database
+
+```bash
+bun db:reset
+```
+
+### Clean Supabase
+
+```bash
+bun db:nuke
 ```
 
 ### Run Storybook
 
 ```bash
-bun run storybook
+bun storybook
 ```
 
 ### Lint
 
 ```bash
-bun run lint
+bun lint
 ```
 
 ### Format
 
 ```bash
-bun run format
+bun format
 ```
 
 ## Accounts
