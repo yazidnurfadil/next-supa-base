@@ -3,6 +3,7 @@ import { seedBusiness } from "./businessAccount";
 
 const seed = async () => {
   try {
+    console.log("");
     await seedSuperUser();
     await seedBusiness();
 
