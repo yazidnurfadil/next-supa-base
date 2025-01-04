@@ -59,7 +59,7 @@ export async function seedSuperUser() {
         )
       );
 
-    console.log("Super user created successfully!");
+    console.log("[\x1b[33m%s\x1b[0m]", "✓", "Super user created successfully!");
   } catch (error) {
     console.error("Error creating super user:", error);
 
