@@ -11,6 +11,39 @@ import {
   identitiesInAuth as identities,
 } from "../schema";
 
+// Create specific business accounts
+export const specificBusinesses = [
+  {
+    image: "cld-sample-5",
+    phone: "089999999909",
+    businessSlug: "my-garment",
+    userEmail: "user1@example.com",
+    businessName: "Garment Production",
+  },
+  {
+    image: "cld-sample-4",
+    phone: "089999999908",
+    businessSlug: "my-tees",
+    userEmail: "user2@example.com",
+    businessName: "Tees Production",
+  },
+
+  {
+    image: "cld-sample-3",
+    phone: "089999999907",
+    userEmail: "user3@example.com",
+    businessName: "Amc Production",
+    businessSlug: "amc-production",
+  },
+  {
+    image: "cld-sample-2",
+    phone: "089999999906",
+    userEmail: "user4@example.com",
+    businessName: "Bmx Production",
+    businessSlug: "bmx-production",
+  },
+];
+
 export async function seedBusiness() {
   try {
     const baseUsers = Array.from({ length: 20 }, (_, i) => {
@@ -90,39 +123,6 @@ export async function seedBusiness() {
         .where(eq(account.id, accountResult.accountId));
     }
 
-    // Create specific business accounts
-    const specificBusinesses = [
-      {
-        image: "cld-sample-5",
-        phone: "089999999909",
-        businessName: "Mang Ijal",
-        userEmail: "user1@example.com",
-        businessSlug: "ijal-production",
-      },
-      {
-        image: "cld-sample-4",
-        phone: "089999999908",
-        businessName: "Mang Usep",
-        businessSlug: "usep-konveksi",
-        userEmail: "user2@example.com",
-      },
-
-      {
-        image: "cld-sample-3",
-        phone: "089999999907",
-        userEmail: "user3@example.com",
-        businessName: "Amc Production",
-        businessSlug: "amc-production",
-      },
-      {
-        image: "cld-sample-2",
-        phone: "089999999906",
-        userEmail: "user4@example.com",
-        businessName: "Bmx Production",
-        businessSlug: "bmx-production",
-      },
-    ];
-
     for (const business of specificBusinesses) {
       const user = insertedUsers.find((u) => u.email === business.userEmail);
       if (!user) continue;
@@ -141,15 +141,13 @@ export async function seedBusiness() {
         })
         .where(eq(account.id, accountResult.accountId));
     }
-
     console.log(
       "[\x1b[33m%s\x1b[0m]",
       "✓",
       "Dummy businesses seeded successfully!"
     );
   } catch (error) {
-    console.error("Error seeding database:", error);
-
+    console.error("Error seeding businesses:", error);
     throw error;
   }
 }
