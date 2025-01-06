@@ -15,4 +15,4 @@ const seed = async () => {
   }
 };
 
-seed().catch(console.error);
+await seed();
