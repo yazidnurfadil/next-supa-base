@@ -1,9 +1,20 @@
-import { eq, sql } from "drizzle-orm";
+import { eq, sql, ColumnDataType, ColumnBaseConfig } from "drizzle-orm";
+import {
+  uuid,
+  boolean,
+  pgPolicy,
+  PgPolicy,
+  timestamp,
+  ExtraConfigColumn,
+} from "drizzle-orm/pg-core";
 
-import type { DB } from "../db";
+import {
+  accountUserInBasejump as accountUser,
+  accountsInBasejump as businessAccount,
+} from "@/db/schemas/basejump";
 
+import { type DB } from "../db";
 import { usersInAuth as users } from "../schema";
-
 export const createRLSHelpers = (db: DB) => ({
   async enableRLS(tableName: string) {
     await db.execute(sql`
@@ -94,3 +105,138 @@ export async function createDrizzleSupabaseImpersonate(
   };
   return clientWithImpersonation;
 }
+
+export const generateGeneralPolicy = (
+  policyName: string,
+  table: Record<
+    string,
+    ExtraConfigColumn<ColumnBaseConfig<ColumnDataType, string>>
+  >
+): PgPolicy[] => {
+  return [
+    pgPolicy(`Super users can create ${policyName}`, {
+      for: "insert",
+      as: "permissive",
+      to: ["authenticated"],
+      withCheck: sql`(basejump.is_super_user(auth.uid()) = true)`,
+    }),
+    pgPolicy(`Owner can create ${policyName}`, {
+      for: "insert",
+      as: "permissive",
+      to: ["authenticated"],
+      withCheck: sql`
+        exists (
+          select 1 
+          from ${accountUser}
+          where (
+            ${accountUser.userId} = auth.uid() 
+            and 
+            ${accountUser.accountRole} = 'owner'
+          )
+        )`,
+    }),
+    pgPolicy(
+      `Super users can delete ${policyName}s and owners can delete their own ${policyName}s`,
+      {
+        for: "delete",
+        as: "permissive",
+        to: ["authenticated"],
+        using: sql`
+          basejump.is_super_user(auth.uid()) = true
+          or 
+          exists (
+            select 1 
+            from ${accountUser}
+            where (
+              ${accountUser.userId} = auth.uid() 
+              and 
+              ${accountUser.accountRole} = 'owner' 
+              and 
+              ${accountUser.accountId} = ${table.businessAccountId}
+            )
+          )
+        `,
+      }
+    ),
+    pgPolicy(
+      `Super users can update ${policyName}s and owners can update their own ${policyName}s`,
+      {
+        for: "update",
+        as: "permissive",
+        to: ["authenticated"],
+        using: sql`
+          basejump.is_super_user(auth.uid()) = true
+          or 
+          exists (
+            select 1 
+            from ${accountUser}
+            where (
+              ${accountUser.userId} = auth.uid() 
+              and 
+              ${accountUser.accountRole} = 'owner' 
+              and 
+              ${accountUser.accountId} = ${table.businessAccountId}
+            )
+          )
+        `,
+      }
+    ),
+    pgPolicy(
+      // "Super users can view all customers and owners can view their own customers",
+      `Super users can view all ${policyName}s and team members can view their own ${policyName}s`,
+      {
+        for: "select",
+        as: "permissive",
+        to: ["authenticated"],
+        using: sql`
+          basejump.is_super_user(auth.uid()) = true
+          or 
+          exists (
+            select 1 
+            from ${accountUser}
+            where (
+              ${accountUser.userId} = auth.uid() 
+              and 
+              ${accountUser.accountRole} = 'owner' 
+              and 
+              ${accountUser.accountId} = ${table.businessAccountId}
+            )
+          )
+        `,
+      }
+    ),
+  ];
+};
+
+export const commonColumns = {
+  isDeleted: boolean("is_deleted").default(false).notNull(),
+  createdBy: uuid("created_by")
+    .notNull()
+    .references(() => users.id),
+  updatedBy: uuid("updated_by")
+    .notNull()
+    .references(() => users.id),
+  id: uuid()
+    .default(sql`uuid_generate_v4()`)
+    .primaryKey()
+    .notNull(),
+  deletedAt: timestamp("deleted_at", {
+    mode: "string",
+    withTimezone: true,
+  }),
+  businessAccountId: uuid("business_account_id")
+    .notNull()
+    .references(() => businessAccount.id),
+  updatedAt: timestamp("updated_at", {
+    mode: "string",
+    withTimezone: true,
+  })
+    .default(sql`current_timestamp`)
+    .defaultNow(),
+  createdAt: timestamp("created_at", {
+    mode: "string",
+    withTimezone: true,
+  })
+    .default(sql`current_timestamp`)
+    .defaultNow(),
+};
