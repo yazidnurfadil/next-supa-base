@@ -2,6 +2,7 @@ import { Database } from "@/types/database.types";
 
 export type AccountSerialized = {
   name: string;
+  email: string;
   image: string;
   phone: string;
   avatar: string;
@@ -13,5 +14,6 @@ export type AccountSerialized = {
   is_primary_owner: boolean;
   personal_account: boolean;
   billing_status: string | null;
+  current_business: string | null;
   account_role: Database["basejump"]["Enums"]["account_role"];
 };

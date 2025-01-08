@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { PostgrestError } from "@supabase/supabase-js";
 
 import { apiResHandler } from "@/utils";
@@ -19,7 +16,10 @@ export const getProfile = async () => {
   const personalAcccount = profileSerializer(data);
   let activeBusiness = null;
 
-  if (personalAcccount.current_business) {
+  if (
+    personalAcccount.account_role !== "super" &&
+    personalAcccount.current_business
+  ) {
     const { error: errorBusiness, data: businessAccount } = await supabase.rpc(
       "get_account",
       {
@@ -31,7 +31,7 @@ export const getProfile = async () => {
     }
 
     activeBusiness = businessAccount;
-  } else {
+  } else if (personalAcccount.account_role !== "super") {
     const { data: allAccountData, error: errorAllAccount } =
       await supabase.rpc("get_accounts");
     if (errorAllAccount) {
