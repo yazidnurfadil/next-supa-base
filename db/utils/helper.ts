@@ -1,9 +1,11 @@
-import { eq, sql, ColumnDataType, ColumnBaseConfig } from "drizzle-orm";
+import { eq, sql, SQL, ColumnDataType, ColumnBaseConfig } from "drizzle-orm";
 import {
   uuid,
   boolean,
   pgPolicy,
   PgPolicy,
+  PgColumn,
+  PgSelect,
   timestamp,
   ExtraConfigColumn,
 } from "drizzle-orm/pg-core";
@@ -239,4 +241,16 @@ export const commonColumns = {
   })
     .default(sql`current_timestamp`)
     .defaultNow(),
+};
+
+export const withPagination = <T extends PgSelect>(
+  qb: T,
+  orderByColumn: SQL.Aliased | PgColumn | SQL,
+  page: string | number = 1,
+  pageSize: string | number = 15
+): T => {
+  return qb
+    .orderBy(orderByColumn)
+    .limit(Number(pageSize))
+    .offset((Number(page) - 1) * Number(pageSize));
 };

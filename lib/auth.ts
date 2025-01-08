@@ -35,8 +35,9 @@ export const config = {
       }
       return false;
     },
-    async session({ session }) {
+    async session({ token, session }) {
       const userDetail = await getProfile();
+      session.access_token = token as SupabaseToken;
       return { ...session, user: { ...session.user, ...userDetail } };
     },
   },

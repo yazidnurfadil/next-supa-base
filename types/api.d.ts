@@ -1,7 +1,14 @@
+export enum CommonSortByColumn {
+  name = "name",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+  deletedAt = "deletedAt",
+}
 export interface ApiResponse<T> {
   data: T;
   error?: { message: string };
 }
+
 export interface Sort {
   empty: boolean;
   sorted: boolean;
