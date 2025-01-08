@@ -4,14 +4,20 @@
 import { UploadApiResponse } from "cloudinary";
 import { getCldImageUrl } from "next-cloudinary";
 
+import type { AccountSerialized } from "@/types/user.type";
+
 import { Json } from "@/types/database.types";
+
+export type ProfileSerializer = AccountSerialized & {
+  active_business: AccountSerialized | null;
+};
 
 type UploadSerializer = {
   type: string;
   uploaded_by: string;
 } & Pick<UploadApiResponse, "display_name" | "asset_id" | "format" | "url">;
 
-export const profileSerializer = (data: Json) => {
+export const profileSerializer: (data: Json) => AccountSerialized = (data) => {
   // @ts-expect-error expect any
   const { metadata, ...profile } = data;
 
