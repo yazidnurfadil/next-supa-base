@@ -36,6 +36,19 @@ export const TableFooter = ({
     <div className="flex w-full flex-col items-center justify-center">
       <div className="flex w-full items-center justify-between">
         <span className="text-small text-default-400">{footerText}</span>
+        {pages > 1 && (
+          <div className="flex flex-1 items-center justify-center">
+            <Pagination
+              isCompact
+              showShadow
+              page={page}
+              showControls
+              total={pages}
+              isDisabled={isLoading}
+              onChange={onPageChanges}
+            />
+          </div>
+        )}
         <label className="flex items-center text-small text-default-400">
           {footerRowsText}
           <select
@@ -51,18 +64,6 @@ export const TableFooter = ({
           </select>
         </label>
       </div>
-
-      {pages > 1 && (
-        <Pagination
-          isCompact
-          showShadow
-          page={page}
-          showControls
-          total={pages}
-          isDisabled={isLoading}
-          onChange={onPageChanges}
-        />
-      )}
     </div>
   );
 };

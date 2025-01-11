@@ -5,8 +5,8 @@ import { useRef, useMemo, useCallback } from "react";
 import { useAtom } from "jotai";
 import { useTheme } from "next-themes";
 import { themeQuartz } from "ag-grid-community";
-import { AgGridReact } from "@ag-grid-community/react";
 import { CsvExportModule } from "@ag-grid-community/csv-export";
+import { AgGridReact, AgGridReactProps } from "@ag-grid-community/react";
 import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
 
 import "@/styles/custom-ag-grid.css";
@@ -19,6 +19,7 @@ import {
 
 import { Theme } from "@/types/utils";
 import { tableStates } from "@/states/components";
+import { TableFooter } from "@/components/molecules/TableFooter";
 
 /**
  * AG GRID React Table Component
@@ -30,21 +31,21 @@ export const GridWrapper = ({
   columns,
   isLoading,
   rowOptions,
-  pagination = true,
+  paginationPageSizeSelector = [15, 25, 50, 100, 500, 1000],
   defaultColumns = {
     flex: 1,
+    cellClass: "items-center flex",
   },
-  paginationPageSizeSelector = [15, 25, 50, 100, 500, 1000],
-}: {
+  ...restAgGridReactProps
+}: AgGridReactProps & {
   items: unknown[];
   columns: ColDef[];
   isLoading: boolean;
-  pagination?: boolean;
   defaultColumns?: ColDef;
   rowOptions?: RowSelectionOptions;
   paginationPageSizeSelector?: number[];
 }) => {
-  const [{ rowsPerPage }, setTableConfig] = useAtom(tableStates);
+  const [{ totalItems, rowsPerPage }, setTableConfig] = useAtom(tableStates);
 
   const { theme } = useTheme();
 
@@ -143,28 +144,32 @@ export const GridWrapper = ({
   };
   return (
     <div
-      className="relative z-0 flex size-full flex-1 flex-col justify-between gap-4 rounded-large bg-content1 p-4 shadow-small" // applying the Data Grid theme
+      className="relative z-0 flex size-full flex-1 flex-col justify-between gap-4" // applying the Data Grid theme
     >
-      <AgGridReact
-        ref={gridRef}
-        rowData={items}
-        theme={themeClass}
-        loading={isLoading}
-        columnDefs={columns}
-        cellSelection={false}
-        pagination={pagination}
-        suppressExcelExport={true}
-        rowSelection={rowSelection}
-        onRowClicked={onRowClicked}
-        defaultColDef={defaultColDef}
-        onCellClicked={onCellClicked}
-        onFilterOpened={onFilterOpened}
-        paginationPageSize={rowsPerPage}
-        onCellValueChanged={onCellValueChanged}
-        onPaginationChanged={handleOnPaginationChanged}
-        modules={[ClientSideRowModelModule, CsvExportModule]}
-        paginationPageSizeSelector={paginationPageSizeSelector}
-      />
+      <div className="h-full rounded-large bg-content1 p-4 shadow-small">
+        <AgGridReact
+          ref={gridRef}
+          rowData={items}
+          theme={themeClass}
+          pagination={false}
+          loading={isLoading}
+          columnDefs={columns}
+          cellSelection={false}
+          suppressExcelExport={true}
+          rowSelection={rowSelection}
+          onRowClicked={onRowClicked}
+          defaultColDef={defaultColDef}
+          onCellClicked={onCellClicked}
+          onFilterOpened={onFilterOpened}
+          paginationPageSize={rowsPerPage}
+          onCellValueChanged={onCellValueChanged}
+          onPaginationChanged={handleOnPaginationChanged}
+          modules={[ClientSideRowModelModule, CsvExportModule]}
+          paginationPageSizeSelector={paginationPageSizeSelector}
+          {...restAgGridReactProps}
+        />
+      </div>
+      <TableFooter isLoading={false} footerText={`Total ${totalItems} items`} />
     </div>
   );
 };
