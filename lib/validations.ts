@@ -1,6 +1,6 @@
 import { object, string } from "yup";
 
-const phoneRegExp = /^8[0-9]{9,}$/;
+export const phoneRegExp = /(0|\+62)8\d{9,}$/i;
 
 export const LoginSchema = object().shape({
   password: string().required("Password is required"),
