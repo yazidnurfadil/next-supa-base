@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo, useCallback } from "react";
+import { useRef, useMemo } from "react";
 
 import { useAtom } from "jotai";
 import { useTheme } from "next-themes";
@@ -115,22 +115,11 @@ export const GridWrapper = ({
     [theme]
   );
 
-  const onRowClicked = () => console.log("onCellClicked");
-
-  const onCellClicked = () => console.log("onCellClicked");
-
-  const onCellValueChanged = useCallback(
-    () => console.log("onCellValueChanged"),
-    []
-  );
-
-  const onFilterOpened = useCallback(() => console.log("onFilterOpened"), []);
-
-  const _onBtnExport = useCallback(() => {
-    gridRef?.current?.api?.exportDataAsCsv({
-      suppressQuotes: true,
-    });
-  }, []);
+  // const _onBtnExport = useCallback(() => {
+  //   gridRef?.current?.api?.exportDataAsCsv({
+  //     suppressQuotes: true,
+  //   });
+  // }, []);
 
   const handleOnPaginationChanged = (params: PaginationChangedEvent) => {
     // prevent rerender
@@ -157,12 +146,8 @@ export const GridWrapper = ({
           cellSelection={false}
           suppressExcelExport={true}
           rowSelection={rowSelection}
-          onRowClicked={onRowClicked}
           defaultColDef={defaultColDef}
-          onCellClicked={onCellClicked}
-          onFilterOpened={onFilterOpened}
           paginationPageSize={rowsPerPage}
-          onCellValueChanged={onCellValueChanged}
           onPaginationChanged={handleOnPaginationChanged}
           modules={[ClientSideRowModelModule, CsvExportModule]}
           paginationPageSizeSelector={paginationPageSizeSelector}
