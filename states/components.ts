@@ -8,6 +8,7 @@ export const tableStates = atomWithReset<{
   totalItems: number;
   searchValue: string;
   rowsPerPage: number;
+  refetchCount: number;
   selectedKeys: Selection;
   sortDescriptor: SortDescriptor;
 }>({
@@ -16,6 +17,7 @@ export const tableStates = atomWithReset<{
   totalItems: 0,
   searchValue: "",
   rowsPerPage: 15,
+  refetchCount: 0,
   selectedKeys: new Set([]),
   sortDescriptor: {
     column: "createdBy",

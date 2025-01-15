@@ -28,7 +28,11 @@ export const decodeJWT = (token: string): JWT => {
   };
 };
 
+export const phonePrefixRemover = (phone: string) => {
+  return phone.replace(/^(\+62|0)/g, "");
+};
+
 export const phonePrefixFormater = (phone: string) => {
-  const phoneTruncated = phone.replace(/^(\+62|0)/g, "");
+  const phoneTruncated = phonePrefixRemover(phone);
   return `+62${phoneTruncated}`;
 };

@@ -68,10 +68,10 @@ export const post: (
   options?: fetcherOptions
 ) => Promise<Response> = (...args) => fetcher("POST", ...args);
 
-export const update: (
+export const put: (
   url: string | URL,
   options?: fetcherOptions
-) => Promise<Response> = (...args) => fetcher("UPDATE", ...args);
+) => Promise<Response> = (...args) => fetcher("PUT", ...args);
 
 export const patch: (
   url: string | URL,
