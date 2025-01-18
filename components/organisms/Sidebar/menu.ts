@@ -9,35 +9,35 @@ import { CustomersIcon } from "@/components/atoms/Icons/sidebar/customers-icon";
 
 export const menu = [
   {
-    icon: HomeIcon,
     key: "dashboard",
     title: "Dashboard",
     href: "/dashboard",
     showOnRole: ["super", "owner", "member"],
+    icon: HomeIcon as React.FC<React.SVGProps<SVGSVGElement>>,
   },
   {
     group: "data",
     key: "businesses",
     href: "/business",
-    icon: ProductsIcon,
     title: "Businesses",
     showOnRole: ["super"],
+    icon: ProductsIcon as React.FC<React.SVGProps<SVGSVGElement>>,
   },
   {
     group: "data",
     key: "accounts",
     title: "Accounts",
     href: "/accounts",
-    icon: AccountsIcon,
     showOnRole: ["super", "owner"],
+    icon: AccountsIcon as React.FC<React.SVGProps<SVGSVGElement>>,
   },
   {
     group: "data",
     key: "customers",
     title: "Customers",
     href: "/customers",
-    icon: CustomersIcon,
     showOnRole: ["super", "owner"],
+    icon: CustomersIcon as React.FC<React.SVGProps<SVGSVGElement>>,
   },
 ];
 

@@ -56,8 +56,8 @@ export const SidebarWrapper = () => {
                     key={item.key}
                     href={item.href}
                     title={item.title}
-                    icon={<item.icon />}
                     isActive={pathname === item.href}
+                    icon={<item.icon className="size-6 text-default-400" />}
                   />
                 ))}
               </SidebarMenu>
