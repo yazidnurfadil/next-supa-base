@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 
-import { Button } from "@nextui-org/button";
-import { Spinner } from "@nextui-org/spinner";
-import { SunFilledIcon, MoonFilledIcon } from "@nextui-org/shared-icons";
+import { Button } from "@heroui/button";
+import { Spinner } from "@heroui/spinner";
+import { SunFilledIcon, MoonFilledIcon } from "@heroui/shared-icons";
 
 import { useTheme } from "next-themes";
 

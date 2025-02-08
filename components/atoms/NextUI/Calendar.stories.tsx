@@ -1,11 +1,11 @@
 import React from "react";
 
-import { calendar } from "@nextui-org/theme";
-import { RadioProps } from "@nextui-org/react";
-import { clsx } from "@nextui-org/shared-utils";
-import { Radio, RadioGroup } from "@nextui-org/radio";
-import { Button, ButtonGroup } from "@nextui-org/button";
-import { Calendar, DateValue, CalendarProps } from "@nextui-org/calendar";
+import { calendar } from "@heroui/theme";
+import { RadioProps } from "@heroui/react";
+import { clsx } from "@heroui/shared-utils";
+import { Radio, RadioGroup } from "@heroui/radio";
+import { Button, ButtonGroup } from "@heroui/button";
+import { Calendar, DateValue, CalendarProps } from "@heroui/calendar";
 
 import { Meta } from "@storybook/react";
 

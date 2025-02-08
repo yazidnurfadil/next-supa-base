@@ -5,15 +5,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-import { Avatar } from "@nextui-org/avatar";
-import { Button } from "@nextui-org/button";
-import { input, button, autocomplete } from "@nextui-org/theme";
-import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
+import { Avatar } from "@heroui/avatar";
+import { Button } from "@heroui/button";
+import { input, button, autocomplete } from "@heroui/theme";
+import { useInfiniteScroll } from "@heroui/use-infinite-scroll";
 import {
   PetBoldIcon,
   SelectorIcon,
   SearchLinearIcon,
-} from "@nextui-org/shared-icons";
+} from "@heroui/shared-icons";
 import {
   User,
   Animal,
@@ -21,14 +21,14 @@ import {
   usersData,
   animalsData,
   usePokemonList,
-} from "@nextui-org/stories-utils";
+} from "@heroui/stories-utils";
 import {
   Autocomplete,
   AutocompleteItem,
   AutocompleteProps,
   MenuTriggerAction,
   AutocompleteSection,
-} from "@nextui-org/autocomplete";
+} from "@heroui/autocomplete";
 
 import { Meta } from "@storybook/react";
 

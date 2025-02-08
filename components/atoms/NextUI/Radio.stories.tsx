@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React from "react";
 
-import { clsx } from "@nextui-org/shared-utils";
-import { radio, button } from "@nextui-org/theme";
+import { clsx } from "@heroui/shared-utils";
+import { radio, button } from "@heroui/theme";
 import {
   Radio,
   useRadio,
@@ -10,7 +10,7 @@ import {
   RadioProps,
   RadioGroupProps,
   useRadioGroupContext,
-} from "@nextui-org/radio";
+} from "@heroui/radio";
 
 import { Meta } from "@storybook/react";
 

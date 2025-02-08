@@ -1,20 +1,20 @@
 import React from "react";
 
-import { Button } from "@nextui-org/button";
-import { Tooltip } from "@nextui-org/tooltip";
-import { clsx } from "@nextui-org/shared-utils";
-import { breadcrumbItem } from "@nextui-org/theme";
+import { Button } from "@heroui/button";
+import { Tooltip } from "@heroui/tooltip";
+import { clsx } from "@heroui/shared-utils";
+import { breadcrumbItem } from "@heroui/theme";
 import {
   Breadcrumbs,
   BreadcrumbItem,
   BreadcrumbsProps,
-} from "@nextui-org/breadcrumbs";
+} from "@heroui/breadcrumbs";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/dropdown";
+} from "@heroui/dropdown";
 import {
   InfoIcon,
   CheckIcon,
@@ -23,7 +23,7 @@ import {
   MailFilledIcon,
   ChevronDownIcon,
   ShoppingCartBoldIcon,
-} from "@nextui-org/shared-icons";
+} from "@heroui/shared-icons";
 
 import { Meta } from "@storybook/react";
 
@@ -348,13 +348,22 @@ const WithDropdownItemTemplate = (
             </Button>
           </DropdownTrigger>
           <DropdownMenu aria-label="Routes">
-            <DropdownItem href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:1">
+            <DropdownItem
+              key={0}
+              href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:1"
+            >
               Song 1
             </DropdownItem>
-            <DropdownItem href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:2">
+            <DropdownItem
+              key={1}
+              href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:2"
+            >
               Song 2
             </DropdownItem>
-            <DropdownItem href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:3">
+            <DropdownItem
+              key={2}
+              href="http://localhost:6006/?path=/story/components-breadcrumbs--default&args=page:3"
+            >
               Song 3
             </DropdownItem>
           </DropdownMenu>

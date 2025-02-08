@@ -1,5 +1,5 @@
 /* eslint-disable tailwindcss/no-custom-classname */
-import { tv } from "@nextui-org/react";
+import { tv } from "@heroui/react";
 
 import { useSidebarContext } from "@/hooks/useLayoutContext";
 

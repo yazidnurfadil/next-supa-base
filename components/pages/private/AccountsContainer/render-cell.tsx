@@ -1,4 +1,4 @@
-import { Chip, User, Tooltip } from "@nextui-org/react";
+import { Chip, User, Tooltip } from "@heroui/react";
 
 import type { RenderCell } from "@/components/molecules/TableWrapper";
 

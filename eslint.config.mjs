@@ -126,7 +126,7 @@ const eslintConfig = ts.config(
             },
             value: {
               lodash: "lodash",
-              nextui: ["^@nextui-org"],
+              heroui: ["^@heroui"],
               storybook: ["^@storybook/.+"],
               react: ["^react$", "^react-.+"],
               next: ["^@next/.+", "^next/.+"],
@@ -135,7 +135,7 @@ const eslintConfig = ts.config(
           groups: [
             "react",
             "next",
-            "nextui",
+            "heroui",
             "storybook",
             "type",
             ["builtin", "external"],

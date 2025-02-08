@@ -1,16 +1,16 @@
 import React from "react";
 
-import { User } from "@nextui-org/user";
-import { Avatar } from "@nextui-org/avatar";
-import { Button } from "@nextui-org/button";
-import { clsx } from "@nextui-org/shared-utils";
-import { popover, dropdown } from "@nextui-org/theme";
+import { User } from "@heroui/user";
+import { Avatar } from "@heroui/avatar";
+import { Button } from "@heroui/button";
+import { clsx } from "@heroui/shared-utils";
+import { popover, dropdown } from "@heroui/theme";
 import {
   AddNoteBulkIcon,
   CopyDocumentBulkIcon,
   EditDocumentBulkIcon,
   DeleteDocumentBulkIcon,
-} from "@nextui-org/shared-icons";
+} from "@heroui/shared-icons";
 import {
   Dropdown,
   DropdownItem,
@@ -19,7 +19,7 @@ import {
   DropdownSection,
   DropdownTrigger,
   DropdownMenuProps,
-} from "@nextui-org/dropdown";
+} from "@heroui/dropdown";
 
 import { Meta } from "@storybook/react";
 

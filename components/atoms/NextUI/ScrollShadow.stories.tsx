@@ -1,13 +1,13 @@
 import React from "react";
 import Lorem from "react-lorem-component";
 
-import { button, scrollShadow } from "@nextui-org/theme";
+import { button, scrollShadow } from "@heroui/theme";
 import {
   ScrollShadow,
   ScrollShadowProps,
   ScrollShadowVisibility,
   ScrollShadowOrientation,
-} from "@nextui-org/scroll-shadow";
+} from "@heroui/scroll-shadow";
 
 import { Meta } from "@storybook/react";
 

@@ -2,11 +2,11 @@
 
 import React from "react";
 
-import { cn } from "@nextui-org/theme";
-import { button, dateInput } from "@nextui-org/theme";
-import { Button, ButtonGroup } from "@nextui-org/button";
-import { Radio, RadioGroup, RadioProps } from "@nextui-org/radio";
-import { DatePicker, DatePickerProps } from "@nextui-org/date-picker";
+import { cn } from "@heroui/theme";
+import { button, dateInput } from "@heroui/theme";
+import { Button, ButtonGroup } from "@heroui/button";
+import { Radio, RadioGroup, RadioProps } from "@heroui/radio";
+import { DatePicker, DatePickerProps } from "@heroui/date-picker";
 
 import { Meta } from "@storybook/react";
 
@@ -133,8 +133,8 @@ const ControlledTemplate = (args: DatePickerProps) => {
         <DatePicker
           {...args}
           value={value}
-          onChange={setValue}
           label="Date (controlled)"
+          onChange={(data) => setValue(data as DateValue)}
         />
         <p className="text-sm text-default-500">
           Selected date:{" "}
@@ -177,18 +177,18 @@ const GranularityTemplate = (args: DatePickerProps) => {
       <DatePicker
         {...args}
         value={date}
-        onChange={setDate}
         className="max-w-md"
         granularity="second"
         label="Date and time"
+        onChange={(data) => setDate(data as DateValue)}
       />
       <DatePicker
         {...args}
         label="Date"
         value={date}
         granularity="day"
-        onChange={setDate}
         className="max-w-md"
+        onChange={(data) => setDate(data as DateValue)}
       />
       <DatePicker
         {...args}
@@ -218,9 +218,9 @@ const InternationalCalendarsTemplate = (args: DatePickerProps) => {
         <DatePicker
           {...args}
           value={date}
-          onChange={setDate}
           className="max-w-md"
           label="Appointment date"
+          onChange={(data) => setDate(data as DateValue)}
         />
       </I18nProvider>
     </div>
@@ -265,7 +265,7 @@ const PresetsTemplate = (args: DatePickerProps) => {
     <div className="flex w-full max-w-sm flex-col gap-4">
       <DatePicker
         value={value}
-        onChange={setValue}
+        onChange={(data) => setValue(data as DateValue)}
         calendarProps={{
           focusedValue: value,
           onFocusChange: setValue,

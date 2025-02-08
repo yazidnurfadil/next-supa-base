@@ -1,5 +1,5 @@
-import { Image } from "@nextui-org/image";
-import { Divider } from "@nextui-org/divider";
+import { Image } from "@heroui/image";
+import { Divider } from "@heroui/divider";
 
 interface LoginLayoutWrapperProps {
   children: React.ReactNode;

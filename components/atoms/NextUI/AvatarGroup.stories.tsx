@@ -1,4 +1,4 @@
-import { Avatar, AvatarGroup, AvatarGroupProps } from "@nextui-org/avatar";
+import { Avatar, AvatarGroup, AvatarGroupProps } from "@heroui/avatar";
 
 import { Meta } from "@storybook/react";
 

@@ -1,15 +1,15 @@
-import { Code } from "@nextui-org/code";
-import { Link } from "@nextui-org/link";
-import { card } from "@nextui-org/theme";
-import { Image } from "@nextui-org/image";
-import { Button } from "@nextui-org/button";
+import { Code } from "@heroui/code";
+import { Link } from "@heroui/link";
+import { card } from "@heroui/theme";
+import { Image } from "@heroui/image";
+import { Button } from "@heroui/button";
 import {
   Card,
   CardBody,
   CardProps,
   CardFooter,
   CardHeader,
-} from "@nextui-org/card";
+} from "@heroui/card";
 
 import { Meta } from "@storybook/react";
 

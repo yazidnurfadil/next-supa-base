@@ -1,14 +1,14 @@
 import React from "react";
 
-import { menuItem } from "@nextui-org/theme";
-import { clsx } from "@nextui-org/shared-utils";
-import { Menu, MenuItem, MenuProps, MenuSection } from "@nextui-org/menu";
+import { menuItem } from "@heroui/theme";
+import { clsx } from "@heroui/shared-utils";
+import { Menu, MenuItem, MenuProps, MenuSection } from "@heroui/menu";
 import {
   AddNoteBulkIcon,
   CopyDocumentBulkIcon,
   EditDocumentBulkIcon,
   DeleteDocumentBulkIcon,
-} from "@nextui-org/shared-icons";
+} from "@heroui/shared-icons";
 
 import { Meta } from "@storybook/react";
 

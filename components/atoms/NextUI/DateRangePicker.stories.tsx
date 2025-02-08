@@ -2,11 +2,11 @@
 
 import React from "react";
 
-import { cn } from "@nextui-org/theme";
-import { button, dateInput } from "@nextui-org/theme";
-import { Button, ButtonGroup } from "@nextui-org/button";
-import { Radio, RadioGroup, RadioProps } from "@nextui-org/radio";
-import { DateRangePicker, DateRangePickerProps } from "@nextui-org/date-picker";
+import { cn } from "@heroui/theme";
+import { button, dateInput } from "@heroui/theme";
+import { Button, ButtonGroup } from "@heroui/button";
+import { Radio, RadioGroup, RadioProps } from "@heroui/radio";
+import { DateRangePicker, DateRangePickerProps } from "@heroui/date-picker";
 
 import { Meta } from "@storybook/react";
 
@@ -140,8 +140,8 @@ const ControlledTemplate = (args: DateRangePickerProps) => {
         <DateRangePicker
           {...args}
           value={value}
-          onChange={setValue}
           label="Date range (controlled)"
+          onChange={(data) => setValue(data as RangeValue<DateValue>)}
         />
         <p className="text-sm text-default-500">
           Selected date:{" "}
@@ -201,9 +201,9 @@ const GranularityTemplate = (args: DateRangePickerProps) => {
         {...args}
         fullWidth
         value={date}
-        onChange={setDate}
         granularity="second"
         label="Date and time range"
+        onChange={(data) => setDate(data as RangeValue<DateValue>)}
       />
       <DateRangePicker
         {...args}
@@ -211,7 +211,7 @@ const GranularityTemplate = (args: DateRangePickerProps) => {
         value={date}
         granularity="day"
         label="Date range"
-        onChange={setDate}
+        onChange={(data) => setDate(data as RangeValue<DateValue>)}
       />
     </div>
   );
@@ -229,8 +229,8 @@ const InternationalCalendarsTemplate = (args: DateRangePickerProps) => {
         <DateRangePicker
           {...args}
           value={date}
-          onChange={setDate}
           label="Appointment date"
+          onChange={(data) => setDate(data as RangeValue<DateValue>)}
         />
       </I18nProvider>
     </div>
@@ -333,7 +333,7 @@ const PresetsTemplate = (args: DateRangePickerProps) => {
     <div className="flex w-full max-w-sm flex-col gap-4">
       <DateRangePicker
         value={value}
-        onChange={setValue}
+        onChange={(data) => setValue(data as RangeValue<DateValue>)}
         calendarProps={{
           focusedValue: value?.start,
           onFocusChange: (val) => setValue({ ...value, start: val }),

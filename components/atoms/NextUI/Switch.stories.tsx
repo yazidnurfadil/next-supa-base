@@ -2,14 +2,14 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-import { clsx } from "@nextui-org/shared-utils";
-import { button, toggle } from "@nextui-org/theme";
-import { Switch, useSwitch, SwitchProps } from "@nextui-org/switch";
-import { SunFilledIcon, MoonFilledIcon } from "@nextui-org/shared-icons";
+import { clsx } from "@heroui/shared-utils";
+import { button, toggle } from "@heroui/theme";
+import { Switch, useSwitch, SwitchProps } from "@heroui/switch";
+import { SunFilledIcon, MoonFilledIcon } from "@heroui/shared-icons";
 
 import { Meta } from "@storybook/react";
 
-import type { SwitchThumbIconProps } from "@nextui-org/switch";
+import type { SwitchThumbIconProps } from "@heroui/switch";
 
 import { VisuallyHidden } from "@react-aria/visually-hidden";
 

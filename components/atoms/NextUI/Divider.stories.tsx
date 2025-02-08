@@ -1,5 +1,5 @@
-import { divider } from "@nextui-org/theme";
-import { Divider, DividerProps } from "@nextui-org/divider";
+import { divider } from "@heroui/theme";
+import { Divider, DividerProps } from "@heroui/divider";
 
 import { Meta } from "@storybook/react";
 

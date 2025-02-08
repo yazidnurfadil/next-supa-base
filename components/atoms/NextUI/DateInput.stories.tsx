@@ -2,9 +2,9 @@
 
 import React from "react";
 
-import { button, dateInput } from "@nextui-org/theme";
-import { CalendarBoldIcon } from "@nextui-org/shared-icons";
-import { DateInput, DateInputProps } from "@nextui-org/date-input";
+import { button, dateInput } from "@heroui/theme";
+import { CalendarBoldIcon } from "@heroui/shared-icons";
+import { DateInput, DateInputProps } from "@heroui/date-input";
 
 import { Meta } from "@storybook/react";
 
@@ -123,8 +123,8 @@ const ControlledTemplate = (args: DateInputProps) => {
         <DateInput
           {...args}
           value={value}
-          onChange={setValue}
           label="Date (controlled)"
+          onChange={(data) => setValue(data as DateValue)}
         />
         <p className="text-sm text-default-500">
           Selected date:{" "}
@@ -165,16 +165,16 @@ const GranularityTemplate = (args: DateInputProps) => {
       <DateInput
         {...args}
         value={date}
-        onChange={setDate}
         granularity="second"
         label="Date and time"
+        onChange={(data) => setDate(data as DateValue)}
       />
       <DateInput
         {...args}
         label="Date"
         value={date}
         granularity="day"
-        onChange={setDate}
+        onChange={(data) => setDate(data as DateValue)}
       />
       <DateInput {...args} label="Event date" granularity="second" />
       <DateInput
@@ -198,8 +198,8 @@ const InternationalCalendarsTemplate = (args: DateInputProps) => {
         <DateInput
           {...args}
           value={date}
-          onChange={setDate}
           label="Appointment date"
+          onChange={(data) => setDate(data as DateValue)}
         />
       </I18nProvider>
     </div>

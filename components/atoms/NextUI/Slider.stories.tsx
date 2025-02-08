@@ -1,14 +1,14 @@
 import React from "react";
 
-import { slider } from "@nextui-org/theme";
-import { Tooltip } from "@nextui-org/tooltip";
-import { clsx } from "@nextui-org/shared-utils";
-import { Slider, SliderProps, SliderValue } from "@nextui-org/slider";
+import { slider } from "@heroui/theme";
+import { Tooltip } from "@heroui/tooltip";
+import { clsx } from "@heroui/shared-utils";
+import { Slider, SliderProps, SliderValue } from "@heroui/slider";
 import {
   InfoIcon,
   VolumeLowBoldIcon,
   VolumeHighBoldIcon,
-} from "@nextui-org/shared-icons";
+} from "@heroui/shared-icons";
 
 import { Meta } from "@storybook/react";
 
@@ -163,8 +163,11 @@ const CustomValueTemplate = (args: SliderProps) => {
     <div className="flex size-full max-w-md items-center justify-start">
       <Slider
         value={value}
-        // eslint-disable-next-line
-        renderValue={({ children, ...props }) => (
+        onChange={handleChange}
+        classNames={{
+          label: "text-medium",
+        }}
+        renderValue={({ ...props }) => (
           <output {...props}>
             <Tooltip
               placement="left"
@@ -190,10 +193,6 @@ const CustomValueTemplate = (args: SliderProps) => {
             </Tooltip>
           </output>
         )}
-        onChange={handleChange}
-        classNames={{
-          label: "text-medium",
-        }}
         {...args}
       />
     </div>

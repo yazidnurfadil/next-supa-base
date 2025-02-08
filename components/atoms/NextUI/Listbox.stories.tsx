@@ -1,24 +1,24 @@
 import React, { Key, SVGProps } from "react";
 
-import { Chip } from "@nextui-org/chip";
-import { Avatar } from "@nextui-org/avatar";
-import { menuItem } from "@nextui-org/theme";
-import { clsx } from "@nextui-org/shared-utils";
-import { usersData } from "@nextui-org/stories-utils";
-import { ScrollShadow } from "@nextui-org/scroll-shadow";
-import { Listbox, ListboxItem, ListboxSection } from "@nextui-org/listbox";
+import { Chip } from "@heroui/chip";
+import { Avatar } from "@heroui/avatar";
+import { menuItem } from "@heroui/theme";
+import { clsx } from "@heroui/shared-utils";
+import { usersData } from "@heroui/stories-utils";
+import { ScrollShadow } from "@heroui/scroll-shadow";
+import { Listbox, ListboxItem, ListboxSection } from "@heroui/listbox";
 import {
   AddNoteBulkIcon,
   ChevronRightIcon,
   CopyDocumentBulkIcon,
   EditDocumentBulkIcon,
   DeleteDocumentBulkIcon,
-} from "@nextui-org/shared-icons";
+} from "@heroui/shared-icons";
 
 import { Meta } from "@storybook/react";
 
+import type { ListboxProps } from "@heroui/listbox";
 import type { Selection } from "@react-types/shared";
-import type { ListboxProps } from "@nextui-org/listbox";
 
 const BugIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -472,7 +472,7 @@ const WithTopContentTemplate = ({
         ))}
       </ScrollShadow>
     );
-  }, [arrayValues.length]);
+  }, [arrayValues]);
 
   return (
     <Listbox
@@ -543,7 +543,7 @@ const WithBottomContentTemplate = ({
         ))}
       </ScrollShadow>
     );
-  }, [arrayValues.length]);
+  }, [arrayValues]);
 
   return (
     <Listbox
@@ -810,7 +810,7 @@ const CustomWithClassNamesTemplate = ({
           <span>Releases</span>
           <div className="rounded-small bg-default-100 px-2 py-1 group-data-[hover=true]:bg-default-200">
             <span className="text-tiny text-default-600">
-              @nextui-org/react@2.0.10
+              @heroui/react@2.0.10
             </span>
             <div className="flex gap-2 text-tiny">
               <span className="text-default-500">49 minutes ago</span>

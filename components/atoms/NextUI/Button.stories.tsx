@@ -1,8 +1,8 @@
 import React from "react";
 
-import { button } from "@nextui-org/theme";
-import { Button, ButtonProps } from "@nextui-org/button";
-import { Camera, Notification, HeadphonesIcon } from "@nextui-org/shared-icons";
+import { button } from "@heroui/theme";
+import { Button, ButtonProps } from "@heroui/button";
+import { Camera, Notification, HeadphonesIcon } from "@heroui/shared-icons";
 
 import { Meta } from "@storybook/react";
 

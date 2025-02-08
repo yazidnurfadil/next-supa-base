@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import Link from "next/link";
 
-import { Input, Button } from "@nextui-org/react";
+import { Input, Button } from "@heroui/react";
 
 import { DotsIcon } from "@/components/atoms/Icons/accounts/dots-icon";
 import { InfoIcon } from "@/components/atoms/Icons/accounts/info-icon";

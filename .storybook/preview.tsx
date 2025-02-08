@@ -1,11 +1,11 @@
 import type { Preview } from "@storybook/react";
 
-import { NextUIProvider } from "../providers/NextUIProvider";
+import { HeroUIProvider } from "../providers/HeroUIProvider";
 import "../app/globals.css";
 
 const preview: Preview = {
   decorators: [
-    (story, context) => <NextUIProvider>{story(context)}</NextUIProvider>,
+    (story, context) => <HeroUIProvider>{story(context)}</HeroUIProvider>,
   ],
   parameters: {
     controls: {

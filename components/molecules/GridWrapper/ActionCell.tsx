@@ -1,4 +1,4 @@
-import { Tooltip } from "@nextui-org/react";
+import { Tooltip } from "@heroui/react";
 
 import { EyeIcon } from "@/components/atoms/Icons/table/eye-icon";
 import { EditIcon } from "@/components/atoms/Icons/table/edit-icon";

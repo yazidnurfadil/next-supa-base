@@ -1,9 +1,9 @@
-import { tv, link } from "@nextui-org/theme";
-import { Link, LinkProps } from "@nextui-org/link";
+import { tv, link } from "@heroui/theme";
+import { Link, LinkProps } from "@heroui/link";
 
 import { Meta } from "@storybook/react";
 
-import type { VariantProps } from "@nextui-org/theme";
+import type { VariantProps } from "@heroui/theme";
 
 export default {
   component: Link,

@@ -1,11 +1,11 @@
 import Lorem from "react-lorem-component";
 
-import { Link } from "@nextui-org/link";
-import { Input } from "@nextui-org/input";
-import { modal } from "@nextui-org/theme";
-import { Button } from "@nextui-org/button";
-import { Checkbox } from "@nextui-org/checkbox";
-import { LockFilledIcon, MailFilledIcon } from "@nextui-org/shared-icons";
+import { Link } from "@heroui/link";
+import { Input } from "@heroui/input";
+import { modal } from "@heroui/theme";
+import { Button } from "@heroui/button";
+import { Checkbox } from "@heroui/checkbox";
+import { LockFilledIcon, MailFilledIcon } from "@heroui/shared-icons";
 import {
   Modal,
   ModalBody,
@@ -14,7 +14,7 @@ import {
   ModalHeader,
   ModalContent,
   useDisclosure,
-} from "@nextui-org/modal";
+} from "@heroui/modal";
 
 import { Meta } from "@storybook/react";
 

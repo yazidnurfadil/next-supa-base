@@ -1,5 +1,5 @@
-import { button, buttonGroup } from "@nextui-org/theme";
-import { Button, ButtonGroup, ButtonGroupProps } from "@nextui-org/button";
+import { button, buttonGroup } from "@heroui/theme";
+import { Button, ButtonGroup, ButtonGroupProps } from "@heroui/button";
 
 import { Meta } from "@storybook/react";
 

@@ -10,7 +10,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 import { signOut, useSession } from "next-auth/react";
 

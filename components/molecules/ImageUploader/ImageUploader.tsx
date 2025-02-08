@@ -2,7 +2,7 @@
 
 import React, { useId, useRef, useMemo, useState, useEffect } from "react";
 
-import { Image, Button } from "@nextui-org/react";
+import { Image, Button } from "@heroui/react";
 type ImageUploaderProps = React.HTMLAttributes<HTMLDivElement> & {
   id?: string;
   name?: string;
@@ -63,7 +63,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
     if (value) {
       setImage(value);
     }
-  }, []);
+  }, [value]);
 
   useEffect(() => {
     console.log("className", className);

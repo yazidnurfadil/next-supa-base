@@ -2,13 +2,9 @@
 
 import React from "react";
 
-import { button } from "@nextui-org/theme";
-import { checkbox } from "@nextui-org/theme";
-import {
-  Checkbox,
-  CheckboxGroup,
-  CheckboxGroupProps,
-} from "@nextui-org/checkbox";
+import { button } from "@heroui/theme";
+import { checkbox } from "@heroui/theme";
+import { Checkbox, CheckboxGroup, CheckboxGroupProps } from "@heroui/checkbox";
 
 import { Meta } from "@storybook/react";
 

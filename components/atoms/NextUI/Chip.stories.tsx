@@ -1,7 +1,7 @@
-import { chip } from "@nextui-org/theme";
-import { Avatar } from "@nextui-org/avatar";
-import { Chip, ChipProps } from "@nextui-org/chip";
-import { CheckIcon } from "@nextui-org/shared-icons";
+import { chip } from "@heroui/theme";
+import { Avatar } from "@heroui/avatar";
+import { Chip, ChipProps } from "@heroui/chip";
+import { CheckIcon } from "@heroui/shared-icons";
 
 import { Meta } from "@storybook/react";
 

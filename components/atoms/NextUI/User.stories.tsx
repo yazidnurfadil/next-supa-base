@@ -1,5 +1,5 @@
-import { Link } from "@nextui-org/link";
-import { User } from "@nextui-org/user";
+import { Link } from "@heroui/link";
+import { User } from "@heroui/user";
 
 import { Meta } from "@storybook/react";
 

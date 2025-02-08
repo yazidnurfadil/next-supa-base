@@ -71,7 +71,7 @@ export const GridWrapper = ({
     headerBackgroundColor: "#3F3F4699",
     oddRowBackgroundColor: "#3F3F4699",
     borderColor:
-      "hsl(var(--nextui-divider) / var(--nextui-divider-opacity, var(--tw-border-opacity)))",
+      "hsl(var(--heroui-divider) / var(--heroui-divider-opacity, var(--tw-border-opacity)))",
     dropdownShadow:
       "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
   });
@@ -98,7 +98,7 @@ export const GridWrapper = ({
     headerBackgroundColor: "#F4F4F5",
     oddRowBackgroundColor: "#F4F4F5",
     borderColor:
-      "hsl(var(--nextui-divider) / var(--nextui-divider-opacity, var(--tw-border-opacity)))",
+      "hsl(var(--heroui-divider) / var(--heroui-divider-opacity, var(--tw-border-opacity)))",
     dropdownShadow:
       "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
   });
@@ -115,6 +115,13 @@ export const GridWrapper = ({
     [theme]
   );
 
+  // const onRowClicked = () => console.log("onCellClicked");
+  // const onCellClicked = () => console.log("onCellClicked");
+  // const onCellValueChanged = useCallback(
+  //   () => console.log("onCellValueChanged"),
+  //   []
+  // );
+  // const onFilterOpened = useCallback(() => console.log("onFilterOpened"), []);
   // const _onBtnExport = useCallback(() => {
   //   gridRef?.current?.api?.exportDataAsCsv({
   //     suppressQuotes: true,

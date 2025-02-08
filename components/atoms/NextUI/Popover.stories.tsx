@@ -1,16 +1,16 @@
 import React from "react";
 
-import { Image } from "@nextui-org/image";
-import { Input } from "@nextui-org/input";
-import { Button } from "@nextui-org/button";
-import { Card, CardFooter, CardHeader } from "@nextui-org/card";
-import { popover, ButtonVariantProps } from "@nextui-org/theme";
+import { Image } from "@heroui/image";
+import { Input } from "@heroui/input";
+import { Button } from "@heroui/button";
+import { Card, CardFooter, CardHeader } from "@heroui/card";
+import { popover, ButtonVariantProps } from "@heroui/theme";
 import {
   Popover,
   PopoverProps,
   PopoverContent,
   PopoverTrigger,
-} from "@nextui-org/popover";
+} from "@heroui/popover";
 
 import { Meta } from "@storybook/react";
 

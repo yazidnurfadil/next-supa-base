@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
 
-import { Pagination } from "@nextui-org/react";
+import { Pagination } from "@heroui/react";
 
 import { useAtom } from "jotai";
 

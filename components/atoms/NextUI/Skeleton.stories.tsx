@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Card } from "@nextui-org/card";
-import { Button } from "@nextui-org/button";
-import { skeleton } from "@nextui-org/theme";
-import { Skeleton, SkeletonProps } from "@nextui-org/skeleton";
+import { Card } from "@heroui/card";
+import { Button } from "@heroui/button";
+import { skeleton } from "@heroui/theme";
+import { Skeleton, SkeletonProps } from "@heroui/skeleton";
 
 import { Meta } from "@storybook/react";
 

@@ -3,16 +3,16 @@
 
 import React, { useMemo, useCallback } from "react";
 
-import { User } from "@nextui-org/user";
-import { table } from "@nextui-org/theme";
-import { Button } from "@nextui-org/button";
-import { Switch } from "@nextui-org/switch";
-import { Spinner } from "@nextui-org/spinner";
-import { Tooltip } from "@nextui-org/tooltip";
-import { Chip, ChipProps } from "@nextui-org/chip";
-import { Pagination } from "@nextui-org/pagination";
-import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
-import { EyeIcon, EditIcon, DeleteIcon } from "@nextui-org/shared-icons";
+import { User } from "@heroui/user";
+import { table } from "@heroui/theme";
+import { Button } from "@heroui/button";
+import { Switch } from "@heroui/switch";
+import { Spinner } from "@heroui/spinner";
+import { Tooltip } from "@heroui/tooltip";
+import { Chip, ChipProps } from "@heroui/chip";
+import { Pagination } from "@heroui/pagination";
+import { useInfiniteScroll } from "@heroui/use-infinite-scroll";
+import { EyeIcon, EditIcon, DeleteIcon } from "@heroui/shared-icons";
 import {
   Table,
   TableRow,
@@ -22,7 +22,7 @@ import {
   getKeyValue,
   TableColumn,
   TableHeader,
-} from "@nextui-org/table";
+} from "@heroui/table";
 
 import { Meta } from "@storybook/react";
 
@@ -292,70 +292,76 @@ const CustomCellTemplate = (args: TableProps) => {
 
   type User = (typeof users)[number];
 
-  const statusColorMap: Record<string, ChipProps["color"]> = {
-    paused: "danger",
-    active: "success",
-    vacation: "warning",
-  };
+  const statusColorMap: Record<string, ChipProps["color"]> = useMemo(
+    () => ({
+      paused: "danger",
+      active: "success",
+      vacation: "warning",
+    }),
+    []
+  );
 
-  const renderCell = useCallback((user: User, columnKey: React.Key) => {
-    const cellValue = user[columnKey as keyof User];
+  const renderCell = useCallback(
+    (user: User, columnKey: React.Key) => {
+      const cellValue = user[columnKey as keyof User];
 
-    switch (columnKey) {
-      case "name":
-        return (
-          <User
-            name={cellValue}
-            description={user.email}
-            avatarProps={{ radius: "lg", src: user.avatar }}
-          >
-            {user.email}
-          </User>
-        );
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-sm font-bold capitalize">{cellValue}</p>
-            <p className="text-sm font-bold capitalize text-default-400">
-              {user.team}
-            </p>
-          </div>
-        );
-      case "status":
-        return (
-          <Chip
-            size="sm"
-            variant="flat"
-            className="capitalize"
-            color={statusColorMap[user.status]}
-          >
-            {cellValue}
-          </Chip>
-        );
-      case "actions":
-        return (
-          <div className="relative flex items-center gap-2">
-            <Tooltip content="Details">
-              <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
-                <EyeIcon />
-              </span>
-            </Tooltip>
-            <Tooltip content="Edit user">
-              <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
-                <EditIcon />
-              </span>
-            </Tooltip>
-            <Tooltip color="danger" content="Delete user">
-              <span className="cursor-pointer text-lg text-danger active:opacity-50">
-                <DeleteIcon />
-              </span>
-            </Tooltip>
-          </div>
-        );
-      default:
-        return cellValue;
-    }
-  }, []);
+      switch (columnKey) {
+        case "name":
+          return (
+            <User
+              name={cellValue}
+              description={user.email}
+              avatarProps={{ radius: "lg", src: user.avatar }}
+            >
+              {user.email}
+            </User>
+          );
+        case "role":
+          return (
+            <div className="flex flex-col">
+              <p className="text-sm font-bold capitalize">{cellValue}</p>
+              <p className="text-sm font-bold capitalize text-default-400">
+                {user.team}
+              </p>
+            </div>
+          );
+        case "status":
+          return (
+            <Chip
+              size="sm"
+              variant="flat"
+              className="capitalize"
+              color={statusColorMap[user.status]}
+            >
+              {cellValue}
+            </Chip>
+          );
+        case "actions":
+          return (
+            <div className="relative flex items-center gap-2">
+              <Tooltip content="Details">
+                <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
+                  <EyeIcon />
+                </span>
+              </Tooltip>
+              <Tooltip content="Edit user">
+                <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
+                  <EditIcon />
+                </span>
+              </Tooltip>
+              <Tooltip color="danger" content="Delete user">
+                <span className="cursor-pointer text-lg text-danger active:opacity-50">
+                  <DeleteIcon />
+                </span>
+              </Tooltip>
+            </div>
+          );
+        default:
+          return cellValue;
+      }
+    },
+    [statusColorMap]
+  );
 
   return (
     <Table aria-label="Example table with custom cells" {...args}>
@@ -444,73 +450,79 @@ const CustomCellWithClassnamesTemplate = (args: TableProps) => {
 
   type User = (typeof users)[number];
 
-  const statusColorMap: Record<string, ChipProps["color"]> = {
-    paused: "danger",
-    active: "success",
-    vacation: "warning",
-  };
+  const statusColorMap: Record<string, ChipProps["color"]> = useMemo(
+    () => ({
+      paused: "danger",
+      active: "success",
+      vacation: "warning",
+    }),
+    []
+  );
 
-  const renderCell = useCallback((user: User, columnKey: React.Key) => {
-    const cellValue = user[columnKey as keyof User];
+  const renderCell = useCallback(
+    (user: User, columnKey: React.Key) => {
+      const cellValue = user[columnKey as keyof User];
 
-    switch (columnKey) {
-      case "name":
-        return (
-          <User
-            name={cellValue}
-            description={user.email}
-            avatarProps={{ radius: "lg", src: user.avatar }}
-            classNames={{
-              description: "text-default-400",
-            }}
-          >
-            {user.email}
-          </User>
-        );
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-sm font-bold capitalize">{cellValue}</p>
-            <p className="text-sm font-bold capitalize text-default-400">
-              {user.team}
-            </p>
-          </div>
-        );
-      case "status":
-        return (
-          <Chip
-            size="sm"
-            variant="flat"
-            color={statusColorMap[user.status]}
-            className="font-semibold capitalize"
-          >
-            {cellValue}
-          </Chip>
-        );
-      case "actions":
-        return (
-          <div className="relative flex items-center gap-2">
-            <Tooltip content="Details" color="foreground">
-              <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
-                <EyeIcon />
-              </span>
-            </Tooltip>
-            <Tooltip color="foreground" content="Edit user">
-              <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
-                <EditIcon />
-              </span>
-            </Tooltip>
-            <Tooltip color="danger" content="Delete user">
-              <span className="cursor-pointer text-lg text-danger active:opacity-50">
-                <DeleteIcon />
-              </span>
-            </Tooltip>
-          </div>
-        );
-      default:
-        return cellValue;
-    }
-  }, []);
+      switch (columnKey) {
+        case "name":
+          return (
+            <User
+              name={cellValue}
+              description={user.email}
+              avatarProps={{ radius: "lg", src: user.avatar }}
+              classNames={{
+                description: "text-default-400",
+              }}
+            >
+              {user.email}
+            </User>
+          );
+        case "role":
+          return (
+            <div className="flex flex-col">
+              <p className="text-sm font-bold capitalize">{cellValue}</p>
+              <p className="text-sm font-bold capitalize text-default-400">
+                {user.team}
+              </p>
+            </div>
+          );
+        case "status":
+          return (
+            <Chip
+              size="sm"
+              variant="flat"
+              color={statusColorMap[user.status]}
+              className="font-semibold capitalize"
+            >
+              {cellValue}
+            </Chip>
+          );
+        case "actions":
+          return (
+            <div className="relative flex items-center gap-2">
+              <Tooltip content="Details" color="foreground">
+                <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
+                  <EyeIcon />
+                </span>
+              </Tooltip>
+              <Tooltip color="foreground" content="Edit user">
+                <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
+                  <EditIcon />
+                </span>
+              </Tooltip>
+              <Tooltip color="danger" content="Delete user">
+                <span className="cursor-pointer text-lg text-danger active:opacity-50">
+                  <DeleteIcon />
+                </span>
+              </Tooltip>
+            </div>
+          );
+        default:
+          return cellValue;
+      }
+    },
+    [statusColorMap]
+  );
 
   return (
     <Table aria-label="Example table with custom cells" {...args}>
@@ -549,7 +561,7 @@ const SortableTemplate = (args: TableProps) => {
         items: json.results,
       };
     },
-    async sort({ items, sortDescriptor }) {
+    sort({ items, sortDescriptor }) {
       return {
         items: items.sort((a, b) => {
           const first = a[sortDescriptor.column as keyof SWCharacter];

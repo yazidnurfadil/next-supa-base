@@ -1,16 +1,15 @@
 import { ReactNode } from "react";
 
-import type { NextUIProviderProps } from "@/providers/NextUIProvider";
+import type { HeroUIProviderProps } from "@/providers/HeroUIProvider";
 
 import { JotaiProviders } from "@/providers/Jotai";
 import { ToasterContainer } from "@/providers/Toaster";
+import { SessionProvider } from "@/providers/NextAuth";
 import { TanstackProvider } from "@/providers/Tanstack";
+import { FetchProvider } from "@/providers/FetchProvider";
+import { HeroUIProvider } from "@/providers/HeroUIProvider";
 
-import { SessionProvider } from "./NextAuth";
-import { FetchProvider } from "./FetchProvider";
-import { NextUIProvider } from "./NextUIProvider";
-
-export interface ProvidersProps extends NextUIProviderProps {
+export interface ProvidersProps extends HeroUIProviderProps {
   children: ReactNode;
 }
 
@@ -21,9 +20,9 @@ const Providers = ({ children, themeProps }: ProvidersProps) => (
       {/* START Client Providers */}
       <FetchProvider>
         <JotaiProviders>
-          <NextUIProvider themeProps={themeProps}>
+          <HeroUIProvider themeProps={themeProps}>
             <TanstackProvider>{children}</TanstackProvider>
-          </NextUIProvider>
+          </HeroUIProvider>
         </JotaiProviders>
       </FetchProvider>
       {/* END Client Providers */}

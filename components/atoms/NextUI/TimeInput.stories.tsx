@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React from "react";
 
-import { button, dateInput } from "@nextui-org/theme";
-import { ClockCircleLinearIcon } from "@nextui-org/shared-icons";
+import { button, dateInput } from "@heroui/theme";
+import { ClockCircleLinearIcon } from "@heroui/shared-icons";
 import {
   TimeInput,
   TimeInputProps,
   TimeInputValue as TimeValue,
-} from "@nextui-org/date-input";
+} from "@heroui/date-input";
 
 import { Meta } from "@storybook/react";
 
@@ -122,8 +122,8 @@ const ControlledTemplate = (args: TimeInputProps) => {
         <TimeInput
           {...args}
           value={value}
-          onChange={setValue}
           label="Time (controlled)"
+          onChange={(data) => setValue(data as TimeValue)}
         />
         <p className="text-sm text-default-500">
           {value instanceof ZonedDateTime
@@ -170,21 +170,21 @@ const GranularityTemplate = (args: TimeInputProps) => {
         label="Hour"
         value={date}
         granularity="hour"
-        onChange={setDate}
+        onChange={(data) => setDate(data as TimeValue)}
       />
       <TimeInput
         {...args}
         value={date}
         label="Minute"
-        onChange={setDate}
         granularity="minute"
+        onChange={(data) => setDate(data as TimeValue)}
       />
       <TimeInput
         {...args}
         value={date}
         label="Second"
-        onChange={setDate}
         granularity="second"
+        onChange={(data) => setDate(data as TimeValue)}
       />
     </div>
   );

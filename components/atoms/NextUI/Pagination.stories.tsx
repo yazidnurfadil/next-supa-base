@@ -1,14 +1,14 @@
 import React from "react";
 
-import { clsx } from "@nextui-org/shared-utils";
-import { ChevronIcon } from "@nextui-org/shared-icons";
-import { button, pagination } from "@nextui-org/theme";
+import { clsx } from "@heroui/shared-utils";
+import { ChevronIcon } from "@heroui/shared-icons";
+import { button, pagination } from "@heroui/theme";
 import {
   Pagination,
   usePagination,
   PaginationItemType,
   PaginationItemRenderProps,
-} from "@nextui-org/pagination";
+} from "@heroui/pagination";
 
 import { Meta } from "@storybook/react";
 

@@ -3,13 +3,9 @@ import React from "react";
 import { FormEvent } from "react";
 import { useForm, FieldValues } from "react-hook-form";
 
-import { CloseIcon } from "@nextui-org/shared-icons";
-import { button, checkbox } from "@nextui-org/theme";
-import {
-  Checkbox,
-  CheckboxProps,
-  CheckboxIconProps,
-} from "@nextui-org/checkbox";
+import { CloseIcon } from "@heroui/shared-icons";
+import { button, checkbox } from "@heroui/theme";
+import { Checkbox, CheckboxProps, CheckboxIconProps } from "@heroui/checkbox";
 
 import { Meta } from "@storybook/react";
 

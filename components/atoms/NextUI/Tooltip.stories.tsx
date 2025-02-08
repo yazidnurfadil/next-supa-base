@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Button } from "@nextui-org/button";
-import { popover } from "@nextui-org/theme";
-import { Tooltip, TooltipProps } from "@nextui-org/tooltip";
+import { Button } from "@heroui/button";
+import { popover } from "@heroui/theme";
+import { Tooltip, TooltipProps } from "@heroui/tooltip";
 
 import { Meta } from "@storybook/react";
 

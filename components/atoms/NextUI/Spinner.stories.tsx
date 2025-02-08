@@ -1,5 +1,5 @@
-import { spinner } from "@nextui-org/theme";
-import { Spinner } from "@nextui-org/spinner";
+import { spinner } from "@heroui/theme";
+import { Spinner } from "@heroui/spinner";
 
 import { Meta } from "@storybook/react";
 

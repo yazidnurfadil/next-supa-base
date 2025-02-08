@@ -1,7 +1,7 @@
 import React from "react";
 
-import { image } from "@nextui-org/theme";
-import { Image, ImageProps } from "@nextui-org/image";
+import { image } from "@heroui/theme";
+import { Image, ImageProps } from "@heroui/image";
 
 import { Meta } from "@storybook/react";
 

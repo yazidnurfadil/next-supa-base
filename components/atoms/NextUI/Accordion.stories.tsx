@@ -1,15 +1,15 @@
 import React from "react";
 
-import { Input } from "@nextui-org/input";
-import { Avatar } from "@nextui-org/avatar";
-import { Button } from "@nextui-org/button";
-import { button, accordionItem } from "@nextui-org/theme";
+import { Input } from "@heroui/input";
+import { Avatar } from "@heroui/avatar";
+import { Button } from "@heroui/button";
+import { button, accordionItem } from "@heroui/theme";
 import {
   Accordion,
   AccordionItem,
   AccordionProps,
   AccordionItemProps,
-} from "@nextui-org/accordion";
+} from "@heroui/accordion";
 import {
   SunIcon,
   InfoIcon,
@@ -18,7 +18,7 @@ import {
   InvalidCardIcon,
   MonitorMobileIcon,
   ShieldSecurityIcon,
-} from "@nextui-org/shared-icons";
+} from "@heroui/shared-icons";
 
 import { Meta } from "@storybook/react";
 

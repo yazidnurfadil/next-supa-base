@@ -1,6 +1,6 @@
 "use client";
 
-import { Navbar, NavbarContent } from "@nextui-org/react";
+import { Navbar, NavbarContent } from "@heroui/react";
 
 import { NavbarUser } from "@/components/molecules/NavbarUser";
 import { BurgerButton } from "@/components/molecules/BurgerButton";

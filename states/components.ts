@@ -1,4 +1,4 @@
-import { Selection, SortDescriptor } from "@nextui-org/react";
+import { Selection, SortDescriptor } from "@heroui/react";
 
 import { atomWithReset } from "jotai/utils";
 

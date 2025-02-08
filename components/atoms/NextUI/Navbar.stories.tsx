@@ -1,17 +1,17 @@
 import React from "react";
 import Lorem from "react-lorem-component";
 
-import { Link } from "@nextui-org/link";
-import { Input } from "@nextui-org/input";
-import { navbar } from "@nextui-org/theme";
-import { Avatar } from "@nextui-org/avatar";
-import { Button } from "@nextui-org/button";
+import { Link } from "@heroui/link";
+import { Input } from "@heroui/input";
+import { navbar } from "@heroui/theme";
+import { Avatar } from "@heroui/avatar";
+import { Button } from "@heroui/button";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/dropdown";
+} from "@heroui/dropdown";
 import {
   Lock,
   Flash,
@@ -21,7 +21,7 @@ import {
   Activity,
   SearchIcon,
   ChevronDown,
-} from "@nextui-org/shared-icons";
+} from "@heroui/shared-icons";
 import {
   Navbar,
   NavbarItem,
@@ -31,7 +31,7 @@ import {
   NavbarContent,
   NavbarMenuItem,
   NavbarMenuToggle,
-} from "@nextui-org/navbar";
+} from "@heroui/navbar";
 
 import { Meta } from "@storybook/react";
 

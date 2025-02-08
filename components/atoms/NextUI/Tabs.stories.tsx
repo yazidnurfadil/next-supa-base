@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import { Input } from "@nextui-org/input";
-import { Button } from "@nextui-org/button";
-import { Card, CardBody } from "@nextui-org/card";
-import { link, tabs, button } from "@nextui-org/theme";
-import { Tab, Tabs, TabsProps } from "@nextui-org/tabs";
+import { Input } from "@heroui/input";
+import { Button } from "@heroui/button";
+import { Card, CardBody } from "@heroui/card";
+import { link, tabs, button } from "@heroui/theme";
+import { Tab, Tabs, TabsProps } from "@heroui/tabs";
 import {
   AlignTopBoldIcon,
   AlignLeftBoldIcon,
@@ -12,7 +12,7 @@ import {
   AlignBottomBoldIcon,
   AlignVerticallyBoldIcon,
   AlignHorizontallyBoldIcon,
-} from "@nextui-org/shared-icons";
+} from "@heroui/shared-icons";
 
 import { Meta } from "@storybook/react";
 

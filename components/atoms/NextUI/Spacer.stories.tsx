@@ -1,5 +1,5 @@
-import { spacer } from "@nextui-org/theme";
-import { Spacer, SpacerProps } from "@nextui-org/spacer";
+import { spacer } from "@heroui/theme";
+import { Spacer, SpacerProps } from "@heroui/spacer";
 
 import { Meta } from "@storybook/react";
 

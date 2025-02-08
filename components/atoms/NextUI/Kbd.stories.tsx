@@ -1,5 +1,5 @@
-import { Kbd } from "@nextui-org/kbd";
-import { kbd } from "@nextui-org/theme";
+import { Kbd } from "@heroui/kbd";
+import { kbd } from "@heroui/theme";
 
 import { Meta } from "@storybook/react";
 

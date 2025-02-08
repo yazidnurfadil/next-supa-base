@@ -2,15 +2,15 @@
 import React, { FormEvent } from "react";
 import { useForm } from "react-hook-form";
 
-import { input, button } from "@nextui-org/theme";
-import { Input, useInput, InputProps } from "@nextui-org/input";
+import { input, button } from "@heroui/theme";
+import { Input, useInput, InputProps } from "@heroui/input";
 import {
   SearchIcon,
   EyeFilledIcon,
   MailFilledIcon,
   CloseFilledIcon,
   EyeSlashFilledIcon,
-} from "@nextui-org/shared-icons";
+} from "@heroui/shared-icons";
 
 import { Meta } from "@storybook/react";
 
@@ -502,7 +502,7 @@ const CustomWithHooksTemplate = (args: InputProps) => {
     }
 
     return endContent;
-  }, [isClearable, getClearButtonProps]);
+  }, [isClearable, endContent, getClearButtonProps]);
 
   const innerWrapper = React.useMemo(() => {
     if (startContent || end) {

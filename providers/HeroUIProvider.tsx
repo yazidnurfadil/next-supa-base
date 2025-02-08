@@ -1,19 +1,19 @@
 "use client";
 
-import { NextUIProvider as Provider } from "@nextui-org/react";
+import { HeroUIProvider as Provider } from "@heroui/react";
 
 import { ThemeProviderProps } from "next-themes/dist/types";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
-export interface NextUIProviderProps {
+export interface HeroUIProviderProps {
   children: React.ReactNode;
   themeProps?: Partial<ThemeProviderProps>;
 }
 
-export const NextUIProvider = ({
+export const HeroUIProvider = ({
   children,
   themeProps,
-}: NextUIProviderProps) => {
+}: HeroUIProviderProps) => {
   return (
     <Provider>
       <NextThemesProvider

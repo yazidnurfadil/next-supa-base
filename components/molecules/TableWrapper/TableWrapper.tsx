@@ -13,7 +13,7 @@ import {
   TableColumn,
   SortDescriptor,
   TableHeader as TableColumnHead,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 import { useAtom } from "jotai";
 import { RESET } from "jotai/utils";
@@ -89,23 +89,12 @@ export const TableWrapper = ({
 
   const loadingState = isFetching ? "loading" : "idle";
 
-  const handleSelectionChange = useCallback(
-    (keys: Selection) => {
-      setTableConfig((prev) => ({
-        ...prev,
-        selectedKeys: keys,
-      }));
-    },
-
-    []
-  );
-
-  const deletePageParameter = useCallback(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete("page");
-
-    const newParams = params.toString();
-    router.replace(pathname + "?" + newParams);
+  const handleSelectionChange = useCallback((keys: Selection) => {
+    setTableConfig((prev) => ({
+      ...prev,
+      selectedKeys: keys,
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSortChange = (e: SortDescriptor) =>
@@ -119,9 +108,9 @@ export const TableWrapper = ({
 
   const handleStatusChange = useCallback(
     (keys: Selection) => {
-      const convertedKeys = Array.from(keys);
-      deletePageParameter();
-      updateQueryString("filter", convertedKeys[0] as string);
+      // const convertedKeys = Array.from(keys);
+      // deletePageParameter();
+      // updateQueryString("filter", convertedKeys[0] as string);
 
       setTableConfig((prev) => ({
         ...prev,
@@ -130,6 +119,7 @@ export const TableWrapper = ({
       }));
     },
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
@@ -147,6 +137,7 @@ export const TableWrapper = ({
         rowsPerPage: Number(searchParams.get("rows")),
       }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   useEffect(() => {
@@ -158,12 +149,14 @@ export const TableWrapper = ({
         page: response?.number === 0 ? 1 : response?.number + 1,
       }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response?.number, response?.totalElements, response?.totalPages]);
 
   useEffect(() => {
     return () => {
       setTableConfig(RESET);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

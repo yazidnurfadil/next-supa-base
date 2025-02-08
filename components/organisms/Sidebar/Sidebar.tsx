@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 
-import { Avatar, Tooltip } from "@nextui-org/react";
+import { Avatar, Tooltip } from "@heroui/react";
 
 import { useSession } from "next-auth/react";
 

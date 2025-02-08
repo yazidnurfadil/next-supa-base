@@ -1,8 +1,8 @@
 import React, { FormEvent } from "react";
 
-import { input, button } from "@nextui-org/theme";
-import { Textarea, TextAreaProps } from "@nextui-org/input";
-import { PlusFilledIcon, SendFilledIcon } from "@nextui-org/shared-icons";
+import { input, button } from "@heroui/theme";
+import { Textarea, TextAreaProps } from "@heroui/input";
+import { PlusFilledIcon, SendFilledIcon } from "@heroui/shared-icons";
 
 import { Meta } from "@storybook/react";
 

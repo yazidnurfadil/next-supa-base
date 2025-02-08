@@ -1,8 +1,10 @@
-import { badge } from "@nextui-org/theme";
-import { Avatar } from "@nextui-org/avatar";
-import { Switch } from "@nextui-org/switch";
-import { Badge, BadgeProps } from "@nextui-org/badge";
-import { CartIcon, CheckIcon, Notification } from "@nextui-org/shared-icons";
+import { useState } from "react";
+
+import { badge } from "@heroui/theme";
+import { Avatar } from "@heroui/avatar";
+import { Switch } from "@heroui/switch";
+import { Badge, BadgeProps } from "@heroui/badge";
+import { CartIcon, CheckIcon, Notification } from "@heroui/shared-icons";
 
 import { Meta } from "@storybook/react";
 
@@ -100,7 +102,7 @@ const ShapesTemplate = (args: BadgeProps) => (
 );
 
 const InvisibleTemplate = (args: BadgeProps) => {
-  const [isInvisible, setIsInvisible] = React.useState(false);
+  const [isInvisible, setIsInvisible] = useState(false);
 
   return (
     <div className="flex items-center gap-4">

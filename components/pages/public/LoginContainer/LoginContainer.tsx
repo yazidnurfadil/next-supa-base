@@ -5,8 +5,8 @@ import { useCallback } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { Input } from "@nextui-org/input";
-import { Button } from "@nextui-org/button";
+import { Input } from "@heroui/input";
+import { Button } from "@heroui/button";
 
 import { Formik } from "formik";
 import { AuthError } from "next-auth";

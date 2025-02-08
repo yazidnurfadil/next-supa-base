@@ -3,19 +3,19 @@
 import { useForm } from "react-hook-form";
 import React, { ChangeEvent } from "react";
 
-import { Chip } from "@nextui-org/chip";
-import { Avatar } from "@nextui-org/avatar";
-import { Button } from "@nextui-org/button";
-import { button, select } from "@nextui-org/theme";
-import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
-import { PetBoldIcon, SelectorIcon } from "@nextui-org/shared-icons";
+import { Chip } from "@heroui/chip";
+import { Avatar } from "@heroui/avatar";
+import { Button } from "@heroui/button";
+import { button, select } from "@heroui/theme";
+import { useInfiniteScroll } from "@heroui/use-infinite-scroll";
+import { PetBoldIcon, SelectorIcon } from "@heroui/shared-icons";
 import {
   Select,
   SelectItem,
   SelectProps,
   SelectedItems,
   SelectSection,
-} from "@nextui-org/select";
+} from "@heroui/select";
 import {
   User,
   Animal,
@@ -23,7 +23,7 @@ import {
   usersData,
   animalsData,
   usePokemonList,
-} from "@nextui-org/stories-utils";
+} from "@heroui/stories-utils";
 
 import { Meta } from "@storybook/react";
 

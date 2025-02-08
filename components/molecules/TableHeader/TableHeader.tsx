@@ -1,6 +1,6 @@
 import { ReactNode, useCallback } from "react";
 
-import { Input, Button, Selection } from "@nextui-org/react";
+import { Input, Button, Selection } from "@heroui/react";
 
 import { useAtom } from "jotai";
 
