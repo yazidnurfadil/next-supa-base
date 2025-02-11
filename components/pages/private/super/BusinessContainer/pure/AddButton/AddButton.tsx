@@ -5,7 +5,7 @@ import {
   ModalHeader,
   ModalContent,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 import { FormikConfig, FormikHelpers } from "formik";
 

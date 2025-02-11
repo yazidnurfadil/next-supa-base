@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 
-import { Input, Button } from "@nextui-org/react";
+import { Input, Button } from "@heroui/react";
 
 import { useMutation } from "@tanstack/react-query";
 

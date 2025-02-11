@@ -1,7 +1,7 @@
 import { memo } from "react";
 import React, { ReactElement } from "react";
 
-import { Input, InputProps } from "@nextui-org/react";
+import { Input, InputProps } from "@heroui/react";
 
 import { Formik, type FormikConfig } from "formik";
 
