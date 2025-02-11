@@ -3,12 +3,17 @@
 import React, { useId, useRef, useMemo, useState, useEffect } from "react";
 
 import { Image, Button } from "@heroui/react";
+
+import { ArrowPathIcon, MinusCircleIcon } from "@heroicons/react/24/outline";
+
 type ImageUploaderProps = React.HTMLAttributes<HTMLDivElement> & {
   id?: string;
   name?: string;
   label?: string;
   color?: string;
-  value?: string;
+  value?: string | null;
+  onRemove?: () => void;
+  onChanged?: (value: string) => void;
   className?: Partial<ImageUploaderClassObject>;
 };
 
@@ -48,9 +53,11 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   label,
   value,
   color,
+  onRemove,
   className,
+  onChanged,
 }) => {
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<undefined | string | null>(null);
   const [wrapperClass, setWrapperClass] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const randomId = useId();
@@ -66,7 +73,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   }, [value]);
 
   useEffect(() => {
-    console.log("className", className);
     if (typeof className === "string") {
       setWrapperClass(className);
     }
@@ -78,6 +84,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
       const reader = new FileReader();
       reader.onloadend = () => {
         setImage(reader.result as string);
+        onChanged?.(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
@@ -104,6 +111,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
+    onRemove?.();
   };
 
   const colorBorder = color
@@ -124,25 +132,25 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
       ].join(" ")}
     >
       {image ? (
-        <div className="relative w-full">
+        <div className="relative w-full overflow-hidden rounded-lg">
           <Image
             src={image}
             alt="Preview"
-            className="max-h-64 w-full rounded-lg object-contain"
+            className="max-h-64 w-full object-contain"
           />
           <Button
             size="sm"
             isIconOnly
             color="warning"
             variant="light"
-            className="absolute bottom-1 left-1 z-10 backdrop-blur-sm"
+            className="absolute bottom-1 left-1 z-10 backdrop-blur-xl"
             onPress={() => {
               if (fileInputRef.current) {
                 fileInputRef.current.click();
               }
             }}
           >
-            O
+            <ArrowPathIcon width={16} height={16} />
           </Button>
           <Button
             size="sm"
@@ -150,9 +158,9 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
             color="danger"
             variant="light"
             onPress={handleRemoveImage}
-            className="absolute bottom-1 right-1 z-10 backdrop-blur-sm"
+            className="absolute bottom-1 right-1 z-10 backdrop-blur-xl"
           >
-            X
+            <MinusCircleIcon width={16} height={16} />
           </Button>
           {/* </div> */}
         </div>

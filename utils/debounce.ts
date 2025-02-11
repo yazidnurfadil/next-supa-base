@@ -1,4 +1,5 @@
-const debounce = (func: () => void, delay: number = 1000) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const debounce = (func: (params?: any) => void, delay: number = 1000) => {
   setTimeout(() => {
     func();
   }, delay);
