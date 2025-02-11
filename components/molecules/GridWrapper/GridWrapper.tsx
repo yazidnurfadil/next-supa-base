@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useMemo, RefObject } from "react";
 
 import { useAtom } from "jotai";
 import { useTheme } from "next-themes";
@@ -27,6 +27,7 @@ import { TableFooter } from "@/components/molecules/TableFooter";
  *
  */
 export const GridWrapper = ({
+  ref,
   items,
   columns,
   isLoading,
@@ -38,11 +39,12 @@ export const GridWrapper = ({
   },
   ...restAgGridReactProps
 }: AgGridReactProps & {
-  items: unknown[];
+  items?: unknown[];
   columns: ColDef[];
   isLoading: boolean;
   defaultColumns?: ColDef;
   rowOptions?: RowSelectionOptions;
+  ref?: RefObject<AgGridReact | null>;
   paginationPageSizeSelector?: number[];
 }) => {
   const [{ totalItems, rowsPerPage }, setTableConfig] = useAtom(tableStates);
@@ -61,6 +63,7 @@ export const GridWrapper = ({
     accentColor: "#095028",
     headerRowBorder: false,
     foregroundColor: "#FFF",
+    inputFocusBorder: false,
     wrapperBorderRadius: "0",
     cellTextColor: "#ECEDEE",
     headerTextColor: "#A1A1AA",
@@ -87,6 +90,7 @@ export const GridWrapper = ({
     sidePanelBorder: true,
     accentColor: "#095028",
     headerRowBorder: false,
+    inputFocusBorder: false,
     cellTextColor: "#11181C",
     wrapperBorderRadius: "0",
     backgroundColor: "#FFFFFF",
@@ -103,8 +107,6 @@ export const GridWrapper = ({
       "var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)",
   });
 
-  const gridRef = useRef<AgGridReact>(null);
-
   const defaultColDef = useMemo(() => defaultColumns, [defaultColumns]);
 
   const rowSelection = useMemo(() => rowOptions, [rowOptions]);
@@ -114,19 +116,6 @@ export const GridWrapper = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [theme]
   );
-
-  // const onRowClicked = () => console.log("onCellClicked");
-  // const onCellClicked = () => console.log("onCellClicked");
-  // const onCellValueChanged = useCallback(
-  //   () => console.log("onCellValueChanged"),
-  //   []
-  // );
-  // const onFilterOpened = useCallback(() => console.log("onFilterOpened"), []);
-  // const _onBtnExport = useCallback(() => {
-  //   gridRef?.current?.api?.exportDataAsCsv({
-  //     suppressQuotes: true,
-  //   });
-  // }, []);
 
   const handleOnPaginationChanged = (params: PaginationChangedEvent) => {
     // prevent rerender
@@ -144,7 +133,7 @@ export const GridWrapper = ({
     >
       <div className="h-full rounded-large bg-content1 p-4 shadow-small">
         <AgGridReact
-          ref={gridRef}
+          ref={ref}
           rowData={items}
           theme={themeClass}
           pagination={false}
@@ -161,7 +150,12 @@ export const GridWrapper = ({
           {...restAgGridReactProps}
         />
       </div>
-      <TableFooter isLoading={false} footerText={`Total ${totalItems} items`} />
+      {restAgGridReactProps.pagination && (
+        <TableFooter
+          isLoading={isLoading}
+          footerText={`Total ${totalItems} items`}
+        />
+      )}
     </div>
   );
 };

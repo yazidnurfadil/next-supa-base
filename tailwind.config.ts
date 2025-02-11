@@ -18,6 +18,7 @@ const config: Config = {
   content: [
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./utils/**/*.{js,ts,jsx,tsx,mdx}",
     // Path to NextUi module
     "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
