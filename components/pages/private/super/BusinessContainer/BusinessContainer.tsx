@@ -1,11 +1,12 @@
 "use client";
-import Link from "next/link";
+import { useEffect } from "react";
 
 import { Input, Button } from "@heroui/react";
 
 import { useMutation } from "@tanstack/react-query";
 
 import showToast from "@/lib/toast";
+import { useNavbarContext } from "@/hooks/useLayoutContext";
 import { postBusinessQuery } from "@/services/query/business";
 import { TableBusiness } from "@/components/organisms/TableBusiness";
 import { DotsIcon } from "@/components/atoms/Icons/accounts/dots-icon";
@@ -14,12 +15,34 @@ import { FormBusinessValues } from "@/components/organisms/FormBusiness";
 import { TrashIcon } from "@/components/atoms/Icons/accounts/trash-icon";
 import { ExportIcon } from "@/components/atoms/Icons/accounts/export-icon";
 import { HouseIcon } from "@/components/atoms/Icons/breadcrumb/house-icon";
-import { UsersIcon } from "@/components/atoms/Icons/breadcrumb/users-icon";
 import { SettingsIcon } from "@/components/atoms/Icons/sidebar/settings-icon";
+import { ProductsIcon } from "@/components/atoms/Icons/sidebar/products-icon";
 
 import { AddBusinessButton } from "./pure/AddButton";
 
 export const BusinessContainer = () => {
+  const { setPageTitle, setBreadcrumb } = useNavbarContext();
+  useEffect(() => {
+    setPageTitle("All Businesses");
+    setBreadcrumb([
+      {
+        title: "Home",
+        href: "/dashboard",
+        icon: <HouseIcon width={18} height={18} />,
+      },
+      {
+        href: "/business",
+        title: "Businesses",
+        icon: <ProductsIcon width={18} height={18} />,
+      },
+      {
+        title: "List",
+        href: "/business",
+      },
+    ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const { isPending, mutateAsync } = useMutation({
     mutationFn: postBusinessQuery,
     onError: (error) => {
@@ -60,26 +83,6 @@ export const BusinessContainer = () => {
 
   return (
     <div className="mx-auto flex w-full max-w-[95rem] flex-1 flex-col gap-4 px-4 lg:px-6">
-      <ul className="flex gap-2">
-        <li className="flex gap-2">
-          <HouseIcon />
-          <Link href={"/dashboard"}>
-            <span>Home</span>
-          </Link>
-        </li>
-
-        <li className="flex gap-2">
-          <span>/</span>
-          <UsersIcon />
-          <span>Business</span>
-        </li>
-        <li className="flex gap-2">
-          <span>/</span>
-          <span>List</span>
-        </li>
-      </ul>
-
-      <h3 className="text-xl font-semibold">All Businesses</h3>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3 md:flex-nowrap">
           <Input
