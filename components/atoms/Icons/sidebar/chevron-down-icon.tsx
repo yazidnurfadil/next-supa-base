@@ -10,7 +10,7 @@ export const ChevronDownIcon = ({
       {...props}
     >
       <path
-        className="fill-default-400"
+        fill="currentColor"
         d="m6.293 10.707 1.414-1.414L12 13.586l4.293-4.293 1.414 1.414L12 16.414z"
       ></path>
     </svg>

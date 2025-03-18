@@ -13,7 +13,6 @@ interface Props {
 
 export const CollapseItems = ({ icon, items, title }: Props) => {
   const [_open, _setOpen] = useState(false);
-
   return (
     <div className="flex h-full cursor-pointer items-center gap-4">
       <Accordion className="px-0">
@@ -28,18 +27,18 @@ export const CollapseItems = ({ icon, items, title }: Props) => {
           }
           classNames={{
             indicator: "data-[open=true]:-rotate-180",
-            title:
-              "px-0 flex text-base gap-2 h-full items-center cursor-pointer",
-
+            base: "[&_svg_path]:fill-netral-500 [&_svg_path]:data-[open=true]:fill-success-500",
             trigger:
-              "py-0 min-h-[44px] hover:bg-default-100 rounded-xl active:scale-[0.98] transition-transform px-3.5",
+              "py-0 min-h-[44px] rounded-xl active:scale-[0.98] transition-transform px-3.5",
+            title:
+              "data-[open=true]:fill-success-500 px-0 flex text-base gap-2 h-full items-center cursor-pointer hover:text-default-900 text-neutral-500 data-[open=true]:text-default-900",
           }}
         >
           <div className="pl-12">
             {items.map((item, index) => (
               <span
                 key={index}
-                className="flex w-full text-default-500 transition-colors hover:text-default-900"
+                className="flex w-full text-neutral-500 transition-colors hover:text-default-900"
               >
                 {item}
               </span>

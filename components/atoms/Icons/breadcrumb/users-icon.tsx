@@ -1,4 +1,4 @@
-export const UsersIcon = () => {
+export const UsersIcon = (props: React.SVGAttributes<SVGElement>) => {
   return (
     <svg
       width="24"
@@ -6,6 +6,7 @@ export const UsersIcon = () => {
       fill="none"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         fill="#969696"
