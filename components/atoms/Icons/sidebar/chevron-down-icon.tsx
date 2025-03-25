@@ -1,6 +1,6 @@
-export const ChevronDownIcon = ({
-  ...props
-}: React.SVGAttributes<SVGElement>) => {
+export const ChevronDownIcon = (
+  props: React.SVGAttributes<SVGElement> | undefined = {}
+) => {
   return (
     <svg
       width="24"

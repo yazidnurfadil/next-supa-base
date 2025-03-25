@@ -1,4 +1,6 @@
-export const BottomIcon = () => {
+export const BottomIcon = (
+  props: React.SVGAttributes<SVGElement> | undefined = {}
+) => {
   return (
     <svg
       width="10"
@@ -6,6 +8,7 @@ export const BottomIcon = () => {
       fill="none"
       viewBox="0 0 10 7"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         fill="#969696"

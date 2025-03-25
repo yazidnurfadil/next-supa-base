@@ -1,4 +1,6 @@
-export const DevIcon = () => {
+export const DevIcon = (
+  props: React.SVGAttributes<SVGElement> | undefined = {}
+) => {
   return (
     <svg
       width="24"
@@ -6,6 +8,7 @@ export const DevIcon = () => {
       fill="none"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         fill="#969696"

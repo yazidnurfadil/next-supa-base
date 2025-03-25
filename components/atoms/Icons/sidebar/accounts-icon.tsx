@@ -1,4 +1,6 @@
-export const AccountsIcon = (props: React.SVGAttributes<SVGElement>) => {
+export const AccountsIcon = (
+  props: React.SVGAttributes<SVGElement> | undefined = {}
+) => {
   return (
     <svg
       width="24"
