@@ -1,19 +1,12 @@
 import { heroui } from "@heroui/react";
+import { commonColors } from "@heroui/theme";
 
 import type { Config } from "tailwindcss";
 
-const heroUI = heroui();
-
 const config: Config = {
   darkMode: "class",
-  plugins: [heroUI],
   theme: {
-    extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
-    },
+    extend: {},
   },
   content: [
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -21,6 +14,22 @@ const config: Config = {
     "./utils/**/*.{js,ts,jsx,tsx,mdx}",
     // Path to NextUi module
     "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
+  ],
+  plugins: [
+    heroui({
+      themes: {
+        dark: {
+          colors: {
+            background: commonColors.zinc[900],
+          },
+        },
+        light: {
+          colors: {
+            background: commonColors.zinc[100],
+          },
+        },
+      },
+    }),
   ],
 };
 export default config;

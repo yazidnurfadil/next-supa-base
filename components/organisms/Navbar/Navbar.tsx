@@ -47,7 +47,7 @@ export const NavbarWrapper = ({ children }: NavbarWrapperProps) => {
           </NavbarContent>
         </NavbarContent>
       </Navbar>
-      <div className="flex flex-1 flex-col border border-transparent bg-white lg:rounded-tl-xl lg:shadow-lg">
+      <div className="flex flex-1 flex-col border border-transparent bg-white text-foreground dark:bg-black lg:rounded-tl-xl lg:shadow-lg">
         {children}
       </div>
     </div>

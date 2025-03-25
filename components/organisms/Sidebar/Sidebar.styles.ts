@@ -7,7 +7,7 @@ export const SidebarWrapper = tv({
     },
   },
 
-  base: "fixed z-[202] h-full w-64 shrink-0 -translate-x-full flex-col overflow-y-auto border-divider px-3 py-6 transition-transform md:static md:ml-0 md:flex md:h-screen md:translate-x-0 ",
+  base: "fixed z-[202] h-full w-64 shrink-0 -translate-x-full flex-col overflow-y-auto border-divider bg-background px-3 py-6 transition-transform md:static md:ml-0 md:flex md:h-screen md:translate-x-0 ",
   // ""
   //   "@md": {
   //     marginLeft: "0",
