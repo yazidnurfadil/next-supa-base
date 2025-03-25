@@ -1,10 +1,14 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 import { Navbar, NavbarContent } from "@heroui/react";
 
 import { useNavbarContext } from "@/hooks/useLayoutContext";
 import { NavbarUser } from "@/components/molecules/NavbarUser";
 import { BurgerButton } from "@/components/molecules/BurgerButton";
+import { NotificationsDropdown } from "@/components/molecules/NotificationsDropdown";
 
 interface NavbarWrapperProps {
   children: React.ReactNode;
@@ -12,7 +16,7 @@ interface NavbarWrapperProps {
 
 export const NavbarWrapper = ({ children }: NavbarWrapperProps) => {
   const { pageTitle, breadcrumb } = useNavbarContext();
-
+  const pathname = usePathname();
   return (
     <div className="relative flex flex-1 flex-col lg:pl-2 lg:pt-2">
       <Navbar
@@ -30,7 +34,11 @@ export const NavbarWrapper = ({ children }: NavbarWrapperProps) => {
                 <li key={index} className="flex items-center gap-2">
                   {index !== 0 && <span>|</span>}
                   {item.icon}
-                  <span>{item.title}</span>
+                  {item.href && pathname !== item.href ? (
+                    <Link href={item.href}>{item.title}</Link>
+                  ) : (
+                    <span>{item.title}</span>
+                  )}
                 </li>
               ))}
             </ul>
@@ -43,6 +51,7 @@ export const NavbarWrapper = ({ children }: NavbarWrapperProps) => {
           className="w-fit data-[justify=end]:grow-0"
         >
           <NavbarContent>
+            <NotificationsDropdown />
             <NavbarUser />
           </NavbarContent>
         </NavbarContent>

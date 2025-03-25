@@ -3,7 +3,7 @@
 import { useContext, createContext } from "react";
 
 export type Breadcrumb = {
-  href: string;
+  href?: string;
   title: string;
   icon?: React.ReactNode;
 };
@@ -17,13 +17,7 @@ interface NavbarContext {
   pageTitle: string;
   breadcrumb: Breadcrumb[];
   setPageTitle: (title: string) => void;
-  setBreadcrumb: (
-    breadcrumb: {
-      href: string;
-      title: string;
-      icon?: React.ReactNode;
-    }[]
-  ) => void;
+  setBreadcrumb: (breadcrumb: Breadcrumb[]) => void;
 }
 
 export const SidebarContext = createContext<SidebarContext>({
