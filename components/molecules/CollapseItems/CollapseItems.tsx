@@ -1,23 +1,59 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import { usePathname } from "next/navigation";
 
 import { Accordion, AccordionItem } from "@heroui/react";
 
+import { Key } from "@react-types/shared";
+
+import { SidebarItem } from "@/components/molecules/SidebarItem";
 import { ChevronDownIcon } from "@/components/atoms/Icons/sidebar/chevron-down-icon";
 
 interface Props {
   title: string;
-  items: string[];
+  isActive?: boolean;
   icon: React.ReactNode;
+  items:
+    | {
+        href: string;
+        title: string;
+        icon: React.ReactNode;
+      }[]
+    | string[];
 }
 
 export const CollapseItems = ({ icon, items, title }: Props) => {
-  const [_open, _setOpen] = useState(false);
+  const pathname = usePathname();
+
+  const generateKeyValues = () => {
+    const keys = items.map((item) => {
+      if (typeof item === "string") {
+        return item === pathname ? "1" : "";
+      } else {
+        return item.href === pathname ? "1" : "";
+      }
+    });
+    return keys.filter((key) => key !== "") || ["1"];
+  };
+  const [selectedKeys, setSelectedKeys] = useState<
+    Iterable<Key> | undefined | "all"
+  >(generateKeyValues());
+
+  useEffect(() => {
+    setSelectedKeys(generateKeyValues());
+  }, [pathname]);
+
   return (
     <div className="flex h-full cursor-pointer items-center gap-4">
-      <Accordion className="px-0">
+      <Accordion
+        className="px-0"
+        selectedKeys={selectedKeys}
+        onSelectionChange={setSelectedKeys}
+      >
         <AccordionItem
-          aria-label="Accordion 1"
+          key="1"
+          aria-label="Accordion Menu"
           indicator={<ChevronDownIcon />}
           title={
             <div className="flex flex-row gap-2">
@@ -27,113 +63,34 @@ export const CollapseItems = ({ icon, items, title }: Props) => {
           }
           classNames={{
             indicator: "data-[open=true]:-rotate-180",
-            base: "[&_svg_path]:fill-netral-500 [&_svg_path]:data-[open=true]:fill-success-500",
-            trigger:
-              "py-0 min-h-[44px] rounded-xl active:scale-[0.98] transition-transform px-3.5",
             title:
               "data-[open=true]:fill-success-500 px-0 flex text-base gap-2 h-full items-center cursor-pointer hover:text-default-900 text-neutral-500 data-[open=true]:text-default-900",
+            trigger:
+              "[&_svg_path]:fill-netral-500 [&_svg_path]:data-[open=true]:fill-success-500 py-0 min-h-[44px] hover:bg-white dark:hover:bg-default-100 rounded-xl active:scale-[0.98] transition-transform px-3.5",
           }}
         >
           <div className="pl-12">
-            {items.map((item, index) => (
-              <span
-                key={index}
-                className="flex w-full text-neutral-500 transition-colors hover:text-default-900"
-              >
-                {item}
-              </span>
-            ))}
+            {items.map((item, index) =>
+              typeof item === "string" ? (
+                <span
+                  key={index}
+                  className="flex w-full text-neutral-500 transition-colors hover:text-default-900"
+                >
+                  {item}
+                </span>
+              ) : (
+                <SidebarItem
+                  key={index}
+                  href={item.href}
+                  icon={item.icon}
+                  title={item.title}
+                  isActive={pathname === item.href}
+                />
+              )
+            )}
           </div>
         </AccordionItem>
       </Accordion>
-      {/* <Accordion
-        title={
-          <div
-            className="flex items-center justify-between w-full py-5 px-7 rounded-8 transition-all duration-150 ease-in-out cursor-pointer hover:bg-accents2 active:scale-98"
-            // css={{
-            //   gap: "$6",
-            //   width: "100%",
-            //   py: "$5",
-            //   px: "$7",
-            //   borderRadius: "8px",
-            //   transition: "all 0.15s ease",
-            //   "&:active": {
-            //     transform: "scale(0.98)",
-            //   },
-            //   "&:hover": {
-            //     bg: "$accents2",
-            //   },
-            // }}
-            // justify={"between"}
-            onClick={handleToggle}
-          >
-            <div className="flex gap-4">
-              {icon}
-              <span
-                className="text-default-900 font-medium text-base"
-                //  span
-                //  weight={"normal"}
-                //  size={"$base"}
-                //  css={{
-                //    color: "$accents9",
-                //  }}
-              >
-                {title}
-              </span>
-            </div>
-
-            <ChevronUpIcon
-              className={clsx(
-                open ? "rotate-180" : "rotate-0",
-                "transition-all duration-300 ease-in-out transform"
-              )}
-              //   css={{
-              //     transition: "transform 0.3s ease",
-              //     transform: open ? "rotate(-180deg)" : "rotate(0deg)",
-              //   }}
-            />
-          </div>
-        }
-        //   css={{
-        //     width: "100%",
-        //     "& .nextui-collapse-view": {
-        //       p: "0",
-        //     },
-        //     "& .nextui-collapse-content": {
-        //       marginTop: "$1",
-        //       padding: "0px",
-        //     },
-        //   }}
-        divider={false}
-        showArrow={false}
-      >
-        {items.map((item, index) => (
-          <div
-            className="flex flex-col pl-8"
-            key={index}
-            // direction={"column"}
-            // css={{
-            //   paddingLeft: "$16",
-            // }}
-          >
-            <span
-              className="text-default-400 font-normal text-md"
-              //   span
-              //   weight={"normal"}
-              //   size={"$md"}
-              //   css={{
-              //     color: "$accents8",
-              //     cursor: "pointer",
-              //     "&:hover": {
-              //       color: "$accents9",
-              //     },
-              //   }}
-            >
-              {item}
-            </span>
-          </div>
-        ))}
-      </Accordion> */}
     </div>
   );
 };
