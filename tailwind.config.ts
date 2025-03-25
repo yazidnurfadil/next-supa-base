@@ -6,12 +6,19 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   darkMode: "class",
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: commonColors.green[500],
+        },
+      },
+    },
   },
   content: [
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./utils/**/*.{js,ts,jsx,tsx,mdx}",
+    "./constants/**/*.{js,ts,jsx,tsx,mdx}",
     // Path to NextUi module
     "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
