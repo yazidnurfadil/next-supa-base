@@ -164,12 +164,7 @@ export const GridWrapper = ({
           {...restAgGridReactProps}
         />
       </div>
-      {restAgGridReactProps.pagination && (
-        <TableFooter
-          isLoading={isLoading}
-          footerText={`Total ${totalItems} items`}
-        />
-      )}
+      {restAgGridReactProps.pagination && <TableFooter isLoading={isLoading} />}
     </div>
   );
 };
