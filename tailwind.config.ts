@@ -14,14 +14,6 @@ const config: Config = {
       },
     },
   },
-  content: [
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./utils/**/*.{js,ts,jsx,tsx,mdx}",
-    "./constants/**/*.{js,ts,jsx,tsx,mdx}",
-    // Path to NextUi module
-    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
-  ],
   plugins: [
     heroui({
       themes: {
@@ -37,6 +29,14 @@ const config: Config = {
         },
       },
     }),
+  ],
+  content: [
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/utils/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/constants/**/*.{js,ts,jsx,tsx,mdx}",
+    // Path to NextUi module
+    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
 };
 export default config;

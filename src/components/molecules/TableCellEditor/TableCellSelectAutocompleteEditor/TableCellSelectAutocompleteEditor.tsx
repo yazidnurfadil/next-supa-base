@@ -2,11 +2,8 @@ import { useRef, useEffect, useCallback } from "react";
 
 import { Tooltip } from "@heroui//react";
 
+import { useGridCellEditor, CustomCellEditorProps } from "ag-grid-react";
 import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
-import {
-  useGridCellEditor,
-  CustomCellEditorProps,
-} from "@ag-grid-community/react";
 
 import { SelectAutocompleteProps } from "@/components/molecules/SelectAutocomplete";
 import SelectAutocomplete from "@/components/molecules/SelectAutocomplete/SelectAutocomplete";

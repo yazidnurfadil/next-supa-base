@@ -3,10 +3,7 @@ import { memo, useRef, useEffect, useCallback } from "react";
 import { Tooltip, InputProps } from "@heroui//react";
 
 import { ExclamationTriangleIcon } from "@heroicons/react/20/solid";
-import {
-  useGridCellEditor,
-  CustomCellEditorProps,
-} from "@ag-grid-community/react";
+import { useGridCellEditor, CustomCellEditorProps } from "ag-grid-react";
 
 import type { CurrencyInputProps } from "@/components/molecules/CurrencyInput/CurrencyInput";
 

@@ -3,10 +3,7 @@ import { memo, useRef, useEffect, useCallback } from "react";
 import { Input, Tooltip, InputProps } from "@heroui//react";
 
 import { ExclamationTriangleIcon } from "@heroicons/react/20/solid";
-import {
-  useGridCellEditor,
-  CustomCellEditorProps,
-} from "@ag-grid-community/react";
+import { useGridCellEditor, CustomCellEditorProps } from "ag-grid-react";
 
 export type TableCellTextEditorProps = Partial<InputProps> & {
   customCell?: CustomCellEditorProps;

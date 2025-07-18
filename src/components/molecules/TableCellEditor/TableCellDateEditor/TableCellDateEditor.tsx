@@ -8,11 +8,8 @@ import {
 } from "@heroui//react";
 
 import { I18nProvider } from "@react-aria/i18n";
+import { useGridCellEditor, CustomCellEditorProps } from "ag-grid-react";
 import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
-import {
-  useGridCellEditor,
-  CustomCellEditorProps,
-} from "@ag-grid-community/react";
 import {
   now,
   getLocalTimeZone,
