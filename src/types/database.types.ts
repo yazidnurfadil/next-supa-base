@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 export type Json =
   | { [key: string]: undefined | Json }
   | boolean
@@ -7,48 +8,58 @@ export type Json =
   | null;
 
 export type Enums<
-  PublicEnumNameOrOptions extends
-    | keyof PublicSchema["Enums"]
-    | { schema: keyof Database },
-  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
+  DefaultSchemaEnumNameOrOptions extends
+    | { schema: keyof DatabaseWithoutInternals }
+    | keyof DefaultSchema["Enums"],
+  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals;
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
-> = PublicEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
-    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals;
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
     : never;
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof PublicSchema["CompositeTypes"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals }
+    | keyof DefaultSchema["CompositeTypes"],
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof Database;
+    schema: keyof DatabaseWithoutInternals;
   }
-    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
-> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
-    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals;
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never;
 
 export type TablesInsert<
-  PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
-    | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+  DefaultSchemaTableNameOrOptions extends
+    | { schema: keyof DatabaseWithoutInternals }
+    | keyof DefaultSchema["Tables"],
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals;
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals;
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I;
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Insert: infer I;
       }
       ? I
@@ -56,20 +67,24 @@ export type TablesInsert<
     : never;
 
 export type TablesUpdate<
-  PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
-    | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+  DefaultSchemaTableNameOrOptions extends
+    | { schema: keyof DatabaseWithoutInternals }
+    | keyof DefaultSchema["Tables"],
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals;
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals;
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U;
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Update: infer U;
       }
       ? U
@@ -77,24 +92,28 @@ export type TablesUpdate<
     : never;
 
 export type Tables<
-  PublicTableNameOrOptions extends
-    | keyof (PublicSchema["Views"] & PublicSchema["Tables"])
-    | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Views"] &
-        Database[PublicTableNameOrOptions["schema"]]["Tables"])
+  DefaultSchemaTableNameOrOptions extends
+    | keyof (DefaultSchema["Views"] & DefaultSchema["Tables"])
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals;
+  }
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"])
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions["schema"]]["Views"] &
-      Database[PublicTableNameOrOptions["schema"]]["Tables"])[TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals;
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"])[TableName] extends {
       Row: infer R;
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (PublicSchema["Views"] &
-        PublicSchema["Tables"])
-    ? (PublicSchema["Views"] &
-        PublicSchema["Tables"])[PublicTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Views"] &
+        DefaultSchema["Tables"])
+    ? (DefaultSchema["Views"] &
+        DefaultSchema["Tables"])[DefaultSchemaTableNameOrOptions] extends {
         Row: infer R;
       }
       ? R
@@ -102,6 +121,23 @@ export type Tables<
     : never;
 
 export type Database = {
+  business: {
+    Views: {
+      [_ in never]: never;
+    };
+    Enums: {
+      [_ in never]: never;
+    };
+    Tables: {
+      [_ in never]: never;
+    };
+    Functions: {
+      [_ in never]: never;
+    };
+    CompositeTypes: {
+      [_ in never]: never;
+    };
+  };
   graphql_public: {
     Views: {
       [_ in never]: never;
@@ -173,75 +209,57 @@ export type Database = {
       };
     };
     Functions: {
+      get_account_id: {
+        Returns: string;
+        Args: { slug: string };
+      };
+      get_account: {
+        Returns: Json;
+        Args: { account_id: string };
+      };
+      get_account_by_slug: {
+        Returns: Json;
+        Args: { slug: string };
+      };
       get_accounts: {
         Returns: Json;
         Args: Record<PropertyKey, never>;
+      };
+      create_account: {
+        Returns: Json;
+        Args: { slug?: string; name?: string };
       };
       get_personal_account: {
         Returns: Json;
         Args: Record<PropertyKey, never>;
       };
-      get_account_id: {
-        Returns: string;
-        Args: {
-          slug: string;
-        };
-      };
-      get_account: {
-        Returns: Json;
-        Args: {
-          account_id: string;
-        };
-      };
-      get_account_by_slug: {
-        Returns: Json;
-        Args: {
-          slug: string;
-        };
-      };
       current_user_account_role: {
         Returns: Json;
-        Args: {
-          account_id: string;
-        };
+        Args: { account_id: string };
       };
       delete_invitation: {
         Returns: undefined;
-        Args: {
-          invitation_id: string;
-        };
+        Args: { invitation_id: string };
       };
       get_account_billing_status: {
         Returns: Json;
-        Args: {
-          account_id: string;
-        };
+        Args: { account_id: string };
       };
       accept_invitation: {
         Returns: Json;
-        Args: {
-          lookup_invitation_token: string;
-        };
+        Args: { lookup_invitation_token: string };
       };
       lookup_invitation: {
         Returns: Json;
-        Args: {
-          lookup_invitation_token: string;
-        };
-      };
-      create_account: {
-        Returns: Json;
-        Args: {
-          slug?: string;
-          name?: string;
-        };
+        Args: { lookup_invitation_token: string };
       };
       remove_account_member: {
         Returns: undefined;
-        Args: {
-          user_id: string;
-          account_id: string;
-        };
+        Args: { user_id: string; account_id: string };
+      };
+      service_role_upsert_customer_subscription: {
+        Returns: undefined;
+        Args: { customer?: Json; account_id: string; subscription?: Json };
       };
       get_account_members: {
         Returns: Json;
@@ -257,14 +275,6 @@ export type Database = {
           account_id: string;
           results_limit?: number;
           results_offset?: number;
-        };
-      };
-      service_role_upsert_customer_subscription: {
-        Returns: undefined;
-        Args: {
-          customer?: Json;
-          account_id: string;
-          subscription?: Json;
         };
       };
       update_account: {
@@ -465,27 +475,21 @@ export type Database = {
         | "unpaid";
     };
     Functions: {
+      is_set: {
+        Returns: boolean;
+        Args: { field_name: string };
+      };
+      generate_token: {
+        Returns: string;
+        Args: { length: number };
+      };
       get_config: {
         Returns: Json;
         Args: Record<PropertyKey, never>;
       };
-      is_set: {
-        Returns: boolean;
-        Args: {
-          field_name: string;
-        };
-      };
-      generate_token: {
-        Returns: string;
-        Args: {
-          length: number;
-        };
-      };
       is_super_user: {
         Returns: boolean;
-        Args: {
-          account_id: string;
-        };
+        Args: { account_id: string };
       };
       get_accounts_with_role: {
         Returns: string[];
@@ -749,4 +753,39 @@ export type Database = {
   };
 };
 
-type PublicSchema = Database[Extract<keyof Database, "public">];
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">;
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<
+  keyof Database,
+  "public"
+>];
+
+export const Constants = {
+  public: {
+    Enums: {},
+  },
+  business: {
+    Enums: {},
+  },
+  next_auth: {
+    Enums: {},
+  },
+  graphql_public: {
+    Enums: {},
+  },
+  basejump: {
+    Enums: {
+      invitation_type: ["one_time", "24_hour"],
+      account_role: ["super", "owner", "member"],
+      subscription_status: [
+        "trialing",
+        "active",
+        "canceled",
+        "incomplete",
+        "incomplete_expired",
+        "past_due",
+        "unpaid",
+      ],
+    },
+  },
+} as const;

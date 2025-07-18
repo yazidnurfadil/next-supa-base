@@ -1,4 +1,4 @@
-import type { ColDef } from "@ag-grid-community/core";
+import type { ColDef } from "ag-grid-community";
 
 import { ActionCell } from "@/components/molecules/GridWrapper";
 

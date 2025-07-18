@@ -172,7 +172,7 @@ const CustomValueTemplate = (args: SliderProps) => {
             <Tooltip
               placement="left"
               content="Press Enter to confirm"
-              className="rounded-md text-tiny text-default-500"
+              className="rounded-md text-default-500 text-tiny"
             >
               <input
                 type="text"
@@ -183,7 +183,7 @@ const CustomValueTemplate = (args: SliderProps) => {
 
                   setInputValue(v);
                 }}
-                className="w-12 rounded-small border-medium border-transparent bg-default-100 px-1 py-0.5 text-right text-small font-medium text-default-700 outline-none transition-colors hover:border-primary focus:border-primary"
+                className="w-12 rounded-small border-medium border-transparent bg-default-100 px-1 py-0.5 text-right font-medium text-default-700 outline-none transition-colors text-small hover:border-primary focus:border-primary"
                 onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                   if (e.key === "Enter" && !isNaN(Number(inputValue))) {
                     setValue(Number(inputValue));
@@ -205,7 +205,7 @@ const ControlledTemplate = (args: SliderProps) => {
   return (
     <div className="flex size-full max-w-md flex-col items-start justify-center gap-2">
       <Slider value={value} onChange={setValue} {...args} />
-      <p className="text-small text-default-500">Current volume: {value}</p>
+      <p className="text-default-500 text-small">Current volume: {value}</p>
     </div>
   );
 };
@@ -216,7 +216,7 @@ const ControlledRangeTemplate = (args: SliderProps) => {
   return (
     <div className="flex max-w-md flex-col items-start justify-center gap-2">
       <Slider value={value} onChange={setValue} {...args} />
-      <p className="text-small text-default-500">
+      <p className="text-default-500 text-small">
         Current volume: {Array.isArray(value) && value.join(" – ")}
       </p>
     </div>

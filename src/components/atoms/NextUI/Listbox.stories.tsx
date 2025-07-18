@@ -501,7 +501,7 @@ const WithTopContentTemplate = ({
             />
             <div className="flex flex-col">
               <span className="text-small">{item.name}</span>
-              <span className="text-tiny text-default-400">{item.email}</span>
+              <span className="text-default-400 text-tiny">{item.email}</span>
             </div>
           </div>
         </ListboxItem>
@@ -572,7 +572,7 @@ const WithBottomContentTemplate = ({
             />
             <div className="flex flex-col">
               <span className="text-small">{item.name}</span>
-              <span className="text-tiny text-default-400">{item.email}</span>
+              <span className="text-default-400 text-tiny">{item.email}</span>
             </div>
           </div>
         </ListboxItem>
@@ -809,7 +809,7 @@ const CustomWithClassNamesTemplate = ({
         <div className="flex flex-col gap-1">
           <span>Releases</span>
           <div className="rounded-small bg-default-100 px-2 py-1 group-data-[hover=true]:bg-default-200">
-            <span className="text-tiny text-default-600">
+            <span className="text-default-600 text-tiny">
               @heroui/react@2.0.10
             </span>
             <div className="flex gap-2 text-tiny">
@@ -843,7 +843,7 @@ const CustomWithClassNamesTemplate = ({
       </ListboxItem>
       <ListboxItem
         key="license"
-        endContent={<span className="text-small text-default-400">MIT</span>}
+        endContent={<span className="text-default-400 text-small">MIT</span>}
         startContent={
           <IconWrapper className="bg-danger/10 text-danger dark:text-danger-500">
             <BookIcon />

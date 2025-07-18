@@ -35,7 +35,7 @@ export const TableFooter = ({
   return (
     <div className="flex w-full flex-col items-center justify-center">
       <div className="flex w-full items-center justify-between">
-        <span className="text-small text-default-400">{footerText}</span>
+        <span className="text-default-400 text-small">{footerText}</span>
         {pages > 1 && (
           <div className="flex flex-1 items-center justify-center">
             <Pagination
@@ -49,12 +49,12 @@ export const TableFooter = ({
             />
           </div>
         )}
-        <label className="flex items-center text-small text-default-400">
+        <label className="flex items-center text-default-400 text-small">
           {footerRowsText}
           <select
             defaultValue={rowsPerPage}
             onChange={onRowsPerPageChange}
-            className="bg-transparent text-small text-default-400 outline-none"
+            className="bg-transparent text-default-400 outline-none text-small"
           >
             {rowsOption.map((row) => (
               <option key={row} value={row}>

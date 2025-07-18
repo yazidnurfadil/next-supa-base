@@ -5,9 +5,8 @@ import { useMemo, RefObject } from "react";
 import { useAtom } from "jotai";
 import { useTheme } from "next-themes";
 import { themeQuartz } from "ag-grid-community";
-import { CsvExportModule } from "@ag-grid-community/csv-export";
-import { AgGridReact, AgGridReactProps } from "@ag-grid-community/react";
-import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
+import { AgGridReact, AgGridReactProps } from "ag-grid-react";
+import { CsvExportModule, ClientSideRowModelModule } from "ag-grid-community";
 
 import "@/styles/custom-ag-grid.css";
 
@@ -15,7 +14,7 @@ import {
   type ColDef,
   type RowSelectionOptions,
   type PaginationChangedEvent,
-} from "@ag-grid-community/core";
+} from "ag-grid-community";
 
 import { Theme } from "@/types/utils";
 import { tableStates } from "@/states/components";

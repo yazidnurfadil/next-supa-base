@@ -686,7 +686,7 @@ const CustomItemsTemplate = ({
           />
           <div className="flex flex-col">
             <span className="text-small">{item.name}</span>
-            <span className="text-tiny text-default-400">{item.email}</span>
+            <span className="text-default-400 text-tiny">{item.email}</span>
           </div>
         </div>
       </AutocompleteItem>
@@ -848,7 +848,7 @@ const CustomStylesTemplate = ({
             />
             <div className="flex flex-col">
               <span className="text-small">{item.name}</span>
-              <span className="text-tiny text-default-400">{item.email}</span>
+              <span className="text-default-400 text-tiny">{item.email}</span>
             </div>
           </div>
         </AutocompleteItem>
@@ -922,7 +922,7 @@ const CustomStylesWithCustomItemsTemplate = ({
               />
               <div className="flex flex-col">
                 <span className="text-small">{item.name}</span>
-                <span className="text-tiny text-default-400">{item.team}</span>
+                <span className="text-default-400 text-tiny">{item.team}</span>
               </div>
             </div>
             <Button

@@ -66,6 +66,7 @@ const eslintConfig = ts.config(
         projectService: true,
         sourceType: "module",
         ecmaVersion: "latest",
+        project: ["./tsconfig.json"],
         tsconfigRootDir: import.meta.dirname,
       },
     },

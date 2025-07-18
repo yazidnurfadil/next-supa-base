@@ -94,7 +94,7 @@ const ControlledTemplate = (args: TextAreaProps) => {
   return (
     <div className="w-full max-w-[440px] flex-col gap-2">
       <Textarea {...args} value={value} onValueChange={setValue} />
-      <p className="text-small text-default-500">Textarea value: {value}</p>
+      <p className="text-default-500 text-small">Textarea value: {value}</p>
     </div>
   );
 };
