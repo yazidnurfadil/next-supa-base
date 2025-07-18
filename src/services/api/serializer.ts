@@ -9,6 +9,7 @@ import type { AccountSerialized } from "@/types/user.type";
 import { Json } from "@/types/database.types";
 
 export type ProfileSerializer = AccountSerialized & {
+  token?: string;
   active_business: AccountSerialized | null;
 };
 
