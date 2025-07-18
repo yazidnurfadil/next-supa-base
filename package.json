@@ -14,7 +14,7 @@
     "db:seed": "bun run ./src/db/seed/index.ts",
     "db:start": "supabase start",
     "db:stop": "supabase stop --project-id nextsupabase",
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack --port 3030",
     "format": "prettier . --write",
     "lint": "next lint",
     "lint:fix": "eslint --fix",

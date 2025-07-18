@@ -61,6 +61,7 @@ export const createBusiness = async (req: Request) => {
 };
 
 export const getBusiness = async (req: NextRequest) => {
+  console.log("getBusiness called");
   const supabase = await createSupaClient();
   const queryParams = req.nextUrl.searchParams;
   const page = Number(queryParams.get("page") || 1);

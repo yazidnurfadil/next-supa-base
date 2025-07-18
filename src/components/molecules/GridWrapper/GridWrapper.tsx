@@ -15,11 +15,26 @@ import {
   type RowSelectionOptions,
   type PaginationChangedEvent,
 } from "ag-grid-community";
+import {
+  ModuleRegistry,
+  CellStyleModule,
+  ValidationModule,
+  PaginationModule,
+  TextFilterModule,
+  RowAutoHeightModule,
+} from "ag-grid-community";
 
 import { Theme } from "@/types/utils";
 import { tableStates } from "@/states/components";
 import { TableFooter } from "@/components/molecules/TableFooter";
 
+ModuleRegistry.registerModules([
+  ValidationModule,
+  CellStyleModule,
+  PaginationModule,
+  RowAutoHeightModule,
+  TextFilterModule,
+]);
 /**
  * AG GRID React Table Component
  * https://www.ag-grid.com/react-data-grid/getting-started/

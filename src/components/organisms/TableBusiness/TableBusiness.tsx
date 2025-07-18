@@ -2,7 +2,7 @@
 
 import { useMemo, useEffect } from "react";
 
-import type { ColDef } from "@ag-grid-community/core";
+import type { ColDef } from "ag-grid-community";
 
 import { useAtom } from "jotai";
 import { useQuery } from "@tanstack/react-query";
