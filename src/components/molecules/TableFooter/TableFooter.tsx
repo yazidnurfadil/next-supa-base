@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { useMemo, ChangeEvent } from "react";
 
 import { Pagination } from "@heroui/react";
 
@@ -9,18 +9,19 @@ import useRouterParameter from "@/hooks/useRouterParameter";
 
 export const TableFooter = ({
   isLoading,
-  footerText,
   footerRowsText = "Row per page:",
 }: {
-  footerText: string;
   isLoading?: boolean;
   footerRowsText?: string;
 }) => {
-  const [{ page, pages, rowsPerPage }, setTableConfig] = useAtom(tableStates);
+  const [{ page, pages, totalItems, rowsPerPage }, setTableConfig] =
+    useAtom(tableStates);
   const rowsOption = [15, 25, 50, 100, 1000];
   const { updateQueryString } = useRouterParameter();
 
   const onPageChanges = (value: number) => {
+    // ag-grid and api uses 0-based index for pages
+    // so on the UI if the value 1 is selected, it means the index 0 in the API
     setTableConfig((prev) => ({ ...prev, page: value }));
     updateQueryString("page", String(value));
   };
@@ -32,10 +33,25 @@ export const TableFooter = ({
     updateQueryString("page", String(1));
   };
 
+  // Convert page from 0-based index to 1-based index for UI display
+  const getUIConvertedCurrentPageCount = useMemo(
+    () => (page > 0 ? page - 1 : 0),
+    [page]
+  );
+
+  const getFooterRowsText = useMemo(
+    () =>
+      `Showing ${totalItems > 0 ? getUIConvertedCurrentPageCount * rowsPerPage + 1 : 0} to ${Math.min(
+        (getUIConvertedCurrentPageCount + 1) * rowsPerPage,
+        totalItems
+      )} of ${totalItems} items`,
+    [getUIConvertedCurrentPageCount, rowsPerPage, totalItems]
+  );
+
   return (
     <div className="flex w-full flex-col items-center justify-center">
       <div className="flex w-full items-center justify-between">
-        <span className="text-small text-default-400">{footerText}</span>
+        <span className="text-small text-default-400">{getFooterRowsText}</span>
         {pages > 1 && (
           <div className="flex flex-1 items-center justify-center">
             <Pagination

@@ -180,10 +180,7 @@ export const TableWrapper = ({
         bottomContent={
           <Suspense fallback={null}>
             <Divider />
-            <TableFooter
-              isLoading={isFetching}
-              footerText={isFetching ? "" : `Total ${totalItems} items`}
-            />
+            <TableFooter isLoading={isFetching} />
           </Suspense>
         }
         topContent={
