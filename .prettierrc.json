@@ -4,6 +4,6 @@
   "semi": true,
   "singleQuote": false,
   "endOfLine": "lf",
-  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-packagejson"],
-  "tailwindConfig": "./tailwind.config.ts"
+  "plugins": ["prettier-plugin-packagejson"],
+  "tailwindStylesheet": "./src/styles/globals.css"
 }
