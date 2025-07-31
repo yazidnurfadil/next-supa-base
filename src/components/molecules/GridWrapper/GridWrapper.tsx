@@ -145,7 +145,7 @@ export const GridWrapper = ({
     <div
       className="relative z-0 flex size-full flex-1 flex-col justify-between gap-4" // applying the Data Grid theme
     >
-      <div className="h-full rounded-large bg-content1 p-4 shadow-small">
+      <div className="size-full rounded-large bg-content1 p-4 shadow-small">
         <AgGridReact
           ref={ref}
           rowData={items}

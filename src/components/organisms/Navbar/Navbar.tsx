@@ -18,7 +18,7 @@ export const NavbarWrapper = ({ children }: NavbarWrapperProps) => {
   const { pageTitle, breadcrumb } = useNavbarContext();
   const pathname = usePathname();
   return (
-    <div className="relative flex flex-1 flex-col lg:pl-2 lg:pt-2">
+    <div className="relative flex flex-1 flex-col lg:pt-2 lg:pl-2">
       <Navbar
         classNames={{
           wrapper: "w-full max-w-full top-0",
@@ -56,7 +56,7 @@ export const NavbarWrapper = ({ children }: NavbarWrapperProps) => {
           </NavbarContent>
         </NavbarContent>
       </Navbar>
-      <div className="flex flex-1 flex-col border border-transparent bg-white text-foreground dark:bg-black lg:rounded-tl-xl lg:shadow-lg">
+      <div className="flex flex-1 flex-col border border-transparent bg-white text-foreground lg:rounded-tl-xl lg:shadow-lg dark:bg-black">
         {children}
       </div>
     </div>

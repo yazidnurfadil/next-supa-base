@@ -158,7 +158,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
             color="danger"
             variant="light"
             onPress={handleRemoveImage}
-            className="absolute bottom-1 right-1 z-10 backdrop-blur-xl"
+            className="absolute right-1 bottom-1 z-10 backdrop-blur-xl"
           >
             <MinusCircleIcon width={16} height={16} />
           </Button>

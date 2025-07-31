@@ -1,15 +1,12 @@
-/* eslint-disable tailwindcss/no-custom-classname */
 import { tv } from "@heroui/react";
 
 import { useSidebarContext } from "@/hooks/useLayoutContext";
 
 const StyledBurgerButton = tv({
   variants: {
-    open: {
-      true: "[&",
-    },
+    open: {},
   },
-  base: "absolute z-[202] flex size-6 cursor-pointer flex-col justify-around border-none bg-transparent p-0 focus:outline-none [&_div]:relative [&_div]:h-px [&_div]:w-6 [&_div]:origin-[1px] [&_div]:rounded-xl  [&_div]:bg-default-900  [&_div]:transition-all ",
+  base: "absolute z-202 flex size-6 cursor-pointer flex-col justify-around border-none bg-transparent p-0 focus:outline-none [&_div]:relative [&_div]:h-px [&_div]:w-6 [&_div]:origin-[1px] [&_div]:rounded-xl [&_div]:bg-default-900 [&_div]:transition-all",
   //   "",
   //   "& div": {
 

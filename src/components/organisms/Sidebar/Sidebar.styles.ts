@@ -7,7 +7,7 @@ export const SidebarWrapper = tv({
     },
   },
 
-  base: "fixed z-[202] h-full w-64 shrink-0 -translate-x-full flex-col overflow-y-auto border-divider bg-background px-3 py-6 transition-transform md:static md:ml-0 md:flex md:h-screen md:translate-x-0 ",
+  base: "fixed z-202 h-full w-64 shrink-0 -translate-x-full flex-col overflow-y-auto border-divider bg-background px-3 py-6 transition-transform md:static md:ml-0 md:flex md:h-screen md:translate-x-0 ",
   // ""
   //   "@md": {
   //     marginLeft: "0",
@@ -27,7 +27,7 @@ export const SidebarWrapper = tv({
   //   },
 });
 export const Overlay = tv({
-  base: "fixed inset-0 z-[201] bg-[rgb(15_23_42/0.3)] opacity-80 transition-opacity md:z-auto md:hidden md:opacity-100",
+  base: "fixed inset-0 z-201 bg-[rgb(15_23_42/0.3)] opacity-80 transition-opacity md:z-auto md:hidden md:opacity-100",
 });
 
 export const Header = tv({
