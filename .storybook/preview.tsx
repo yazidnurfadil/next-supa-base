@@ -1,7 +1,7 @@
 import type { Preview } from "@storybook/react";
 
-import { HeroUIProvider } from "../providers/HeroUIProvider";
-import "../app/globals.css";
+import { HeroUIProvider } from "../src/providers/HeroUIProvider";
+import "../src/styles/globals.css";
 
 const preview: Preview = {
   decorators: [
