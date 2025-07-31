@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useForm } from "react-hook-form";
 import React, { ChangeEvent } from "react";
@@ -774,7 +773,7 @@ const WithReactHookFormTemplate = (args: SelectProps) => {
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={() => handleSubmit(onSubmit)}
       className="flex w-full max-w-xs flex-col gap-2"
     >
       <Select
