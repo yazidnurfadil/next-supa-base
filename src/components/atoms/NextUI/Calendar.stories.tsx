@@ -217,7 +217,7 @@ const PresetsTemplate = (args: CalendarProps) => {
             size="sm"
             radius="full"
             variant="bordered"
-            className="bg-content1 px-3 pb-2 pt-3 [&>button]:border-default-200/60 [&>button]:text-default-500"
+            className="bg-content1 px-3 pt-3 pb-2 [&>button]:border-default-200/60 [&>button]:text-default-500"
           >
             <Button onPress={() => setValue(now)}>Today</Button>
             <Button onPress={() => setValue(nextWeek)}>Next week</Button>

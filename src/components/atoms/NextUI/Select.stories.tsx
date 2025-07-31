@@ -23,7 +23,7 @@ import {
   usersData,
   animalsData,
   usePokemonList,
-} from "@heroui/stories-utils";
+} from "@heroui/stories-utils/dist";
 
 import { Meta } from "@storybook/react";
 
@@ -92,9 +92,7 @@ const defaultProps = {
 };
 
 const items = animalsData.map((item) => (
-  <SelectItem key={item.value} value={item.value}>
-    {item.label}
-  </SelectItem>
+  <SelectItem key={item.value}>{item.label}</SelectItem>
 ));
 
 const Template = ({ color, variant, ...args }: SelectProps) => (

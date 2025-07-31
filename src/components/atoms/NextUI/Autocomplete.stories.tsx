@@ -21,7 +21,7 @@ import {
   usersData,
   animalsData,
   usePokemonList,
-} from "@heroui/stories-utils";
+} from "@heroui/stories-utils/dist";
 import {
   Autocomplete,
   AutocompleteItem,
@@ -118,9 +118,7 @@ const defaultProps = {
 };
 
 const items = animalsData.map((item) => (
-  <AutocompleteItem key={item.value} value={item.value}>
-    {item.label}
-  </AutocompleteItem>
+  <AutocompleteItem key={item.value}>{item.label}</AutocompleteItem>
 ));
 
 const Template = (args: AutocompleteProps) => (

@@ -452,7 +452,7 @@ const WithBackdropTemplate = (args: PopoverProps) => (
     className="col-span-12 h-[400px] w-[420px] sm:col-span-7"
   >
     <CardHeader className="absolute top-1 z-10 flex-col items-start">
-      <p className="text-xs font-bold uppercase text-white/60">
+      <p className="text-xs font-bold text-white/60 uppercase">
         Your day your way
       </p>
       <h4 className="text-2xl font-medium text-white/90">
