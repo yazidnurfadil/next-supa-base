@@ -64,7 +64,7 @@ const ControlledTemplate = (args: CalendarProps) => {
   return (
     <div className="flex flex-wrap gap-4">
       <div className="flex flex-col items-center gap-4">
-        <p className="text-default-600 text-small">Date (uncontrolled)</p>
+        <p className="text-small text-default-600">Date (uncontrolled)</p>
         <Calendar
           aria-label="Date (uncontrolled)"
           defaultValue={parseDate("2024-03-07")}
@@ -72,7 +72,7 @@ const ControlledTemplate = (args: CalendarProps) => {
         />
       </div>
       <div className="flex flex-col items-center gap-4">
-        <p className="text-default-600 text-small">Date (controlled)</p>
+        <p className="text-small text-default-600">Date (controlled)</p>
         <Calendar
           value={value}
           onChange={setValue}

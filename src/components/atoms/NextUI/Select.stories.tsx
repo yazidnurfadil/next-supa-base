@@ -518,7 +518,7 @@ const CustomItemsTemplate = ({
             />
             <div className="flex flex-col">
               <span className="text-small">{item.name}</span>
-              <span className="text-default-400 text-tiny">{item.email}</span>
+              <span className="text-tiny text-default-400">{item.email}</span>
             </div>
           </div>
         </SelectItem>
@@ -544,7 +544,7 @@ const CustomItemsTemplate = ({
             />
             <div className="flex flex-col">
               <span className="text-small">{item.name}</span>
-              <span className="text-default-400 text-tiny">{item.email}</span>
+              <span className="text-tiny text-default-400">{item.email}</span>
             </div>
           </div>
         </SelectItem>
@@ -704,7 +704,7 @@ const CustomStylesTemplate = ({
             />
             <div className="flex flex-col">
               <span className="text-small">{item.name}</span>
-              <span className="text-default-400 text-tiny">{item.email}</span>
+              <span className="text-tiny text-default-400">{item.email}</span>
             </div>
           </div>
         </SelectItem>
@@ -1160,7 +1160,7 @@ export const CustomRenderValue = {
           />
           <div className="flex flex-col">
             <span>{item.data?.name}</span>
-            <span className="text-default-500 text-tiny">
+            <span className="text-tiny text-default-500">
               ({item.data?.email})
             </span>
           </div>
@@ -1187,7 +1187,7 @@ export const CustomStyles = {
           />
           <div className="flex flex-col">
             <span>{item.data?.name}</span>
-            <span className="text-default-500 text-tiny">
+            <span className="text-tiny text-default-500">
               ({item.data?.email})
             </span>
           </div>

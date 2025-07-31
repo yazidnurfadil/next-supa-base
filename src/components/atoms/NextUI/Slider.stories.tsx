@@ -172,7 +172,7 @@ const CustomValueTemplate = (args: SliderProps) => {
             <Tooltip
               placement="left"
               content="Press Enter to confirm"
-              className="rounded-md text-default-500 text-tiny"
+              className="rounded-md text-tiny text-default-500"
             >
               <input
                 type="text"
@@ -205,7 +205,7 @@ const ControlledTemplate = (args: SliderProps) => {
   return (
     <div className="flex size-full max-w-md flex-col items-start justify-center gap-2">
       <Slider value={value} onChange={setValue} {...args} />
-      <p className="text-default-500 text-small">Current volume: {value}</p>
+      <p className="text-small text-default-500">Current volume: {value}</p>
     </div>
   );
 };
@@ -216,7 +216,7 @@ const ControlledRangeTemplate = (args: SliderProps) => {
   return (
     <div className="flex max-w-md flex-col items-start justify-center gap-2">
       <Slider value={value} onChange={setValue} {...args} />
-      <p className="text-default-500 text-small">
+      <p className="text-small text-default-500">
         Current volume: {Array.isArray(value) && value.join(" – ")}
       </p>
     </div>

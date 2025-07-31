@@ -78,7 +78,7 @@ const ControlledTemplate = (args: RangeCalendarProps) => {
   return (
     <div className="flex flex-wrap gap-4">
       <div className="flex flex-col items-center gap-4">
-        <p className="text-default-600 text-small">Date (uncontrolled)</p>
+        <p className="text-small text-default-600">Date (uncontrolled)</p>
         <RangeCalendar
           defaultValue={defaultValue}
           aria-label="Date range (uncontrolled)"
@@ -86,7 +86,7 @@ const ControlledTemplate = (args: RangeCalendarProps) => {
         />
       </div>
       <div className="flex flex-col items-center gap-4">
-        <p className="text-default-600 text-small">Date (controlled)</p>
+        <p className="text-small text-default-600">Date (controlled)</p>
         <RangeCalendar
           value={value}
           onChange={setValue}

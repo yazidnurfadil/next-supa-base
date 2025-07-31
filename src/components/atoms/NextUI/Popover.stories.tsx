@@ -389,7 +389,7 @@ const BackdropsTemplate = (args: PopoverProps) => {
     <PopoverContent className="w-[240px]">
       {(titleProps) => (
         <div className="w-full px-1 py-2">
-          <p className="font-bold text-foreground text-small" {...titleProps}>
+          <p className="text-small font-bold text-foreground" {...titleProps}>
             Dimensions
           </p>
           <div className="mt-2 flex w-full flex-col gap-2">

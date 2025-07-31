@@ -72,7 +72,7 @@ export const AddBusinessButton: React.FC<AddBusinessButtonProps> = ({
                 >
                   {({ triggerSubmit }) => {
                     return (
-                      <footer className="flex flex-row justify-end gap-2 pb-4 pt-1">
+                      <footer className="flex flex-row justify-end gap-2 pt-1 pb-4">
                         <Button
                           color="danger"
                           variant="flat"
