@@ -318,7 +318,7 @@ const PresetsTemplate = (args: DateRangePickerProps) => {
           labelWrapper: "px-1 m-0",
           label: "text-tiny text-default-500",
           base: cn(
-            "flex-none m-0 h-8 bg-content1 hover:bg-content2 items-center justify-between",
+            "m-0 h-8 flex-none items-center justify-between bg-content1 hover:bg-content2",
             "cursor-pointer rounded-full border-2 border-default-200/60",
             "data-[selected=true]:border-primary"
           ),
@@ -350,7 +350,7 @@ const PresetsTemplate = (args: DateRangePickerProps) => {
             size="sm"
             radius="full"
             variant="bordered"
-            className="bg-content1 px-3 pb-2 pt-3 [&>button]:border-default-200/60 [&>button]:text-default-500"
+            className="bg-content1 px-3 pt-3 pb-2 [&>button]:border-default-200/60 [&>button]:text-default-500"
           >
             <Button
               onPress={() =>

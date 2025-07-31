@@ -282,7 +282,7 @@ const PresetsTemplate = (args: RangeCalendarProps) => {
             size="sm"
             radius="full"
             variant="bordered"
-            className="max-w-full bg-content1 px-3 pb-2 pt-3 [&>button]:border-default-200/60 [&>button]:text-default-500"
+            className="max-w-full bg-content1 px-3 pt-3 pb-2 [&>button]:border-default-200/60 [&>button]:text-default-500"
           >
             <Button
               onPress={() => {

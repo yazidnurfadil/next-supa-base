@@ -140,7 +140,7 @@ const WithAbsImageHeaderTemplate = (args: CardProps) => (
   <Card {...args} className="max-w-[330px]">
     <CardHeader className="absolute top-2 z-20">
       <div className="flex flex-col">
-        <p className="text-xs font-bold uppercase text-white/60">
+        <p className="text-xs font-bold text-white/60 uppercase">
           What to watch
         </p>
         <p className="text-2xl text-white">Stream the Apple event</p>
@@ -160,7 +160,7 @@ const WithAbsImgHeaderFooterTemplate = (args: CardProps) => (
   <Card className="w-[330px] bg-zinc-100 dark:bg-zinc-100" {...args}>
     <CardHeader className="absolute top-2 z-10">
       <div className="flex flex-col gap-2">
-        <p className="text-xs font-bold uppercase text-black/40">New</p>
+        <p className="text-xs font-bold text-black/40 uppercase">New</p>
         <h4 className="text-3xl font-medium text-black">HomePod mini</h4>
         <p className="pr-1.5 text-sm text-black/80">
           Room-filling sound, Intelligent assistant. Smart home control. Works
@@ -191,7 +191,7 @@ const CoverImgTemplate = (args: CardProps) => (
   <div className="grid max-w-[900px] grid-cols-12 grid-rows-2 gap-2 px-8">
     <Card {...args} className="col-span-12 sm:col-span-4">
       <CardHeader className="absolute top-1 z-10 flex-col !items-start">
-        <p className="text-xs font-bold uppercase text-white/60">
+        <p className="text-xs font-bold text-white/60 uppercase">
           What to watch
         </p>
         <h4 className="text-lg font-medium text-white">
@@ -206,7 +206,7 @@ const CoverImgTemplate = (args: CardProps) => (
     </Card>
     <Card {...args} className="col-span-12 sm:col-span-4">
       <CardHeader className="absolute top-1 z-10 flex-col !items-start">
-        <p className="text-xs font-bold uppercase text-white/60">
+        <p className="text-xs font-bold text-white/60 uppercase">
           Plant a tree
         </p>
         <h4 className="text-lg font-medium text-white">
@@ -221,7 +221,7 @@ const CoverImgTemplate = (args: CardProps) => (
     </Card>
     <Card {...args} className="col-span-12 sm:col-span-4">
       <CardHeader className="absolute top-1 z-10 flex-col !items-start">
-        <p className="text-xs font-bold uppercase text-white/60">
+        <p className="text-xs font-bold text-white/60 uppercase">
           Supercharged
         </p>
         <h4 className="text-lg font-medium text-white">
@@ -240,7 +240,7 @@ const CoverImgTemplate = (args: CardProps) => (
       className="col-span-12 h-[400px] w-full sm:col-span-5"
     >
       <CardHeader className="absolute top-1 z-10 flex-col items-start">
-        <p className="text-xs font-bold uppercase text-white/60">New</p>
+        <p className="text-xs font-bold text-white/60 uppercase">New</p>
         <h4 className="text-2xl font-medium text-black">Acme camera</h4>
       </CardHeader>
       <Image
@@ -264,7 +264,7 @@ const CoverImgTemplate = (args: CardProps) => (
       className="col-span-12 h-[400px] w-full sm:col-span-7"
     >
       <CardHeader className="absolute top-1 z-10 flex-col items-start">
-        <p className="text-xs font-bold uppercase text-white/60">
+        <p className="text-xs font-bold text-white/60 uppercase">
           Your day your way
         </p>
         <h4 className="text-2xl font-medium text-white/90">
@@ -298,7 +298,7 @@ const CoverImgTemplate = (args: CardProps) => (
 
 const CenterImgTemplate = (args: CardProps) => (
   <Card {...args} className="max-w-fit px-0 py-4">
-    <CardHeader className="flex-col !items-start px-4 pb-0 pt-2">
+    <CardHeader className="flex-col !items-start px-4 pt-2 pb-0">
       <p className="text-xs font-bold uppercase">Daily Mix</p>
       <small className="text-default-500">12 Tracks</small>
       <h4 className="text-lg font-bold">Frontend Radio</h4>
@@ -436,7 +436,7 @@ const CenterImgWithHeaderTemplate = (args: CardProps) => {
         <div key={index}>
           <Card {...args} isPressable className="size-[200px]">
             <CardHeader className="p-0">
-              <h5 className="pl-6 pt-3">{item.title}</h5>
+              <h5 className="pt-3 pl-6">{item.title}</h5>
             </CardHeader>
             <CardBody className="h-full justify-center">
               <Image src={item.img} alt={item.title} className="w-[180px]" />

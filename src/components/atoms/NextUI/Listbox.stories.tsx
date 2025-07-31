@@ -4,8 +4,8 @@ import { Chip } from "@heroui/chip";
 import { Avatar } from "@heroui/avatar";
 import { menuItem } from "@heroui/theme";
 import { clsx } from "@heroui/shared-utils";
-import { usersData } from "@heroui/stories-utils";
 import { ScrollShadow } from "@heroui/scroll-shadow";
+import { usersData } from "@heroui/stories-utils/dist";
 import { Listbox, ListboxItem, ListboxSection } from "@heroui/listbox";
 import {
   AddNoteBulkIcon,

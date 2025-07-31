@@ -183,7 +183,7 @@ const CustomValueTemplate = (args: SliderProps) => {
 
                   setInputValue(v);
                 }}
-                className="w-12 rounded-small border-medium border-transparent bg-default-100 px-1 py-0.5 text-right font-medium text-default-700 outline-none transition-colors text-small hover:border-primary focus:border-primary"
+                className="w-12 rounded-small border-medium border-transparent bg-default-100 px-1 py-0.5 text-right text-small font-medium text-default-700 transition-colors outline-none hover:border-primary focus:border-primary"
                 onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                   if (e.key === "Enter" && !isNaN(Number(inputValue))) {
                     setValue(Number(inputValue));

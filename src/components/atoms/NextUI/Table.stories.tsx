@@ -320,7 +320,7 @@ const CustomCellTemplate = (args: TableProps) => {
           return (
             <div className="flex flex-col">
               <p className="text-sm font-bold capitalize">{cellValue}</p>
-              <p className="text-sm font-bold capitalize text-default-400">
+              <p className="text-sm font-bold text-default-400 capitalize">
                 {user.team}
               </p>
             </div>
@@ -481,7 +481,7 @@ const CustomCellWithClassnamesTemplate = (args: TableProps) => {
           return (
             <div className="flex flex-col">
               <p className="text-sm font-bold capitalize">{cellValue}</p>
-              <p className="text-sm font-bold capitalize text-default-400">
+              <p className="text-sm font-bold text-default-400 capitalize">
                 {user.team}
               </p>
             </div>

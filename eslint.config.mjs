@@ -4,10 +4,11 @@ import js from "@eslint/js";
 import globals from "globals";
 import ts from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
-import tailwind from "eslint-plugin-tailwindcss";
 import pluginQuery from "@tanstack/eslint-plugin-query";
 import perfectionist from "eslint-plugin-perfectionist";
 import pluginReactHook from "eslint-plugin-react-hooks";
+import eslintParserTypeScript from "@typescript-eslint/parser";
+import eslintPluginBetterTailwindcss from "eslint-plugin-better-tailwindcss";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 
 const perfectionistNoticeType = "warn";
@@ -20,7 +21,6 @@ const perfectionistDefault = [perfectionistNoticeType, perfectionistConfig];
 const eslintConfig = ts.config(
   js.configs.recommended,
   ts.configs.recommendedTypeChecked,
-  ...tailwind.configs["flat/recommended"],
   eslintPluginPrettierRecommended,
   ...pluginQuery.configs["flat/recommended"],
   perfectionist.configs["recommended-line-length"],
@@ -72,6 +72,43 @@ const eslintConfig = ts.config(
     },
   },
   {
+    files: ["**/*.{ts,tsx,cts,mts}"],
+    languageOptions: {
+      parser: eslintParserTypeScript,
+    },
+  },
+  {
+    files: ["**/*.{jsx,tsx}"],
+    plugins: {
+      "better-tailwindcss": eslintPluginBetterTailwindcss,
+    },
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    settings: {
+      "better-tailwindcss": {
+        // tailwindcss 4: the path to the entry file of the css based tailwind config (eg: `src/global.css`)
+        entryPoint: "./src/styles/globals.css",
+      },
+    },
+    rules: {
+      // enable all recommended rules to report a warning
+      ...eslintPluginBetterTailwindcss.configs["recommended-warn"].rules,
+      // enable all recommended rules to report an error
+      ...eslintPluginBetterTailwindcss.configs["recommended-error"].rules,
+
+      // or configure rules individually
+      "better-tailwindcss/enforce-consistent-line-wrapping": [
+        "warn",
+        { printWidth: 100 },
+      ],
+    },
+  },
+  {
     plugins: {
       "@next/next": pluginNext,
     },
@@ -83,7 +120,6 @@ const eslintConfig = ts.config(
   {
     files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
     rules: {
-      "tailwindcss/classnames-order": "warn",
       "perfectionist/sort-maps": perfectionistDefault,
       "perfectionist/sort-sets": perfectionistDefault,
       "perfectionist/sort-enums": perfectionistDefault,
@@ -100,14 +136,9 @@ const eslintConfig = ts.config(
       "perfectionist/sort-named-imports": perfectionistDefault,
       "perfectionist/sort-array-includes": perfectionistDefault,
       "perfectionist/sort-heritage-clauses": perfectionistDefault,
+      "better-tailwindcss/enforce-consistent-line-wrapping": "off",
       "perfectionist/sort-intersection-types": perfectionistDefault,
       "perfectionist/sort-variable-declarations": perfectionistDefault,
-      "tailwindcss/no-custom-classname": [
-        "warn",
-        {
-          config: "./tailwind.config.ts",
-        },
-      ],
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {

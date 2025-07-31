@@ -150,7 +150,7 @@ const CustomWithHooksTemplate = (args: SwitchProps) => {
           {isSelected ? <SunFilledIcon /> : <MoonFilledIcon />}
         </div>
       </Component>
-      <p className="select-none text-default-500">
+      <p className="text-default-500 select-none">
         Lights: {isSelected ? "on" : "off"}
       </p>
     </div>
