@@ -24,18 +24,6 @@ export const LoginLayoutWrapper = ({ children }: LoginLayoutWrapperProps) => {
       </div>
 
       <div className="relative hidden flex-1 items-center justify-center overflow-hidden p-6 md:flex">
-        <div className="absolute inset-0 z-0 flex justify-end">
-          <Image
-            isZoomed
-            isBlurred
-            radius="none"
-            alt="gradient"
-            disableSkeleton
-            className="size-full"
-            src="https://www.xentech.eu/wp-content/uploads/2021/03/green-gradient-1.png"
-          />
-        </div>
-
         <div className="z-10">
           <h1 className="text-[45px] font-bold text-success-700">ABC</h1>
           <div className="mt-4 font-light text-slate-400">
