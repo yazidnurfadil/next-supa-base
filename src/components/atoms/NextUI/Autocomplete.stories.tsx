@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
-
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React from "react";
@@ -958,7 +956,7 @@ const WithReactHookFormTemplate = (args: AutocompleteProps) => {
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={() => handleSubmit(onSubmit)}
       className="flex w-full max-w-xs flex-col gap-2"
     >
       <Autocomplete {...args} {...register("withDefaultValue")}>

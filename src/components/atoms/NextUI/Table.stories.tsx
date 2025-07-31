@@ -913,7 +913,7 @@ const AsyncPaginatedTemplate = (args: TableProps) => {
         loadingState={loadingState}
         loadingContent={<Spinner />}
       >
-        {(item) => (
+        {(item: SWCharacter) => (
           <TableRow key={item?.name}>
             {(columnKey) => (
               <TableCell>{getKeyValue(item, columnKey)}</TableCell>

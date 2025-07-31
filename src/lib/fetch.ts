@@ -10,8 +10,8 @@ export const defaultOptions: DefaultFetchOptions = {
   },
 };
 
-type fetcherOptions = RequestInit & {
-  params?: Record<string, undefined | string | number>;
+type fetcherOptions<T = unknown> = RequestInit & {
+  params?: T;
 };
 
 const getFetchOptions: (
@@ -33,7 +33,10 @@ const getFetchOptions: (
   return fixedOptions as RequestInit;
 };
 
-const getFetchUrl = (url: string | URL, params?: fetcherOptions["params"]) => {
+const getFetchUrl = (
+  url: string | URL,
+  params?: fetcherOptions<Record<string, undefined | string | number>>["params"]
+) => {
   if (typeof url === "string") {
     url = new URL(
       (url.startsWith("/") ? <string>process.env.NEXT_PUBLIC_API_URL : "") + url
@@ -50,7 +53,7 @@ const getFetchUrl = (url: string | URL, params?: fetcherOptions["params"]) => {
 const fetcher = async (
   type: string,
   url: string | URL,
-  options?: fetcherOptions
+  options?: fetcherOptions<Record<string, undefined | string | number>>
 ) => {
   const { params, ...fetchOpt } = options || {};
   const fixedOptions = await getFetchOptions(type, fetchOpt);
@@ -60,25 +63,25 @@ const fetcher = async (
 
 export const get: (
   url: string | URL,
-  options?: fetcherOptions
+  options?: fetcherOptions<Record<string, undefined | string | number>>
 ) => Promise<Response> = (...args) => fetcher("GET", ...args);
 
 export const post: (
   url: string | URL,
-  options?: fetcherOptions
+  options?: fetcherOptions<Record<string, undefined | string | number>>
 ) => Promise<Response> = (...args) => fetcher("POST", ...args);
 
 export const put: (
   url: string | URL,
-  options?: fetcherOptions
+  options?: fetcherOptions<Record<string, undefined | string | number>>
 ) => Promise<Response> = (...args) => fetcher("PUT", ...args);
 
 export const patch: (
   url: string | URL,
-  options?: fetcherOptions
+  options?: fetcherOptions<Record<string, undefined | string | number>>
 ) => Promise<Response> = (...args) => fetcher("PATCH", ...args);
 
 export const del: (
   url: string | URL,
-  options?: fetcherOptions
+  options?: fetcherOptions<Record<string, undefined | string | number>>
 ) => Promise<Response> = (...args) => fetcher("DELETE", ...args);

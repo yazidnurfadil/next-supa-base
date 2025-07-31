@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import React from "react";
 import { useForm } from "react-hook-form";
 
@@ -176,7 +175,10 @@ const WithReactHookFormTemplate = (args: SwitchProps) => {
   };
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col gap-4"
+      onSubmit={() => handleSubmit(onSubmit)}
+    >
       <Switch {...args} {...register("defaultTrue")}>
         By default this switch is true
       </Switch>

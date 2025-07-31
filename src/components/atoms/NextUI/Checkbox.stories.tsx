@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import React from "react";
 import { FormEvent } from "react";
 import { useForm, FieldValues } from "react-hook-form";
@@ -155,7 +154,10 @@ const WithReactHookFormTemplate = (args: CheckboxProps) => {
   };
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col gap-4"
+      onSubmit={() => handleSubmit(onSubmit)}
+    >
       <Checkbox {...args} {...register("example", { required: true })} />
       {errors.example && (
         <span className="text-danger">This field is required</span>
